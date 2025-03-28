@@ -1,33 +1,10 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class BusquedaBinaria {
-    public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Ingrese el tamaño del arreglo: ");
-        int len = sc.nextInt();
-        int[] arr = new int[len];
-        System.out.println("Ingrese los elementos del arreglo: ");
-        for (int i = 0; i < len; i++) {
-            arr[i] = sc.nextInt();
-        }
-        System.out.println("Ingrese el elemento a buscar: ");
-        int x = sc.nextInt();
-        sc.close();
-        List<Integer> indices = busquedaBinariaTodas(arr, x);
-        
-        if (indices.isEmpty()) {
-            System.out.println("Elemento no encontrado");
-        } else {
-            System.out.println("Elemento " + x + " encontrado en las posiciones: " + indices);
-        }
-    }
 
     // Método de búsqueda binaria que devuelve una ocurrencia cualquiera del elemento buscado.
-    public static int busquedaBinaria(int[] arr, int x) {
+    private static int busquedaBinaria(int[] arr, int x) {
+        Arrays.sort(arr);
         int low = 0;
         int high = arr.length - 1;
         
