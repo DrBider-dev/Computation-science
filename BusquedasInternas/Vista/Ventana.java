@@ -4,7 +4,6 @@
  */
 package Vista;
 
-
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -42,10 +41,8 @@ public class Ventana extends javax.swing.JFrame {
         rbtnTruncamiento = new javax.swing.JRadioButton();
         rbtnSecuencial = new javax.swing.JRadioButton();
         rbtnBinaria = new javax.swing.JRadioButton();
-        textPosicion = new javax.swing.JLabel();
         textElemento = new javax.swing.JLabel();
         textArray = new javax.swing.JLabel();
-        cajaPosicion = new javax.swing.JTextField();
         cajaElemento = new javax.swing.JTextField();
         cajaArray = new javax.swing.JTextField();
         btnDinamico = new javax.swing.JButton();
@@ -75,7 +72,7 @@ public class Ventana extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
         Grupo1.add(rbtnHashMod);
-        rbtnHashMod.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
+        rbtnHashMod.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         rbtnHashMod.setForeground(new java.awt.Color(255, 255, 255));
         rbtnHashMod.setText("Hash Mod");
         rbtnHashMod.setContentAreaFilled(false);
@@ -87,14 +84,14 @@ public class Ventana extends javax.swing.JFrame {
         jPanel1.add(rbtnHashMod, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, -1, 20));
 
         Grupo1.add(rbtnCuadrado);
-        rbtnCuadrado.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
+        rbtnCuadrado.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         rbtnCuadrado.setForeground(new java.awt.Color(255, 255, 255));
         rbtnCuadrado.setText("Hash Cuadrado");
         rbtnCuadrado.setContentAreaFilled(false);
         jPanel1.add(rbtnCuadrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 160, 20));
 
         Grupo1.add(rbtnPlegamiento);
-        rbtnPlegamiento.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
+        rbtnPlegamiento.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         rbtnPlegamiento.setForeground(new java.awt.Color(255, 255, 255));
         rbtnPlegamiento.setText("Hash Plegamiento");
         rbtnPlegamiento.setContentAreaFilled(false);
@@ -104,14 +101,14 @@ public class Ventana extends javax.swing.JFrame {
                 rbtnPlegamientoActionPerformed(evt);
             }
         });
-        jPanel1.add(rbtnPlegamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 140, 20));
+        jPanel1.add(rbtnPlegamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 190, 20));
 
         Grupo1.add(rbtnTruncamiento);
-        rbtnTruncamiento.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
+        rbtnTruncamiento.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         rbtnTruncamiento.setForeground(new java.awt.Color(255, 255, 255));
         rbtnTruncamiento.setText("Hash Truncamiento");
         rbtnTruncamiento.setContentAreaFilled(false);
-        jPanel1.add(rbtnTruncamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, -1, -1));
+        jPanel1.add(rbtnTruncamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 180, -1));
 
         Grupo1.add(rbtnSecuencial);
         rbtnSecuencial.setForeground(new java.awt.Color(255, 255, 255));
@@ -125,11 +122,6 @@ public class Ventana extends javax.swing.JFrame {
         rbtnBinaria.setContentAreaFilled(false);
         jPanel1.add(rbtnBinaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 150, -1));
 
-        textPosicion.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
-        textPosicion.setForeground(new java.awt.Color(255, 255, 255));
-        textPosicion.setText("Posiciones");
-        jPanel1.add(textPosicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
-
         textElemento.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         textElemento.setForeground(new java.awt.Color(255, 255, 255));
         textElemento.setText("Elemento:");
@@ -137,16 +129,15 @@ public class Ventana extends javax.swing.JFrame {
 
         textArray.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         textArray.setForeground(new java.awt.Color(255, 255, 255));
-        textArray.setText("Tamaño del Array:");
+        textArray.setText("Cantidad de Claves:");
         jPanel1.add(textArray, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, -1, -1));
-        jPanel1.add(cajaPosicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 490, 210, -1));
         jPanel1.add(cajaElemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, 210, -1));
 
         cajaArray.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jPanel1.add(cajaArray, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 160, 20));
 
         btnDinamico.setText("CREAR");
-        jPanel1.add(btnDinamico, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 560, -1, -1));
+        jPanel1.add(btnDinamico, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 510, -1, -1));
 
         jCambiador.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jCambiador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Crear", "Agregar", "Buscar", "Eliminar" }));
@@ -154,7 +145,7 @@ public class Ventana extends javax.swing.JFrame {
         jPanel1.add(jCambiador, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 60, 20));
 
         btnLimpiar.setText("LIMPIAR");
-        jPanel1.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 560, -1, -1));
+        jPanel1.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, -1, -1));
 
         btnSalir.setText("SALIR");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -162,7 +153,7 @@ public class Ventana extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 560, -1, -1));
+        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 510, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -171,22 +162,22 @@ public class Ventana extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Arial Black", 0, 8)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 204, 102));
+        jLabel3.setForeground(new java.awt.Color(226, 169, 226));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("By Brayan");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 30, 50, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 20));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, 330, 590));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 340, 590));
 
-        fondoPlaca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Soldier2.png"))); // NOI18N
-        getContentPane().add(fondoPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, -1));
+        fondoPlaca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/placa.png"))); // NOI18N
+        getContentPane().add(fondoPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 340, 580));
         getContentPane().add(imagenesRango, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 230, -1, -1));
 
         direc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/DIREC.png"))); // NOI18N
-        getContentPane().add(direc, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, -1, 450));
+        getContentPane().add(direc, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, -1, 450));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/texto.png"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 20, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo.jpg"))); // NOI18N
         fondo.setLabelFor(jPanel1);
@@ -221,7 +212,6 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     public javax.swing.JTextField cajaArray;
     public javax.swing.JTextField cajaElemento;
-    public javax.swing.JTextField cajaPosicion;
     public javax.swing.JLabel direc;
     private javax.swing.JLabel fondo;
     public javax.swing.JLabel fondoPlaca;
@@ -239,28 +229,13 @@ public class Ventana extends javax.swing.JFrame {
     public javax.swing.JRadioButton rbtnSecuencial;
     public javax.swing.JRadioButton rbtnTruncamiento;
     public javax.swing.JLabel textArray;
-    private javax.swing.JLabel textElemento;
-    private javax.swing.JLabel textPosicion;
+    public javax.swing.JLabel textElemento;
     // End of variables declaration//GEN-END:variables
 
     public void blanquearCampos() {
         cajaElemento.setText("");
         cajaArray.setText("");
-        cajaPosicion.setText("");
     }
-
-    public void coloresBuscar(String op) {
-        if (op.equalsIgnoreCase("crear")) {
-            cajaPosicion.setBackground(new java.awt.Color(255, 255, 255));
-            cajaElemento.setBackground(new java.awt.Color(255, 255, 255));
-        } else {
-            cajaPosicion.setBackground(new java.awt.Color(255, 255, 255));
-            cajaElemento.setBackground(new java.awt.Color(255, 255, 255));
-        }
-
-    }
-
-
     
     public void mostrarMensajes(String cadena){
         

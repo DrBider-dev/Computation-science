@@ -9,9 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,16 +18,22 @@ import java.util.List;
 public class ControlFachada implements ActionListener {
 
     private Ventana vista;
-    private int[] arrayMod = null;
-    private int[] arrayCuadrado = null;
-    private int[] arrayTruncamiento = null;
-    private int[] arrayPlegamiento = null;
-    private int[] arraySecuencial = null;
-    private int[] arrayBinario = null;
+    private BusquedaSecuencial bSecuencial;
+    private BusquedaBinaria bBinaria;
+    private BusquedaHashMod bMod;
+    private BusquedaHashCuadrado bCuadrado;
+    private BusquedaHashTruncamiento bTruncamiento;
+    private BusquedaHashPlegamiento bPlegamiento;
     private int arraySize = -1;
 
     public ControlFachada() {
         this.vista = new Ventana();
+        this.bSecuencial = new BusquedaSecuencial();
+        this.bBinaria = new BusquedaBinaria();
+        this.bMod = new BusquedaHashMod();
+        this.bCuadrado = new BusquedaHashCuadrado();
+        this.bTruncamiento = new BusquedaHashTruncamiento();
+        this.bPlegamiento = new BusquedaHashPlegamiento();
 
         //Radio buttons
         this.vista.rbtnSecuencial.addActionListener(this);
@@ -103,28 +106,60 @@ public class ControlFachada implements ActionListener {
 
     //Metodo para Mostrar los Elementos Graficos
     
-//    public void mostrarElementos() {
-//
-//        this.vista.textIdentificacion.setText("Tamaño del Array:");
-//
-//        if (this.vista.rbtnReservista.isSelected() || this.vista.rbtnReclutamiento.isSelected()) {
-//
-//            this.vista.textFecha.setVisible(false);
-//            this.vista.cajaFecha.setVisible(false);
-//
-//        } else if (this.vista.rbtnRemiso.isSelected() || this.vista.rbtnMenor.isSelected()) {
-//            this.vista.textFecha.setVisible(false);
-//            this.vista.cajaFecha.setVisible(false);
-//            this.vista.textLibreta.setVisible(false);
-//            this.vista.cajaLibreta.setVisible(false);
-//
-//        } else if (this.vista.rbtnAplazado.isSelected()) {
-//
-//            this.vista.textLibreta.setVisible(false);
-//            this.vista.cajaLibreta.setVisible(false);
-//
-//        }
-//    }
+    public void mostrarElementos() {
+        
+        this.vista.textArray.setVisible(true);
+        this.vista.cajaArray.setVisible(true);
+        this.vista.cajaArray.setEnabled(true);
+            
+        this.vista.textElemento.setVisible(false);
+        this.vista.cajaElemento.setVisible(false);
+        this.vista.cajaElemento.setEnabled(false);
+            
+
+        if (this.vista.jCambiador.getSelectedItem().equals("Crear")) {
+            
+            this.vista.textArray.setVisible(true);
+            this.vista.cajaArray.setVisible(true);
+            this.vista.cajaArray.setEnabled(true);
+            
+            this.vista.textElemento.setVisible(false);
+            this.vista.cajaElemento.setVisible(false);
+            this.vista.cajaElemento.setEnabled(false);
+            
+            
+        } else if ((this.vista.jCambiador.getSelectedItem().equals("Agregar")) || (this.vista.jCambiador.getSelectedItem().equals("Eliminar"))) {
+            
+            this.vista.textArray.setVisible(false);
+            this.vista.cajaArray.setVisible(false);
+            this.vista.cajaArray.setEnabled(false);
+            
+            this.vista.textElemento.setVisible(true);
+            this.vista.cajaElemento.setVisible(true);
+            this.vista.cajaElemento.setEnabled(true);
+            
+        } else if (this.vista.jCambiador.getSelectedItem().equals("Buscar")) {
+           
+            this.vista.textArray.setVisible(false);
+            this.vista.cajaArray.setVisible(false);
+            this.vista.cajaArray.setEnabled(false);
+            
+            this.vista.textElemento.setVisible(true);
+            this.vista.cajaElemento.setVisible(true);
+            this.vista.cajaElemento.setEnabled(true);
+            
+        }
+    }
+    
+    public int[] crearArray(int n) {
+        int[] arrayTemporal = new int[n];
+        
+        for (int i = 0; i < n; i++) {
+            arrayTemporal[i] = -1;
+        }
+        
+        return arrayTemporal;
+    }
 
     //Metodo que Guarda las personas :)
     public void guardarPersonas() {
@@ -145,43 +180,33 @@ public class ControlFachada implements ActionListener {
                     this.vista.mostrarMensajes("INGRESE EL TAMAÑO DEL ARRAY");
                 } else {
                     arraySize = Integer.parseInt(this.vista.cajaArray.getText());
-                    arraySecuencial = new int[arraySize];
-                    
-                    for (int i = 0; i < arraySize; i++) {
-                        arraySecuencial[i] = -1;
-                    }
+                    bSecuencial.setArraySecuencial(arraySize);
                     this.vista.mostrarMensajes("ARRAY CREADO EXITOSAMENTE");
                 }
 
             } else if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Agregar")) {
                 if (elemento == -1) {
                     this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO");
-                } else if (arraySecuencial == null) {
+                } else if (bSecuencial.getArraySecuencial() == null) {
                     this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
                 } else {
                     
-                    for (int i = 0; i < arraySize; i++) {
-                        if (arraySecuencial[i] == -1) {
-                            arraySecuencial[i] = elemento;
-                            this.vista.mostrarMensajes("ELEMENTO AGREGADO CORRECTAMENTE");
-                            break;
-                        }
+                    
+                    boolean agregado = bSecuencial.agregarSecuencial(elemento);
+                    if (agregado) {
+                        this.vista.mostrarMensajes("ELEMENTO AGREGADO CORRECTAMENTE");
+                    } else {
+                        this.vista.mostrarMensajes("EL ELEMENTO NO FUE AGREGADO, EL ARRAY ESTA LLENO");
                     }
                 }
             } else if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Buscar")) {
                 
                 if (elemento == -1) {
                     this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO A BUSCAR");
-                } else if (arraySecuencial == null) {
+                } else if (bSecuencial.getArraySecuencial() == null) {
                     this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
                 } else {
-                    List<Integer> indices = new ArrayList<>();
-                    for (int i = 0; i < arraySize; i++) {
-                        
-                        if (arraySecuencial[i] == elemento) {
-                            indices.add(i);
-                        }
-                    }
+                    List<Integer> indices = bSecuencial.buscarSecuencial(elemento);
                     
                     if (indices.isEmpty()) {
                         this.vista.mostrarMensajes("EL ELEMENTO NO SE ENCUENTRA EN EL ARREGLO");
@@ -194,7 +219,6 @@ public class ControlFachada implements ActionListener {
                         ocurrenciasBuilder.setLength(ocurrenciasBuilder.length() - 2);
                         String ocurrencias = ocurrenciasBuilder.toString();
                         this.vista.mostrarMensajes("El elemento se encuentra en las posiciones: " + ocurrencias);
-                        this.vista.cajaPosicion.setText(ocurrencias);
                     }
                     
                     
@@ -204,18 +228,11 @@ public class ControlFachada implements ActionListener {
                 
                 if (elemento == -1) {
                     this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO A ELIMINAR");
-                } else if (arraySecuencial == null) {
+                } else if (bSecuencial.getArraySecuencial() == null) {
                     this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
                 } else {
                     
-                    boolean eliminado = false;
-
-                    for (int i = 0; i < arraySize; i++) {                         
-                        if (arraySecuencial[i] == elemento) {                             
-                            arraySecuencial[i] = -1;                             
-                            eliminado = true; 
-                        }                     
-                    }  
+                    boolean eliminado = bSecuencial.eliminarSecuencial(elemento);
 
                     if (eliminado) {
                         this.vista.mostrarMensajes("ELEMENTO ELIMINADO CORRECTAMENTE");
@@ -234,80 +251,37 @@ public class ControlFachada implements ActionListener {
                     this.vista.mostrarMensajes("INGRESE EL TAMAÑO DEL ARRAY");
                 } else {
                     arraySize = Integer.parseInt(this.vista.cajaArray.getText());
-                    arrayBinario = new int[arraySize];
-                    
-                    for (int i = 0; i < arraySize; i++) {
-                        arrayBinario[i] = -1;
-                    }
+                    bBinaria.setArrayBinario(arraySize);
                     this.vista.mostrarMensajes("ARRAY CREADO EXITOSAMENTE");
                 }
 
             } else if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Agregar")) {
                 if (elemento == -1) {
                     this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO");
-                } else if (arrayBinario == null) {
+                } else if (bBinaria.getArrarBinario() == null) {
                     this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
                 } else {
                     
-                    for (int i = 0; i < arraySize; i++) {
-                        if (arrayBinario[i] == -1) {
-                            arrayBinario[i] = elemento;
-                            this.vista.mostrarMensajes("ELEMENTO AGREGADO CORRECTAMENTE");
-                            break;
-                        }
+                    boolean agregado = bBinaria.agregarBinaria(elemento);
+                    if (agregado) {
+                        this.vista.mostrarMensajes("ELEMENTO AGREGADO CORRECTAMENTE");
+                    } else {
+                        this.vista.mostrarMensajes("NO SE PUDO AGREGAR EL ELEMENTO");
                     }
-                    Arrays.sort(arrayBinario);
                 }
             } else if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Buscar")) {
                 
                 if (elemento == -1) {
                     this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO A BUSCAR");
-                } else if (arrayBinario == null) {
+                } else if (bBinaria.getArrarBinario() == null) {
                     this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
                 } else {
                     
-                    List<Integer> indices = new ArrayList<>();
-                    Arrays.sort(arrayBinario);  // Ordenamos el array primero
-
-                    int low = 0;
-                    int high = arrayBinario.length - 1;
-                    int pos = -1;
-
-                    // Búsqueda binaria estándar
-                    while (low <= high) {
-                        int mid = low + (high - low) / 2;
-                        if (arrayBinario[mid] == elemento) {
-                            pos = mid;
-                            break;  // Salimos del bucle al encontrar una ocurrencia
-                        } else if (arrayBinario[mid] < elemento) {
-                            low = mid + 1;
-                        } else {
-                            high = mid - 1;
-                        }
-                    }
-
-                    // Si no se encontró el elemento
-                    if (pos == -1) {
+                    List<Integer> indices = bBinaria.buscarBinaria(elemento);
+                    
+                    if (indices.isEmpty()) {
                         this.vista.mostrarMensajes("ELEMENTO NO ENCONTRADO");
                     } else {
-                        // Buscamos todas las ocurrencias hacia la izquierda y derecha
-                        indices.add(pos + 1);  // Convertimos a índice 1-based
-
-                        // Exploración hacia la izquierda
-                        int i = pos - 1;
-                        while (i >= 0 && arrayBinario[i] == elemento) {
-                            indices.add(i + 1);  // Índice 1-based
-                            i--;
-                        }
-
-                        // Exploración hacia la derecha
-                        i = pos + 1;
-                        while (i < arrayBinario.length && arrayBinario[i] == elemento) {
-                            indices.add(i + 1);  // Índice 1-based
-                            i++;
-                        }
-
-                        Collections.sort(indices);  // Ordenamos los índices
                         
                         StringBuilder ocurrenciasBuilder = new StringBuilder();
                         for (int j = 0; j < indices.size(); j++) {
@@ -317,30 +291,19 @@ public class ControlFachada implements ActionListener {
                         ocurrenciasBuilder.setLength(ocurrenciasBuilder.length() - 2);
                         String ocurrencias = ocurrenciasBuilder.toString();
                         this.vista.mostrarMensajes("El elemento se encuentra en las posiciones: " + ocurrencias);
-                        this.vista.cajaPosicion.setText(ocurrencias);
                     
                     }
-
-                    
-                    
                 }
                 
             } else if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Eliminar")) {
                 
                 if (elemento == -1) {
                     this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO A ELIMINAR");
-                } else if (arrayMod == null) {
+                } else if (bBinaria.getArrarBinario() == null) {
                     this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
                 } else {
                     
-                    boolean eliminado = false;
-
-                    for (int i = 0; i < arraySize; i++) {                         
-                        if (arrayBinario[i] == elemento) {                             
-                            arrayBinario[i] = -1;                             
-                            eliminado = true; 
-                        }                     
-                    }  
+                    boolean eliminado = bBinaria.eliminarBinaria(elemento);
 
                     if (eliminado) {
                         this.vista.mostrarMensajes("ELEMENTO ELIMINADO CORRECTAMENTE");
@@ -359,62 +322,48 @@ public class ControlFachada implements ActionListener {
                     this.vista.mostrarMensajes("INGRESE EL TAMAÑO DEL ARRAY");
                 } else {
                     arraySize = Integer.parseInt(this.vista.cajaArray.getText());
-                    arrayMod = new int[arraySize];
-                    
-                    for (int i = 0; i < arraySize; i++) {
-                        arrayMod[i] = -1;
-                    }
+                    bMod.setArrayMod(arraySize);
                     this.vista.mostrarMensajes("ARRAY CREADO EXITOSAMENTE");
                 }
 
             } else if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Agregar")) {
                 if (elemento == -1) {
                     this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO");
-                } else if (arrayMod == null) {
+                } else if (bMod.getArrayMod() == null) {
                     this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
                 } else {
                     
-                    int index = (elemento % arraySize) + 1;
+                    boolean agregado = bMod.agregarMod(elemento);
                     
-                    if (arrayMod[index] != -1) {
-                        
-                        this.vista.mostrarMensajes("LA POSICION YA ESTA OCUPADA");
-                    } else {
-                        arrayMod[index] = elemento;
+                    if (agregado) {
                         this.vista.mostrarMensajes("ELEMENTO AGREGADO CORRECTAMENTE");
+                    } else {
+                        this.vista.mostrarMensajes("LA POSICION YA ESTA OCUPADA");
                     }
                 }
             } else if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Buscar")) {
                 
-                if (elemento == -1) {
-                    this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO A BUSCAR");
-                } else if (arrayMod == null) {
-                    this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
+                int index = bMod.buscarMod(elemento);
+                if (index == -1) {
+                    this.vista.mostrarMensajes("ELEMENTO NO ENCONTRADO");
                 } else {
-                    int index = (elemento % arraySize) + 1;
-                    if (arrayMod[index] == -1) {
-                        this.vista.mostrarMensajes("NO SE ENCONTRO EL ELEMENTO");
-                    } else {
-                        String indexText = Integer.toString(index);
-                        this.vista.cajaPosicion.setText(indexText);
-                        this.vista.mostrarMensajes("Elemento encontrado en la posicion: " + indexText);
-                    }
+                    this.vista.mostrarMensajes("ELEMENTO ENCONTRADO EN LA POSICION: " + (index + 1));
                 }
                 
             } else if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Eliminar")) {
                 
                 if (elemento == -1) {
                     this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO A ELIMINAR");
-                } else if (arrayMod == null) {
+                } else if (bMod.getArrayMod() == null) {
                     this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
                 } else {
                     
-                    int index = (elemento % arraySize) + 1;
-                    if (arrayMod[index] == -1) {
-                        this.vista.mostrarMensajes("EL ELEMENTO NO EXISTE; NO SE ELIMINO NADA");
-                    } else {
-                        arrayMod[index] = -1;
+                    boolean eliminado = bMod.eliminarMod(elemento);
+                    
+                    if (eliminado) {
                         this.vista.mostrarMensajes("ELEMENTO ELIMINADO CORRECTAMENTE");
+                    } else {
+                        this.vista.mostrarMensajes("ELEMENTO NO ENCONTRADO, NO SE ELIMINO NADA");
                     }
                     
                 }
@@ -428,11 +377,7 @@ public class ControlFachada implements ActionListener {
                     this.vista.mostrarMensajes("INGRESE EL TAMAÑO DEL ARRAY");
                 } else {
                     arraySize = Integer.parseInt(this.vista.cajaArray.getText());
-                    arrayCuadrado = new int[arraySize];
-                    
-                    for (int i = 0; i < arraySize; i++) {
-                        arrayCuadrado[i] = -1;
-                    }
+                    bCuadrado.setArrayCuadrado(arraySize);
                     this.vista.mostrarMensajes("ARRAY CREADO EXITOSAMENTE");
                 }
 
@@ -440,150 +385,54 @@ public class ControlFachada implements ActionListener {
                 
                 if (elemento == -1) {
                     this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO");
-                } else if (arrayCuadrado == null) {
+                } else if (bCuadrado.getArrayCuadrado() == null) {
                     this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
                 } else {
                     
-                    long elementoCuadrado =(long) elemento * elemento;
-                    String cuadradoString = String.valueOf(elementoCuadrado);
-                    
-                    int numDigitosRequeridos = String.valueOf(arraySize).length() - 1;
-                    String resultado;
-                    
-                    // Caso especial: si se requieren 2 dígitos y el cuadrado tiene cantidad impar de dígitos
-                    // (es decir, tiene un único dígito central) se completa tomando también el dígito a la izquierda.
-                    if (numDigitosRequeridos == 2 && cuadradoString.length() % 2 != 0) {
-                        int centro = cuadradoString.length() / 2;
-                        // Si el dígito central es el primero, no se puede tomar el dígito a la izquierda, así que se toma de otra forma.
-                        if (centro == 0) {
-                            resultado = cuadradoString.substring(0, 2);
-                        } else {
-                            resultado = cuadradoString.substring(centro - 1, centro + 1);
-                        }
-                    } else {
-                        // Caso general: extraer los dígitos centrales
-                        // Se calcula el índice de inicio para obtener la subcadena central.
-                        int inicio = (cuadradoString.length() - numDigitosRequeridos) / 2;
-                        // Para evitar problemas (por ejemplo, cuando el cuadrado tiene menos dígitos que numDigitosRequeridos)
-                        if (inicio < 0) {
-                            // En este caso se puede completar con ceros a la izquierda o simplemente retornar el número completo.
-                            // Aquí retornamos el valor completo
-                            resultado = cuadradoString;
-                        } else {
-                            // Tomamos la subcadena de longitud numDigitosRequeridos
-                            resultado = cuadradoString.substring(inicio, inicio + numDigitosRequeridos);
-                        }
-                    }
-                    
-                    int index = Integer.parseInt(resultado);
-                    if (arrayCuadrado[index] != -1) {
-                        this.vista.mostrarMensajes("LA POSICION YA ESTA OCUPADA");
-                    } else {
-                        arrayCuadrado[index] = elemento;
+                    boolean agregado = bCuadrado.agregarCuadrado(elemento);
+                    if (agregado) {
                         this.vista.mostrarMensajes("ELEMENTO AGREGADO CORRECTAMENTE");
+                    } else {
+                        this.vista.mostrarMensajes("LA POSICION SE ENCUENTRA OCUPADA");
                     }
+                    
                 }
             } else if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Buscar")) {
                 
                 if (elemento == -1) {
                     this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO A BUSCAR");
-                } else if (arrayCuadrado == null) {
+                } else if (bCuadrado.getArrayCuadrado() == null) {
                     this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
                 } else {
-                    long elementoCuadrado =(long) elemento * elemento;
-                    String cuadradoString = String.valueOf(elementoCuadrado);
                     
-                    int numDigitosRequeridos = String.valueOf(arraySize).length() - 1;
-                    String resultado;
-                    
-                    // Caso especial: si se requieren 2 dígitos y el cuadrado tiene cantidad impar de dígitos
-                    // (es decir, tiene un único dígito central) se completa tomando también el dígito a la izquierda.
-                    if (numDigitosRequeridos == 2 && cuadradoString.length() % 2 != 0) {
-                        int centro = cuadradoString.length() / 2;
-                        // Si el dígito central es el primero, no se puede tomar el dígito a la izquierda, así que se toma de otra forma.
-                        if (centro == 0) {
-                            resultado = cuadradoString.substring(0, 2);
-                        } else {
-                            resultado = cuadradoString.substring(centro - 1, centro + 1);
-                        }
+                    int index = bCuadrado.buscarCuadrado(elemento);
+                    if (index == -1) {
+                        this.vista.mostrarMensajes("ELEMENTO NO ENCONTRADO");
                     } else {
-                        // Caso general: extraer los dígitos centrales
-                        // Se calcula el índice de inicio para obtener la subcadena central.
-                        int inicio = (cuadradoString.length() - numDigitosRequeridos) / 2;
-                        // Para evitar problemas (por ejemplo, cuando el cuadrado tiene menos dígitos que numDigitosRequeridos)
-                        if (inicio < 0) {
-                            // En este caso se puede completar con ceros a la izquierda o simplemente retornar el número completo.
-                            // Aquí retornamos el valor completo
-                            resultado = cuadradoString;
-                        } else {
-                            // Tomamos la subcadena de longitud numDigitosRequeridos
-                            resultado = cuadradoString.substring(inicio, inicio + numDigitosRequeridos);
-                        }
+                        this.vista.mostrarMensajes("ELEMENTO ENCONTRADO EN LA POSICION: " + (index + 1));
                     }
                     
-                    int index = Integer.parseInt(resultado);
-                    if (arrayCuadrado[index] == -1) {
-                        this.vista.mostrarMensajes("NO SE ENCONTRO EL ELEMENTO");
-                    } else {
-                        String indexText = Integer.toString(index);
-                        this.vista.cajaPosicion.setText(indexText);
-                        this.vista.mostrarMensajes("Elemento encontrado en la posicion: " + indexText);
-                    }
                 }
                 
             } else if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Eliminar")) {
                 
                 if (elemento == -1) {
                     this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO A ELIMINAR");
-                } else if (arrayCuadrado == null) {
+                } else if (bCuadrado.getArrayCuadrado() == null) {
                     this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
                 } else {
                     
-                    long elementoCuadrado =(long) elemento * elemento;
-                    String cuadradoString = String.valueOf(elementoCuadrado);
-                    
-                    int numDigitosRequeridos = String.valueOf(arraySize).length() - 1;
-                    String resultado;
-                    
-                    // Caso especial: si se requieren 2 dígitos y el cuadrado tiene cantidad impar de dígitos
-                    // (es decir, tiene un único dígito central) se completa tomando también el dígito a la izquierda.
-                    if (numDigitosRequeridos == 2 && cuadradoString.length() % 2 != 0) {
-                        int centro = cuadradoString.length() / 2;
-                        // Si el dígito central es el primero, no se puede tomar el dígito a la izquierda, así que se toma de otra forma.
-                        if (centro == 0) {
-                            resultado = cuadradoString.substring(0, 2);
-                        } else {
-                            resultado = cuadradoString.substring(centro - 1, centro + 1);
-                        }
-                    } else {
-                        // Caso general: extraer los dígitos centrales
-                        // Se calcula el índice de inicio para obtener la subcadena central.
-                        int inicio = (cuadradoString.length() - numDigitosRequeridos) / 2;
-                        // Para evitar problemas (por ejemplo, cuando el cuadrado tiene menos dígitos que numDigitosRequeridos)
-                        if (inicio < 0) {
-                            // En este caso se puede completar con ceros a la izquierda o simplemente retornar el número completo.
-                            // Aquí retornamos el valor completo
-                            resultado = cuadradoString;
-                        } else {
-                            // Tomamos la subcadena de longitud numDigitosRequeridos
-                            resultado = cuadradoString.substring(inicio, inicio + numDigitosRequeridos);
-                        }
-                    }
-                    
-                    int index = Integer.parseInt(resultado);
-                    if (arrayCuadrado[index] == -1) {
-                        this.vista.mostrarMensajes("EL ELEMENTO NO EXISTE; NO SE ELIMINO NADA");
-                    } else {
-                        arrayCuadrado[index] = -1;
+                    boolean eliminado = bCuadrado.eliminarCuadrado(elemento);
+                    if (eliminado) {
                         this.vista.mostrarMensajes("ELEMENTO ELIMINADO CORRECTAMENTE");
+                    } else {
+                        this.vista.mostrarMensajes("NO SE ENCONTRO EL ELEMENTO, NADA SE ELIMINO");
                     }
                     
                 }
             }
 
         } else if (this.vista.rbtnTruncamiento.isSelected()) {
-            // FALTA IMPLEMENTAR BIEN EL METODO TRUNCAMIENTO
-            
             
             if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Crear")) {
 
@@ -591,11 +440,7 @@ public class ControlFachada implements ActionListener {
                     this.vista.mostrarMensajes("INGRESE EL TAMAÑO DEL ARRAY");
                 } else {
                     arraySize = Integer.parseInt(this.vista.cajaArray.getText());
-                    arrayTruncamiento = new int[arraySize];
-                    
-                    for (int i = 0; i < arraySize; i++) {
-                        arrayTruncamiento[i] = -1;
-                    }
+                    bTruncamiento.setArrayTruncamiento(arraySize);
                     this.vista.mostrarMensajes("ARRAY CREADO EXITOSAMENTE");
                 }
 
@@ -603,106 +448,47 @@ public class ControlFachada implements ActionListener {
                 
                 if (elemento == -1) {
                     this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO");
-                } else if (arrayTruncamiento == null) {
+                } else if (bTruncamiento.getArrayTruncamiento() == null) {
                     this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
                 } else {
                     
-                    int groupSize = String.valueOf(arraySize).length() - 1;
-                    
-                    StringBuilder hashBuilder = new StringBuilder();
-                    
-                    int numberOfGroups = (elementoText.length() + groupSize - 1) / groupSize;
-
-                    for (int grupo = 0; grupo < numberOfGroups; grupo++) {
-                        // Calcular la posición del carácter a tomar en cada grupo
-                        int posicion = grupo * groupSize + (groupSize - 1);
-
-                        // Ajustar si la posición excede la longitud del texto
-                        if (posicion >= elementoText.length()) {
-                            posicion = elementoText.length() - 1;
-                        }
-
-                        hashBuilder.append(elementoText.charAt(posicion));
-                    }
-                    
-                    int index = (Integer.parseInt(hashBuilder.toString()) + 1);
-                    
-                    if (arrayTruncamiento[index] != -1) {
-                        this.vista.mostrarMensajes("LA POSICION YA ESTA OCUPADA");
-                    } else {
-                        arrayTruncamiento[index] = elemento;
+                    boolean agregado = bTruncamiento.agregarTruncamiento(elemento);
+                    if (agregado) {
                         this.vista.mostrarMensajes("ELEMENTO AGREGADO CORRECTAMENTE");
+                    } else {
+                        this.vista.mostrarMensajes("lA POSICION ESTA OCUPADA");
                     }
                 }
             } else if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Buscar")) {
                 
                 if (elemento == -1) {
                     this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO A BUSCAR");
-                } else if (arrayTruncamiento == null) {
+                } else if (bTruncamiento.getArrayTruncamiento() == null) {
                     this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
                 } else {
-                    int groupSize = String.valueOf(arraySize).length() - 1;
                     
-                    StringBuilder hashBuilder = new StringBuilder();
-                    
-                    int numberOfGroups = (elementoText.length() + groupSize - 1) / groupSize;
-
-                    for (int grupo = 0; grupo < numberOfGroups; grupo++) {
-                        // Calcular la posición del carácter a tomar en cada grupo
-                        int posicion = grupo * groupSize + (groupSize - 1);
-
-                        // Ajustar si la posición excede la longitud del texto
-                        if (posicion >= elementoText.length()) {
-                            posicion = elementoText.length() - 1;
-                        }
-
-                        hashBuilder.append(elementoText.charAt(posicion));
-                    }
-                    
-                    int index = (Integer.parseInt(hashBuilder.toString()) + 1);
-                    
-                    if (arrayTruncamiento[index] == -1) {
+                    int index = bTruncamiento.buscarTruncamiento(elemento);
+                    if (index == -1) {
                         this.vista.mostrarMensajes("ELEMENTO NO ENCONTRADO");
                     } else {
-                        String indexText = Integer.toString(index);
-                        this.vista.cajaPosicion.setText(indexText);
-                        this.vista.mostrarMensajes("Elemento encontrado en la posicion: " + indexText);
+                        this.vista.mostrarMensajes("ELEMENTO ENCONTRADO EN LA POSICION: " + index);
                     }
+                    
                 }
                 
             } else if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Eliminar")) {
                 
                 if (elemento == -1) {
                     this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO A ELIMINAR");
-                } else if (arrayTruncamiento == null) {
+                } else if (bTruncamiento.getArrayTruncamiento() == null) {
                     this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
                 } else {
                     
-                    int groupSize = String.valueOf(arraySize).length() - 1;
-                    
-                    StringBuilder hashBuilder = new StringBuilder();
-                    
-                    int numberOfGroups = (elementoText.length() + groupSize - 1) / groupSize;
-
-                    for (int grupo = 0; grupo < numberOfGroups; grupo++) {
-                        // Calcular la posición del carácter a tomar en cada grupo
-                        int posicion = grupo * groupSize + (groupSize - 1);
-
-                        // Ajustar si la posición excede la longitud del texto
-                        if (posicion >= elementoText.length()) {
-                            posicion = elementoText.length() - 1;
-                        }
-
-                        hashBuilder.append(elementoText.charAt(posicion));
-                    }
-                    
-                    int index = (Integer.parseInt(hashBuilder.toString()) + 1);
-                    
-                    if (arrayTruncamiento[index] == -1) {
-                        this.vista.mostrarMensajes("ELEMENTO NO ENCONTRADO, NO SE ELIMINO NADA");
-                    } else {
-                        arrayTruncamiento[index] = -1;
+                    boolean eliminado = bTruncamiento.eliminarTruncamiento(elemento);
+                    if (eliminado) { 
                         this.vista.mostrarMensajes("ELEMENTO ELIMINADO CORRECTAMENTE");
+                    } else { 
+                        this.vista.mostrarMensajes("ELEMENTO NO ENCONTRADO, NO SE ELIMINO NADA");
                     }
                     
                 }
@@ -718,11 +504,7 @@ public class ControlFachada implements ActionListener {
                     this.vista.mostrarMensajes("INGRESE EL TAMAÑO DEL ARRAY");
                 } else {
                     arraySize = Integer.parseInt(this.vista.cajaArray.getText());
-                    arrayPlegamiento = new int[arraySize];
-                    
-                    for (int i = 0; i < arraySize; i++) {
-                        arrayPlegamiento[i] = -1;
-                    }
+                    bPlegamiento.setArrayPlegamiento(arraySize);
                     this.vista.mostrarMensajes("ARRAY CREADO EXITOSAMENTE");
                 }
 
@@ -730,62 +512,31 @@ public class ControlFachada implements ActionListener {
                 
                 if (elemento == -1) {
                     this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO");
-                } else if (arrayPlegamiento == null) {
+                } else if (bPlegamiento.getArrayPlegamiento() == null) {
                     this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
                 } else {
                     
-                    // Calcula el tamaño del grupo en base a la cantidad de dígitos del tamaño del array menos 1.
-                    int groupSize = String.valueOf(arraySize).length() - 1;
-                    int suma = 0;
-
-                    // Itera sobre la cadena tomando grupos de 'groupSize' dígitos.
-                    for (int i = 0; i < elementoText.length(); i += groupSize) {
-                        // Calcula el índice final del grupo. Si se pasa de la longitud, se toma hasta el final.
-                        int end = i + groupSize;
-                        if (end > elementoText.length()) {
-                            end = elementoText.length();
-                        }
-                        String grupo = elementoText.substring(i, end);
-                        suma += Integer.parseInt(grupo);
+                    boolean agregado = bPlegamiento.agregarPlegamiento(elemento);
+                    if (agregado) {
+                        this.vista.mostrarMensajes("ELEMENTO AGREGADO CORRECTAMENTE");
+                    } else {
+                        this.vista.mostrarMensajes("LA POSICION ESTA OCUPADA");
                     }
                     
-                    int index = (suma % arraySize) + 1;
-                    if (arrayPlegamiento[index] != -1) {
-                        this.vista.mostrarMensajes("LA POSICION YA ESTA OCUPADA");
-                    } else {
-                        arrayPlegamiento[index] = elemento;
-                        this.vista.mostrarMensajes("ELEMENTO AGREGADO CORRECTAMENTE");
-                    }
                 }
             } else if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Buscar")) {
                 
                 if (elemento == -1) {
                     this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO A BUSCAR");
-                } else if (arrayPlegamiento == null) {
+                } else if (bPlegamiento.getArrayPlegamiento() == null) {
                     this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
                 } else {
-                    // Calcula el tamaño del grupo en base a la cantidad de dígitos del tamaño del array menos 1.
-                    int groupSize = String.valueOf(arraySize).length() - 1;
-                    int suma = 0;
-
-                    // Itera sobre la cadena tomando grupos de 'groupSize' dígitos.
-                    for (int i = 0; i < elementoText.length(); i += groupSize) {
-                        // Calcula el índice final del grupo. Si se pasa de la longitud, se toma hasta el final.
-                        int end = i + groupSize;
-                        if (end > elementoText.length()) {
-                            end = elementoText.length();
-                        }
-                        String grupo = elementoText.substring(i, end);
-                        suma += Integer.parseInt(grupo);
-                    }
                     
-                    int index = (suma % arraySize) + 1;
-                    if (arrayPlegamiento[index] == -1) {
-                        this.vista.mostrarMensajes("NO SE ENCONTRO EL ELEMENTO");
+                    int index = bPlegamiento.buscarPlegamiento(elemento);
+                    if (index == -1) {
+                        this.vista.mostrarMensajes("ELEMENTO NO ENCONTRADO");
                     } else {
-                        String indexText = Integer.toString(index);
-                        this.vista.cajaPosicion.setText(indexText);
-                        this.vista.mostrarMensajes("Elemento encontrado en la posicion: " + indexText);
+                        this.vista.mostrarMensajes("ELEMENTO ENCONTRADO EN LA POSICION: " + index);
                     }
                 }
                 
@@ -793,31 +544,15 @@ public class ControlFachada implements ActionListener {
                 
                 if (elemento == -1) {
                     this.vista.mostrarMensajes("POR FAVOR DIGITE EL ELEMENTO A ELIMINAR");
-                } else if (arrayPlegamiento == null) {
+                } else if (bPlegamiento.getArrayPlegamiento() == null) {
                     this.vista.mostrarMensajes("POR FAVOR CREE EL ARREGLO");
                 } else {
                     
-                    // Calcula el tamaño del grupo en base a la cantidad de dígitos del tamaño del array menos 1.
-                    int groupSize = String.valueOf(arraySize).length() - 1;
-                    int suma = 0;
-
-                    // Itera sobre la cadena tomando grupos de 'groupSize' dígitos.
-                    for (int i = 0; i < elementoText.length(); i += groupSize) {
-                        // Calcula el índice final del grupo. Si se pasa de la longitud, se toma hasta el final.
-                        int end = i + groupSize;
-                        if (end > elementoText.length()) {
-                            end = elementoText.length();
-                        }
-                        String grupo = elementoText.substring(i, end);
-                        suma += Integer.parseInt(grupo);
-                    }
-                    
-                    int index = (suma % arraySize) + 1;
-                    if (arrayPlegamiento[index] == -1) {
-                        this.vista.mostrarMensajes("EL ELEMENTO NO EXISTE; NO SE ELIMINO NADA");
-                    } else {
-                        arrayPlegamiento[index] = -1;
+                    boolean eliminado = bPlegamiento.eliminarPlegamiento(elemento);
+                    if (eliminado) {
                         this.vista.mostrarMensajes("ELEMENTO ELIMINADO CORRECTAMENTE");
+                    } else {
+                        this.vista.mostrarMensajes("ELEMENTO NO ENCONTRADO, NO SE ELIMINO NADA");
                     }
                     
                 }
@@ -831,67 +566,47 @@ public class ControlFachada implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        mostrarElementos();
         if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Crear")) {
 
             this.vista.btnDinamico.setText("Crear");
             
             this.vista.cajaArray.setEditable(true);
-            this.vista.cajaPosicion.setEditable(false);
             this.vista.cajaElemento.setEditable(false);
-
-            this.vista.coloresBuscar("crear");
 
         } else if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Agregar")) {
             
             this.vista.btnDinamico.setText("Agregar");
             
             this.vista.cajaArray.setEditable(false);
-            this.vista.cajaPosicion.setEditable(false);
             this.vista.cajaElemento.setEditable(true);
-            
-
-            this.vista.coloresBuscar("agregar");
 
         } else if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Buscar")) {
             
             this.vista.btnDinamico.setText("Buscar");
             
             this.vista.cajaArray.setEditable(false);
-            this.vista.cajaPosicion.setEditable(false);
             this.vista.cajaElemento.setEditable(true);
             
-
-            this.vista.coloresBuscar("buscar");
         } else if (String.valueOf(this.vista.jCambiador.getSelectedItem()).equals("Eliminar")) {
             
             this.vista.btnDinamico.setText("Eliminar");
             
             this.vista.cajaArray.setEditable(false);
-            this.vista.cajaPosicion.setEditable(false);
             this.vista.cajaElemento.setEditable(true);
-            
-
-            this.vista.coloresBuscar("eliminar");
         }
         
         if ("secuencial".equals(e.getActionCommand())) {
-            
             this.vista.mostrarImagenes("/imagenes/1.png");
         } else if ("binario".equals(e.getActionCommand())) {
-            
             this.vista.mostrarImagenes("/imagenes/1.png");
         } else if ("hashMod".equals(e.getActionCommand())) {
-            
             this.vista.mostrarImagenes("/imagenes/2.png");
         } else if ("cuadrado".equals(e.getActionCommand())) {
-            
             this.vista.mostrarImagenes("/imagenes/3.png");
         } else if ("plegamiento".equals(e.getActionCommand())) {
-            
             this.vista.mostrarImagenes("/imagenes/4.png");
         } else if ("truncamiento".equals(e.getActionCommand())) {
-       
             this.vista.mostrarImagenes("/imagenes/5.png");
 
         } else if ("limpiar".equals(e.getActionCommand())) {
