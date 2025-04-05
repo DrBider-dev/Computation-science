@@ -5,7 +5,7 @@ Este proyecto contiene diferentes paquetes que implementan algoritmos y estructu
 ## Paquetes del Proyecto
 
 ### `Control`
-En este paquete encontramos el "ControlFachada" que maneja basicamente toda la logica del programa (se que debi separar todo en funciones y clases diferentes, pido losiento) y el launcher que contiene la clase main para ejecutar
+En este paquete encontramos el "ControlFachada" que maneja la comunicacion entre la GUI y las diferentes clases de busqueda, encargadas de crear un arreglo y hacer las respectivas operaciones. Y el launcher que contiene la clase main para ejecutar
 
 ### `Vista`
 esta contiene toda la GUI basicamente xd
@@ -14,7 +14,7 @@ esta contiene toda la GUI basicamente xd
 Los assets para la GUI
 
 ### `Libraries`
-Tiene la Libreria AbsoluteLyout para la GUI (si usan netbeans creo que no tienen que agregar nada al classpath del proyecto)
+Tiene la Libreria AbsoluteLyout para la GUI (es una libreria originaria de netbeans xd)
 
 ## Archivo Comprimido `.zip`
 
