@@ -1,4 +1,4 @@
-package control;
+package Control;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -117,18 +117,114 @@ public class BusquedaResiduosMultiples {
             }
         }
     }
+    
+    /**
+     * Busca una clave en el árbol y devuelve las rutas binarias de cada letra.
+     * @param clave La clave a buscar (solo letras A-Z).
+     * @return Rutas binarias en formato "Letra 'X': RUTA", o mensaje de error.
+     */
+    public String buscarClave(String clave) {
+        clave = clave.toUpperCase();
+        StringBuilder resultado = new StringBuilder();
 
-    // Método main para pruebas.
-    public static void main(String[] args) {
-        BusquedaResiduosMultiples arbol = new BusquedaResiduosMultiples();
+        for (int i = 0; i < clave.length(); i++) {
+            char letra = clave.charAt(i);
+            if (letra < 'A' || letra > 'Z') {
+                resultado.append("Letra '").append(letra).append("': Inválida\n");
+                continue;
+            }
 
-        // Ejemplo: inserción de la clave "PRUEBA"
-        // Para la letra P ("10000"):
-        //   - Primer grupo: "10" -> se dirige al hijo con clave "10"
-        //   - Segundo grupo: "00" -> en ese nodo se crean 4 hijos y se va al hijo "00"
-        //   - Último grupo: "0" -> en el nodo actual se crean 2 hijos y se selecciona el hijo "0"
-        String clave = "VACIO";
-        arbol.insertarClave(clave);
-        arbol.imprimirArbol();
+            String binario = convertirLetraABinario(letra);
+            String ruta = buscarRuta(raiz, binario, 0, new StringBuilder());
+
+            if (ruta == null) {
+                resultado.append("Letra '").append(letra).append("': No encontrada\n");
+            } else {
+                resultado.append("Letra '").append(letra).append("': ").append(ruta).append("\n");
+            }
+        }
+
+        return resultado.toString();
+    }
+
+    /**
+     * Método auxiliar recursivo para buscar una letra.
+     * @param nodo Nodo actual.
+     * @param binario Binario de 5 bits de la letra.
+     * @param pos Posición actual en el binario.
+     * @param rutaAcumulada Ruta construida con grupos de bits.
+     * @return Ruta completa como String o null si no se encuentra.
+     */
+    private String buscarRuta(Nodo nodo, String binario, int pos, StringBuilder rutaAcumulada) {
+        if (pos >= binario.length()) {
+            return (nodo.letra != '\0') ? rutaAcumulada.toString() : null;
+        }
+
+        int restantes = binario.length() - pos;
+        int tamGrupo = restantes >= 2 ? 2 : 1;
+        String grupo = binario.substring(pos, pos + tamGrupo);
+
+        if (!nodo.hijos.containsKey(grupo)) {
+            return null;
+        }
+
+        rutaAcumulada.append(grupo);
+        return buscarRuta(nodo.hijos.get(grupo), binario, pos + tamGrupo, rutaAcumulada);
+    }
+
+    /**
+     * Elimina una clave del árbol marcando los nodos terminales como vacíos.
+     * @param clave La clave a eliminar (solo letras A-Z).
+     * @return true si todas las letras fueron eliminadas, false en caso contrario.
+     */
+    public boolean eliminarClave(String clave) {
+        clave = clave.toUpperCase();
+        boolean eliminadoCompleto = true;
+
+        for (int i = 0; i < clave.length(); i++) {
+            char letra = clave.charAt(i);
+            if (letra < 'A' || letra > 'Z') continue;
+
+            String binario = convertirLetraABinario(letra);
+            if (!eliminarLetra(raiz, binario, 0)) {
+                eliminadoCompleto = false;
+            }
+        }
+
+        return eliminadoCompleto;
+    }
+
+    /**
+     * Método auxiliar recursivo para eliminar una letra.
+     * @param nodo Nodo actual.
+     * @param binario Binario de 5 bits de la letra.
+     * @param pos Posición actual en el binario.
+     * @return true si se marcó el nodo terminal como vacío.
+     */
+    private boolean eliminarLetra(Nodo nodo, String binario, int pos) {
+        if (pos >= binario.length()) {
+            if (nodo.letra != '\0') {
+                nodo.letra = '\0';
+                return true;
+            }
+            return false;
+        }
+
+        int restantes = binario.length() - pos;
+        int tamGrupo = restantes >= 2 ? 2 : 1;
+        String grupo = binario.substring(pos, pos + tamGrupo);
+
+        if (!nodo.hijos.containsKey(grupo)) {
+            return false;
+        }
+
+        boolean eliminado = eliminarLetra(nodo.hijos.get(grupo), binario, pos + tamGrupo);
+
+        // Opcional: eliminar nodos huérfanos (solo si no afecta otras rutas)
+        if (eliminado && nodo.hijos.get(grupo).hijos.isEmpty() && nodo.hijos.get(grupo).letra == '\0') {
+            nodo.hijos.remove(grupo);
+        }
+
+        return eliminado;
     }
 }

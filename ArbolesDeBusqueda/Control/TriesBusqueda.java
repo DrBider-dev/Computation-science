@@ -1,4 +1,4 @@
-package control;
+package Control;
 public class TriesBusqueda {
 
     // Clase interna que representa un nodo en el trie.
@@ -164,21 +164,116 @@ public class TriesBusqueda {
         }
     }
     
-    // Método main para pruebas.
-    public static void main(String[] args) {
-        TriesBusqueda trie = new TriesBusqueda();
-        
-        // Ejemplo con la clave "PRUEBA". Verifica que, al generarse colisiones (por ejemplo al insertar 'R'),
-        // se realice el proceso de vaciado del nodo y reinserción.
-        String clave1 = "PRUEBA";
-        System.out.println("Insertando clave: " + clave1);
-        trie.insertarClave(clave1);
-        trie.imprimirTrie();
-        
-        // Otra prueba con otra clave.
-        System.out.println("\nInsertando clave: ARBOL");
-        TriesBusqueda trie2 = new TriesBusqueda();
-        trie2.insertarClave("ARBOL");
-        trie2.imprimirTrie();
+    /**
+     * Busca una clave en el trie y devuelve las rutas binarias de cada letra en un solo String.
+     * @param clave La clave a buscar (solo letras A-Z).
+     * @return Rutas binarias separadas por espacios, o mensaje de error.
+     */
+    public String buscarClave(String clave) {
+        clave = clave.toUpperCase();
+        StringBuilder resultado = new StringBuilder();
+
+        for (int i = 0; i < clave.length(); i++) {
+            char letra = clave.charAt(i);
+            if (letra < 'A' || letra > 'Z') {
+                resultado.append("Letra '").append(letra).append("': Inválida\n");
+                continue;
+            }
+
+            String binario = convertirLetraABinario(letra);
+            String ruta = buscarRuta(raiz, binario, 0, new StringBuilder());
+
+            if (ruta == null) {
+                resultado.append("Letra '").append(letra).append("': No encontrada\n");
+            } else {
+                resultado.append("Letra '").append(letra).append("': ").append(ruta).append("\n");
+            }
+        }
+
+        return resultado.toString();
+    }
+
+    /**
+     * Busca recursivamente la ruta de una letra en el trie.
+     * @param nodo Nodo actual.
+     * @param binario Representación binaria de la letra.
+     * @param pos Posición en la cadena binaria.
+     * @param rutaAcumulada Ruta construida.
+     * @return Ruta completa como String o null si no se encuentra.
+     */
+    private String buscarRuta(Nodo nodo, String binario, int pos, StringBuilder rutaAcumulada) {
+        if (nodo == null || pos > binario.length()) return null;
+
+        if (pos == binario.length()) {
+            return (nodo.letra == binario.charAt(0)) ? rutaAcumulada.toString() : null;
+        }
+
+        char bit = binario.charAt(pos);
+        rutaAcumulada.append(bit);
+
+        if (bit == '0') {
+            return buscarRuta(nodo.izquierdo, binario, pos + 1, rutaAcumulada);
+        } else {
+            return buscarRuta(nodo.derecho, binario, pos + 1, rutaAcumulada);
+        }
+    }
+
+    /**
+     * Elimina una clave del trie.
+     * @param clave Clave a eliminar (solo letras A-Z).
+     * @return true si todas las letras fueron eliminadas, false en caso contrario.
+     */
+    public boolean eliminarClave(String clave) {
+        clave = clave.toUpperCase();
+        boolean eliminadoCompleto = true;
+
+        for (int i = 0; i < clave.length(); i++) {
+            char letra = clave.charAt(i);
+            if (letra < 'A' || letra > 'Z') continue;
+
+            String binario = convertirLetraABinario(letra);
+            if (!eliminarLetra(raiz, binario, 0)) {
+                eliminadoCompleto = false;
+            }
+        }
+
+        return eliminadoCompleto;
+    }
+
+    /**
+     * Elimina una letra siguiendo su representación binaria.
+     * @param nodo Nodo actual.
+     * @param binario Cadena binaria de la letra.
+     * @param pos Posición actual.
+     * @return true si se eliminó la letra, false si no se encontró.
+     */
+    private boolean eliminarLetra(Nodo nodo, String binario, int pos) {
+        if (nodo == null) return false;
+
+        if (pos == binario.length()) {
+            if (nodo.letra != '\0') {
+                nodo.letra = '\0'; // Convierte a nodo de enlace
+                return true;
+            }
+            return false;
+        }
+
+        char bit = binario.charAt(pos);
+        boolean eliminado;
+
+        if (bit == '0') {
+            eliminado = eliminarLetra(nodo.izquierdo, binario, pos + 1);
+        } else {
+            eliminado = eliminarLetra(nodo.derecho, binario, pos + 1);
+        }
+
+        // Limpia nodos internos si ambos hijos están vacíos
+        if (eliminado && nodo.letra == '\0') {
+            if (nodo.izquierdo == null && nodo.derecho == null) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
