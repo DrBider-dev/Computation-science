@@ -221,7 +221,17 @@ public class Control implements ActionListener {
     }
     
     public void mostrarArbol() {
-        this.vista.mostrarMensajes("Not implemented Yet");
+        if (this.vista.rbtnResiduos.isSelected()) {
+            this.vista.mostrarMensajes("MOSTRANDO ARBOL RESIDUOS");
+        } else if (this.vista.rbtnDigitales.isSelected()) {
+            this.vista.mostrarMensajes("MOSTRANDO ARBOL DIGITAL");
+        } else if (this.vista.rbtnTries.isSelected()) {
+            this.vista.mostrarMensajes("MOSTRANDO ARBOL DIGITAL");
+        } else if (this.vista.rbtnMultiples.isSelected()) {
+            this.vista.mostrarMensajes("MOSTRANDO ARBOL POR RESIDUOS MULTIPLES");
+        } else {
+            this.vista.mostrarMensajes("SELECCIONE UNA OPCION");
+        }
     }
 
     @Override
