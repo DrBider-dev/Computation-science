@@ -95,6 +95,7 @@ public class LinealSearch extends javax.swing.JFrame {
         panelCells = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Hash&Seek");
         setLocationByPlatform(true);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -111,6 +112,7 @@ public class LinealSearch extends javax.swing.JFrame {
         volverTxt.setFont(new java.awt.Font("Cambria Math", 0, 48)); // NOI18N
         volverTxt.setForeground(new java.awt.Color(255, 255, 255));
         volverTxt.setText("< Volver");
+        volverTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         volverTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 volverTxtMouseClicked(evt);
@@ -125,6 +127,7 @@ public class LinealSearch extends javax.swing.JFrame {
         backGround.add(volverTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
         dragPanel.setBackground(new java.awt.Color(18, 18, 18));
+        dragPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
         dragPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 dragPanelMouseDragged(evt);
@@ -153,7 +156,8 @@ public class LinealSearch extends javax.swing.JFrame {
         txtTamaño.setText("Tamaño:");
         backGround.add(txtTamaño, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
 
-        txtSize.setText("10");
+        txtSize.setBackground(new java.awt.Color(102, 102, 102));
+        txtSize.setForeground(new java.awt.Color(255, 255, 255));
         txtSize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSizeActionPerformed(evt);
@@ -161,20 +165,52 @@ public class LinealSearch extends javax.swing.JFrame {
         });
         backGround.add(txtSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 100, -1));
 
+        btnCreate.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
+        btnCreate.setForeground(new java.awt.Color(255, 255, 255));
         btnCreate.setText("Crear arreglo");
-        backGround.add(btnCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
+        btnCreate.setBorder(null);
+        btnCreate.setContentAreaFilled(false);
+        btnCreate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCreate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCreateMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCreateMouseExited(evt);
+            }
+        });
+        backGround.add(btnCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 120, 30));
 
         txtValor.setForeground(new java.awt.Color(255, 255, 255));
         txtValor.setText("Valor");
         backGround.add(txtValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, -1, -1));
+
+        txtInsertValue.setBackground(new java.awt.Color(102, 102, 102));
+        txtInsertValue.setForeground(new java.awt.Color(255, 255, 255));
         backGround.add(txtInsertValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 210, 70, -1));
 
         txtOpcional.setForeground(new java.awt.Color(255, 255, 255));
         txtOpcional.setText("Indice (opcional)");
         backGround.add(txtOpcional, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, -1, -1));
+
+        txtInsertIndex.setBackground(new java.awt.Color(102, 102, 102));
+        txtInsertIndex.setForeground(new java.awt.Color(255, 255, 255));
         backGround.add(txtInsertIndex, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, 90, -1));
 
+        btnInsert.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
+        btnInsert.setForeground(new java.awt.Color(255, 255, 255));
         btnInsert.setText("Insertar");
+        btnInsert.setBorder(null);
+        btnInsert.setContentAreaFilled(false);
+        btnInsert.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInsert.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnInsertMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnInsertMouseExited(evt);
+            }
+        });
         btnInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInsertActionPerformed(evt);
@@ -185,20 +221,41 @@ public class LinealSearch extends javax.swing.JFrame {
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtBuscar.setText("Buscar:");
         backGround.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, -1, -1));
+
+        txtSearchValue.setBackground(new java.awt.Color(102, 102, 102));
+        txtSearchValue.setForeground(new java.awt.Color(255, 255, 255));
         backGround.add(txtSearchValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, 80, -1));
 
+        btnSearch.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
+        btnSearch.setForeground(new java.awt.Color(255, 255, 255));
         btnSearch.setText("Buscar");
-        backGround.add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 250, -1, -1));
+        btnSearch.setBorder(null);
+        btnSearch.setContentAreaFilled(false);
+        btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSearchMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSearchMouseExited(evt);
+            }
+        });
+        backGround.add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 250, -1, -1));
 
         txtModificarIndice.setForeground(new java.awt.Color(255, 255, 255));
         txtModificarIndice.setText("Indice:");
         backGround.add(txtModificarIndice, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 210, -1, -1));
+
+        txtModifyIndex.setBackground(new java.awt.Color(102, 102, 102));
+        txtModifyIndex.setForeground(new java.awt.Color(255, 255, 255));
         backGround.add(txtModifyIndex, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 210, 80, -1));
 
         txtNuevoValor.setForeground(new java.awt.Color(255, 255, 255));
         txtNuevoValor.setText("Nuevo Valor");
         backGround.add(txtNuevoValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 210, -1, -1));
 
+        txtModifyValue.setBackground(new java.awt.Color(102, 102, 102));
+        txtModifyValue.setForeground(new java.awt.Color(255, 255, 255));
         txtModifyValue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtModifyValueActionPerformed(evt);
@@ -206,15 +263,44 @@ public class LinealSearch extends javax.swing.JFrame {
         });
         backGround.add(txtModifyValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 210, 90, -1));
 
+        btnModify.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
+        btnModify.setForeground(new java.awt.Color(255, 255, 255));
         btnModify.setText("Modificar");
+        btnModify.setBorder(null);
+        btnModify.setContentAreaFilled(false);
+        btnModify.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModify.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnModifyMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnModifyMouseExited(evt);
+            }
+        });
         backGround.add(btnModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 250, -1, -1));
 
         txtEliminar.setForeground(new java.awt.Color(255, 255, 255));
         txtEliminar.setText("Indice a Eliminar");
         backGround.add(txtEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 210, -1, -1));
+
+        txtDeleteIndex.setBackground(new java.awt.Color(102, 102, 102));
+        txtDeleteIndex.setForeground(new java.awt.Color(255, 255, 255));
         backGround.add(txtDeleteIndex, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 210, 80, -1));
 
+        btnDelete.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("Eliminar");
+        btnDelete.setBorder(null);
+        btnDelete.setContentAreaFilled(false);
+        btnDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseExited(evt);
+            }
+        });
         backGround.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 250, -1, -1));
 
         panelCells.setBackground(new java.awt.Color(18, 18, 18));
@@ -263,6 +349,46 @@ public class LinealSearch extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtModifyValueActionPerformed
 
+    private void btnCreateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateMouseEntered
+        btnCreate.setForeground(MINT);
+    }//GEN-LAST:event_btnCreateMouseEntered
+
+    private void btnCreateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateMouseExited
+        btnCreate.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnCreateMouseExited
+
+    private void btnInsertMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertMouseEntered
+        btnInsert.setForeground(MINT);
+    }//GEN-LAST:event_btnInsertMouseEntered
+
+    private void btnInsertMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertMouseExited
+        btnInsert.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnInsertMouseExited
+
+    private void btnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseEntered
+        btnSearch.setForeground(MINT);
+    }//GEN-LAST:event_btnSearchMouseEntered
+
+    private void btnSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseExited
+        btnSearch.setForeground(Color.white);
+    }//GEN-LAST:event_btnSearchMouseExited
+
+    private void btnModifyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModifyMouseEntered
+        btnModify.setForeground(MINT);
+    }//GEN-LAST:event_btnModifyMouseEntered
+
+    private void btnModifyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModifyMouseExited
+        btnModify.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnModifyMouseExited
+
+    private void btnDeleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseEntered
+        btnDelete.setForeground(MINT);
+    }//GEN-LAST:event_btnDeleteMouseEntered
+
+    private void btnDeleteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseExited
+        btnDelete.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnDeleteMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -290,7 +416,7 @@ public class LinealSearch extends javax.swing.JFrame {
         btnDelete.addActionListener(e -> onDelete());
 
         // crear arreglo inicial
-        onCreateArray();
+        //onCreateArray();
     }
     
     // --------- OPERACIONES (Crea/Insertar/Buscar/Modificar/Eliminar) ----------

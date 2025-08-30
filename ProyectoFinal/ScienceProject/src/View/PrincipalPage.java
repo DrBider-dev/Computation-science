@@ -58,6 +58,8 @@ public class PrincipalPage extends javax.swing.JFrame {
         linealSearchLabel = new javax.swing.JLabel();
         binarySearchbtn = new javax.swing.JPanel();
         binarySearchLabel = new javax.swing.JLabel();
+        hModSearchbtn = new javax.swing.JPanel();
+        hModSearchLabel = new javax.swing.JLabel();
         Logo = new javax.swing.JLabel();
         txtWelcome = new javax.swing.JLabel();
         dragPanel = new javax.swing.JPanel();
@@ -65,6 +67,7 @@ public class PrincipalPage extends javax.swing.JFrame {
         txtExit = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Hash&Seek");
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(1280, 720));
         setUndecorated(true);
@@ -86,6 +89,7 @@ public class PrincipalPage extends javax.swing.JFrame {
         linealSearchLabel.setForeground(new java.awt.Color(255, 255, 255));
         linealSearchLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         linealSearchLabel.setText("Busqueda Lineal");
+        linealSearchLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         linealSearchLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 linealSearchLabelMouseClicked(evt);
@@ -107,25 +111,73 @@ public class PrincipalPage extends javax.swing.JFrame {
         binarySearchLabel.setForeground(new java.awt.Color(255, 255, 255));
         binarySearchLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         binarySearchLabel.setText("Busqueda Binaria");
+        binarySearchLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        binarySearchLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                binarySearchLabelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                binarySearchLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                binarySearchLabelMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout binarySearchbtnLayout = new javax.swing.GroupLayout(binarySearchbtn);
         binarySearchbtn.setLayout(binarySearchbtnLayout);
         binarySearchbtnLayout.setHorizontalGroup(
             binarySearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(binarySearchLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, binarySearchbtnLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(binarySearchLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         binarySearchbtnLayout.setVerticalGroup(
             binarySearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(binarySearchLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, binarySearchbtnLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(binarySearchLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         background2.add(binarySearchbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 210, 50));
+
+        hModSearchbtn.setBackground(new java.awt.Color(60, 60, 60));
+
+        hModSearchLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        hModSearchLabel.setForeground(new java.awt.Color(255, 255, 255));
+        hModSearchLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        hModSearchLabel.setText("Hash Mod");
+        hModSearchLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        hModSearchLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                hModSearchLabelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                hModSearchLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                hModSearchLabelMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout hModSearchbtnLayout = new javax.swing.GroupLayout(hModSearchbtn);
+        hModSearchbtn.setLayout(hModSearchbtnLayout);
+        hModSearchbtnLayout.setHorizontalGroup(
+            hModSearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(hModSearchLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        hModSearchbtnLayout.setVerticalGroup(
+            hModSearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(hModSearchLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+
+        background2.add(hModSearchbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 210, 50));
 
         background.add(background2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 470, 640));
 
         Logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Logo.png"))); // NOI18N
-        background.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 110, 460, 190));
+        background.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, 450, 440));
 
         txtWelcome.setBackground(new java.awt.Color(255, 255, 255));
         txtWelcome.setFont(new java.awt.Font("Cambria Math", 0, 48)); // NOI18N
@@ -264,6 +316,32 @@ public class PrincipalPage extends javax.swing.JFrame {
         LinealSearch.getInstance().setVisible(true);
     }//GEN-LAST:event_linealSearchLabelMouseClicked
 
+    private void binarySearchLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_binarySearchLabelMouseEntered
+        binarySearchLabel.setForeground(new Color(124, 212, 187));
+    }//GEN-LAST:event_binarySearchLabelMouseEntered
+
+    private void binarySearchLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_binarySearchLabelMouseExited
+        binarySearchLabel.setForeground(Color.white);
+    }//GEN-LAST:event_binarySearchLabelMouseExited
+
+    private void binarySearchLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_binarySearchLabelMouseClicked
+        this.setVisible(false);
+        BinarySearch.getInstance().setVisible(true);
+    }//GEN-LAST:event_binarySearchLabelMouseClicked
+
+    private void hModSearchLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hModSearchLabelMouseClicked
+        this.setVisible(false);
+        HModSearch.getInstance().setVisible(true);
+    }//GEN-LAST:event_hModSearchLabelMouseClicked
+
+    private void hModSearchLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hModSearchLabelMouseEntered
+        hModSearchLabel.setForeground(new Color(124, 212, 187));
+    }//GEN-LAST:event_hModSearchLabelMouseEntered
+
+    private void hModSearchLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hModSearchLabelMouseExited
+        hModSearchLabel.setForeground(Color.white);
+    }//GEN-LAST:event_hModSearchLabelMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -276,6 +354,8 @@ public class PrincipalPage extends javax.swing.JFrame {
     private javax.swing.JPanel binarySearchbtn;
     private javax.swing.JPanel dragPanel;
     private javax.swing.JPanel exitBtn;
+    private javax.swing.JLabel hModSearchLabel;
+    private javax.swing.JPanel hModSearchbtn;
     private javax.swing.JLabel linealSearchLabel;
     private javax.swing.JPanel linealSearchbtn;
     private javax.swing.JLabel txtExit;

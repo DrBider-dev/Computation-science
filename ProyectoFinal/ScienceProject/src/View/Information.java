@@ -62,11 +62,11 @@ public class Information extends javax.swing.JFrame {
         dragPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Hash&Seek");
         setBackground(new java.awt.Color(18, 18, 18));
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(672, 412));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(672, 412));
         setSize(new java.awt.Dimension(672, 412));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
