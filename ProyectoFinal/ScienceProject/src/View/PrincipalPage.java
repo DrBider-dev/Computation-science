@@ -60,6 +60,8 @@ public class PrincipalPage extends javax.swing.JFrame {
         binarySearchLabel = new javax.swing.JLabel();
         hModSearchbtn = new javax.swing.JPanel();
         hModSearchLabel = new javax.swing.JLabel();
+        hSquareSearchbtn = new javax.swing.JPanel();
+        hSquareSearchLabel = new javax.swing.JLabel();
         Logo = new javax.swing.JLabel();
         txtWelcome = new javax.swing.JLabel();
         dragPanel = new javax.swing.JPanel();
@@ -172,6 +174,38 @@ public class PrincipalPage extends javax.swing.JFrame {
         );
 
         background2.add(hModSearchbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 210, 50));
+
+        hSquareSearchbtn.setBackground(new java.awt.Color(60, 60, 60));
+
+        hSquareSearchLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        hSquareSearchLabel.setForeground(new java.awt.Color(255, 255, 255));
+        hSquareSearchLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        hSquareSearchLabel.setText("Hash Cuadrado");
+        hSquareSearchLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        hSquareSearchLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                hSquareSearchLabelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                hSquareSearchLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                hSquareSearchLabelMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout hSquareSearchbtnLayout = new javax.swing.GroupLayout(hSquareSearchbtn);
+        hSquareSearchbtn.setLayout(hSquareSearchbtnLayout);
+        hSquareSearchbtnLayout.setHorizontalGroup(
+            hSquareSearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(hSquareSearchLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+        );
+        hSquareSearchbtnLayout.setVerticalGroup(
+            hSquareSearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(hSquareSearchLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+
+        background2.add(hSquareSearchbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 210, 50));
 
         background.add(background2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 470, 640));
 
@@ -342,6 +376,19 @@ public class PrincipalPage extends javax.swing.JFrame {
         hModSearchLabel.setForeground(Color.white);
     }//GEN-LAST:event_hModSearchLabelMouseExited
 
+    private void hSquareSearchLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hSquareSearchLabelMouseClicked
+        this.setVisible(false);
+        HSquareSearch.getInstance().setVisible(true);
+    }//GEN-LAST:event_hSquareSearchLabelMouseClicked
+
+    private void hSquareSearchLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hSquareSearchLabelMouseEntered
+       hSquareSearchLabel.setForeground(new Color(124, 212, 187));
+    }//GEN-LAST:event_hSquareSearchLabelMouseEntered
+
+    private void hSquareSearchLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hSquareSearchLabelMouseExited
+        hSquareSearchLabel.setForeground(Color.white);
+    }//GEN-LAST:event_hSquareSearchLabelMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -356,6 +403,8 @@ public class PrincipalPage extends javax.swing.JFrame {
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel hModSearchLabel;
     private javax.swing.JPanel hModSearchbtn;
+    private javax.swing.JLabel hSquareSearchLabel;
+    private javax.swing.JPanel hSquareSearchbtn;
     private javax.swing.JLabel linealSearchLabel;
     private javax.swing.JPanel linealSearchbtn;
     private javax.swing.JLabel txtExit;

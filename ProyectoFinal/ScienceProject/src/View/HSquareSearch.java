@@ -6,6 +6,7 @@ package View;
 
 import java.awt.Color;
 import java.awt.*;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.*;
@@ -421,51 +422,115 @@ public class HSquareSearch extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tamaño inválido", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
 
+
+    public static int middleSquareHash(int clave, int tamañoArreglo) {
+        
+        long square = (long) clave * clave;
+        String squareTxt = Long.toString(square);
+
+        int length = String.valueOf(tamañoArreglo).length(); 
+        int need = length - 1; // cantidad de dígitos centrales requeridos
+
+        // índice de inicio: punto medio - la mitad de los dígitos que necesito
+        int start = (squareTxt.length() - need) / 2;
+        int end = start + need;
+
+        String hash = squareTxt.substring(start, end);
+        
+        return Integer.valueOf(hash);
+    }
+    
     private void onInsert() {
         try {
             int value = Integer.parseInt(txtInsertValue.getText().trim());
             int n = array.length;
+            int index = middleSquareHash(value, n);
 
-            int hash = value % n;
-
-            if (array[hash] == null) {
-                array[hash] = value;
+            if (array[index] == null) {
+                array[index] = value;
+                refreshCellsUI();
+                // opcional: marcar la celda insertada inmediatamente (no es animación)
+                CellPanel cp = getCellPanel(index);
             } else {
-                JOptionPane.showMessageDialog(this, 
-                    "No se pudo insertar, colisión en la posición " + (hash + 1), 
-                    "Colisión", 
+                refreshCellsUI(); // actualiza la vista por si hace falta
+                JOptionPane.showMessageDialog(this,
+                    "No se pudo insertar, colisión en la posición " + (index + 1),
+                    "Colisión",
                     JOptionPane.WARNING_MESSAGE);
             }
-
-            refreshCellsUI();
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Valor inválido", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
 
+
+
     private void onSearch() {
         try {
-            int value = Integer.parseInt(txtSearchValue.getText().trim());
+            final int value = Integer.parseInt(txtSearchValue.getText().trim());
             clearHighlights();
 
-            int n = array.length;
-            int hash = value % n;
+            final int n = array.length;
+            final int index = middleSquareHash(value, n);
 
-            if (array[hash] != null && array[hash] == value) {
-                highlightCell(hash);
-                scrollCellToVisible(hash);
-            } else {
-                JOptionPane.showMessageDialog(this, 
-                    "Valor no encontrado (colisión o nunca insertado)", 
-                    "Buscar", 
-                    JOptionPane.INFORMATION_MESSAGE);
-            }
+            java.util.List<Integer> steps = new java.util.ArrayList<>();
+            steps.add(index);
+
+            int foundIndex = (array[index] != null && array[index] == value) ? index : -1;
+
+            animateSearch(steps, foundIndex);
+
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Valor de búsqueda inválido", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    private void animateSearch(java.util.List<Integer> steps, int foundIndex) {
+        clearHighlights();
+        final int[] idx = {0};
+        txtSearchValue.setEnabled(false);
+
+        Timer timer = new Timer(450, null);
+        timer.addActionListener(evt -> {
+            if (idx[0] >= steps.size()) {
+                if (foundIndex == -1) {
+                    JOptionPane.showMessageDialog(this,
+                        "Valor no encontrado (colisión o nunca insertado)",
+                        "Buscar",
+                        JOptionPane.INFORMATION_MESSAGE);
+                }
+                txtSearchValue.setEnabled(true);
+                timer.stop();
+                return;
+            }
+
+            int pos = steps.get(idx[0]);
+            CellPanel cell = getCellPanel(pos);
+            if (cell != null) {
+                if (pos == foundIndex) {
+                    // encontrado → verde
+                    cell.setHighlight(MINT);
+                    scrollCellToVisible(pos);
+                    txtSearchValue.setEnabled(true);
+                    timer.stop();
+                    return;
+                } else {
+                    // descartado → rojo
+                    cell.setHighlight(Color.RED);
+                    scrollCellToVisible(pos);
+                }
+            }
+            idx[0]++;
+        });
+
+        timer.setInitialDelay(0);
+        timer.start();
+    }
+
+
 
 
 
@@ -512,10 +577,15 @@ public class HSquareSearch extends javax.swing.JFrame {
         panelCells.repaint();
     }
 
+    private CellPanel getCellPanel(int index) {
+        Component comp = getCellComponent(index);
+        return (comp instanceof CellPanel) ? (CellPanel) comp : null;
+    }
+
     private void clearHighlights() {
         for (Component c : panelCells.getComponents()) {
             if (c instanceof CellPanel) {
-                ((CellPanel)c).setHighlighted(false);
+                ((CellPanel)c).setHighlight(null);
             }
         }
     }
@@ -591,19 +661,43 @@ public class HSquareSearch extends javax.swing.JFrame {
             add(valLabel, BorderLayout.CENTER);
         }
 
-        public void setHighlighted(boolean highlight) {
-            if (highlight) {
+        /**
+         * General highlight method:
+         * - bgColor != null -> apply background color (and choose text color depending on bg)
+         * - bgColor == null -> reset to default (transparent + white labels)
+         */
+        public void setHighlight(Color bgColor) {
+            if (bgColor != null) {
                 setOpaque(true);
-                setBackground(MINT);
-                posLabel.setForeground(Color.black);
-                valLabel.setForeground(Color.black);
+                setBackground(bgColor);
+                // texto en negro para mint (mejor contraste) y en blanco para rojo u otros fondos oscuros
+                if (Color.RED.equals(bgColor)) {
+                    posLabel.setForeground(Color.WHITE);
+                    valLabel.setForeground(Color.WHITE);
+                } else {
+                    posLabel.setForeground(Color.BLACK);
+                    valLabel.setForeground(Color.BLACK);
+                }
             } else {
-                setOpaque(false);
-                setBackground(new Color(0,0,0,0));
-                posLabel.setForeground(LABEL_WHITE);
-                valLabel.setForeground(LABEL_WHITE);
+                resetHighlight();
             }
             repaint();
+        }
+
+        // Mantengo la compatibilidad con el método anterior.
+        public void setHighlighted(boolean highlight) {
+            if (highlight) {
+                setHighlight(MINT);
+            } else {
+                setHighlight(null);
+            }
+        }
+
+        private void resetHighlight() {
+            setOpaque(false);
+            setBackground(new Color(0,0,0,0));
+            posLabel.setForeground(LABEL_WHITE);
+            valLabel.setForeground(LABEL_WHITE);
         }
     }
 
