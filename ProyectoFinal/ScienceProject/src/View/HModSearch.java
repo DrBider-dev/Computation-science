@@ -453,18 +453,60 @@ public class HModSearch extends javax.swing.JFrame {
             int n = array.length;
             int hash = value % n;
 
-            if (array[hash] != null && array[hash] == value) {
-                highlightCell(hash);
-                scrollCellToVisible(hash);
-            } else {
-                JOptionPane.showMessageDialog(this, 
-                    "Valor no encontrado (colisión o nunca insertado)", 
-                    "Buscar", 
-                    JOptionPane.INFORMATION_MESSAGE);
-            }
+            // Lista de pasos (ahora solo contiene el índice hash directo)
+            java.util.List<Integer> steps = new java.util.ArrayList<>();
+            steps.add(hash);
+
+            // Determinar si se encontró el valor en ese índice
+            int foundIndex = (array[hash] != null && array[hash] == value) ? hash : -1;
+
+            // Llamar animación genérica
+            animateSearch(steps, foundIndex);
+
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Valor de búsqueda inválido", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    private void animateSearch(java.util.List<Integer> steps, int foundIndex) {
+        clearHighlights();
+        final int[] idx = {0};
+        txtSearchValue.setEnabled(false);
+
+        Timer timer = new Timer(450, null); // 450 ms por paso
+        timer.addActionListener(evt -> {
+            if (idx[0] >= steps.size()) {
+                if (foundIndex == -1) {
+                    JOptionPane.showMessageDialog(this, 
+                        "Valor no encontrado (colisión o nunca insertado)", 
+                        "Buscar", 
+                        JOptionPane.INFORMATION_MESSAGE);
+                }
+                txtSearchValue.setEnabled(true);
+                timer.stop();
+                return;
+            }
+
+            int pos = steps.get(idx[0]);
+            CellPanel cell = getCellPanel(pos);
+            if (cell != null) {
+                if (pos == foundIndex) {
+                    // encontrado → verde
+                    cell.setHighlight(MINT);
+                    scrollCellToVisible(pos);
+                    txtSearchValue.setEnabled(true);
+                    timer.stop();
+                    return;
+                } else {
+                    // descartado → rojo
+                    cell.setHighlight(Color.RED);
+                    scrollCellToVisible(pos);
+                }
+            }
+            idx[0]++;
+        });
+        timer.setInitialDelay(0);
+        timer.start();
     }
 
 
@@ -512,10 +554,15 @@ public class HModSearch extends javax.swing.JFrame {
         panelCells.repaint();
     }
 
+    private CellPanel getCellPanel(int index) {
+        Component comp = getCellComponent(index);
+        return (comp instanceof CellPanel) ? (CellPanel) comp : null;
+    }
+
     private void clearHighlights() {
         for (Component c : panelCells.getComponents()) {
             if (c instanceof CellPanel) {
-                ((CellPanel)c).setHighlighted(false);
+                ((CellPanel)c).setHighlight(null);
             }
         }
     }
@@ -591,19 +638,43 @@ public class HModSearch extends javax.swing.JFrame {
             add(valLabel, BorderLayout.CENTER);
         }
 
-        public void setHighlighted(boolean highlight) {
-            if (highlight) {
+        /**
+         * General highlight method:
+         * - bgColor != null -> apply background color (and choose text color depending on bg)
+         * - bgColor == null -> reset to default (transparent + white labels)
+         */
+        public void setHighlight(Color bgColor) {
+            if (bgColor != null) {
                 setOpaque(true);
-                setBackground(MINT);
-                posLabel.setForeground(Color.black);
-                valLabel.setForeground(Color.black);
+                setBackground(bgColor);
+                // texto en negro para mint (mejor contraste) y en blanco para rojo u otros fondos oscuros
+                if (Color.RED.equals(bgColor)) {
+                    posLabel.setForeground(Color.WHITE);
+                    valLabel.setForeground(Color.WHITE);
+                } else {
+                    posLabel.setForeground(Color.BLACK);
+                    valLabel.setForeground(Color.BLACK);
+                }
             } else {
-                setOpaque(false);
-                setBackground(new Color(0,0,0,0));
-                posLabel.setForeground(LABEL_WHITE);
-                valLabel.setForeground(LABEL_WHITE);
+                resetHighlight();
             }
             repaint();
+        }
+
+        // Mantengo la compatibilidad con el método anterior.
+        public void setHighlighted(boolean highlight) {
+            if (highlight) {
+                setHighlight(MINT);
+            } else {
+                setHighlight(null);
+            }
+        }
+
+        private void resetHighlight() {
+            setOpaque(false);
+            setBackground(new Color(0,0,0,0));
+            posLabel.setForeground(LABEL_WHITE);
+            valLabel.setForeground(LABEL_WHITE);
         }
     }
 

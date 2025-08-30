@@ -458,26 +458,51 @@ public class LinealSearch extends javax.swing.JFrame {
         }
     }
 
-    private void onSearch() {
-        try {
-            int value = Integer.parseInt(txtSearchValue.getText().trim());
-            clearHighlights();
-            boolean found = false;
-            for (int i=0;i<array.length;i++){
-                if (array[i] != null && array[i] == value) {
-                    highlightCell(i);
-                    scrollCellToVisible(i);
-                    found = true;
-                    // si quieres solo el primero: break;
+private void onSearch() {
+    try {
+        final int value = Integer.parseInt(txtSearchValue.getText().trim());
+        clearHighlights();
+
+        final int[] i = {0}; // índice que avanza con el Timer
+        txtSearchValue.setEnabled(false); // opcional: también deshabilita tu botón de buscar
+
+        Timer timer = new Timer(450, null); // 450 ms por paso
+        timer.addActionListener(evt -> {
+            if (i[0] >= array.length) {
+                // Si terminó y no encontró nada
+                JOptionPane.showMessageDialog(this, "Valor no encontrado", "Buscar", JOptionPane.INFORMATION_MESSAGE);
+                txtSearchValue.setEnabled(true);
+                timer.stop();
+                return;
+            }
+
+            CellPanel cell = getCellPanel(i[0]);
+            if (cell != null) {
+                if (array[i[0]] != null && array[i[0]] == value) {
+                    // Encontrado → verde menta
+                    cell.setHighlight(MINT);
+                    scrollCellToVisible(i[0]);
+                    txtSearchValue.setEnabled(true);
+                    timer.stop();
+                    return;
+                } else {
+                    // No coincide → rojo
+                    cell.setHighlight(Color.RED);
+                    scrollCellToVisible(i[0]);
                 }
             }
-            if (!found) {
-                JOptionPane.showMessageDialog(this, "Valor no encontrado", "Buscar", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Valor de búsqueda inválido", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+
+            i[0]++; // avanzar al siguiente índice
+        });
+
+        timer.setInitialDelay(0);
+        timer.start();
+
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "Valor de búsqueda inválido", "Error", JOptionPane.ERROR_MESSAGE);
     }
+}
+
 
     private void onModify() {
         try {
@@ -522,10 +547,15 @@ public class LinealSearch extends javax.swing.JFrame {
         panelCells.repaint();
     }
 
+    private CellPanel getCellPanel(int index) {
+        Component comp = getCellComponent(index);
+        return (comp instanceof CellPanel) ? (CellPanel) comp : null;
+    }
+
     private void clearHighlights() {
         for (Component c : panelCells.getComponents()) {
             if (c instanceof CellPanel) {
-                ((CellPanel)c).setHighlighted(false);
+                ((CellPanel)c).setHighlight(null);
             }
         }
     }
@@ -573,49 +603,73 @@ public class LinealSearch extends javax.swing.JFrame {
     
     
     // --------- Clase interna para la celda ----------
-    private class CellPanel extends JPanel {
-        private JLabel posLabel;
-        private JLabel valLabel;
+   private class CellPanel extends JPanel {
+       private JLabel posLabel;
+       private JLabel valLabel;
 
-        public CellPanel(int position, Integer value) {
-            setLayout(new BorderLayout());
-            setPreferredSize(new Dimension(CELL_WIDTH, CELL_HEIGHT));
-            setMaximumSize(new Dimension(CELL_WIDTH, CELL_HEIGHT));
-            setBackground(new Color(0,0,0,0));
-            setOpaque(false);
-            setBorder(new LineBorder(Color.WHITE, 1, true));
+       public CellPanel(int position, Integer value) {
+           setLayout(new BorderLayout());
+           setPreferredSize(new Dimension(CELL_WIDTH, CELL_HEIGHT));
+           setMaximumSize(new Dimension(CELL_WIDTH, CELL_HEIGHT));
+           setBackground(new Color(0,0,0,0));
+           setOpaque(false);
+           setBorder(new LineBorder(Color.WHITE, 1, true));
 
-            posLabel = new JLabel(String.valueOf(position), SwingConstants.CENTER);
-            posLabel.setForeground(LABEL_WHITE);
-            posLabel.setFont(getFont().deriveFont(Font.PLAIN, 12f));
-            posLabel.setOpaque(false);
-            posLabel.setBorder(BorderFactory.createEmptyBorder(4,4,0,4));
+           posLabel = new JLabel(String.valueOf(position), SwingConstants.CENTER);
+           posLabel.setForeground(LABEL_WHITE);
+           posLabel.setFont(getFont().deriveFont(Font.PLAIN, 12f));
+           posLabel.setOpaque(false);
+           posLabel.setBorder(BorderFactory.createEmptyBorder(4,4,0,4));
 
-            valLabel = new JLabel(value == null ? "" : String.valueOf(value), SwingConstants.CENTER);
-            valLabel.setForeground(LABEL_WHITE);
-            valLabel.setFont(getFont().deriveFont(Font.BOLD, 18f));
-            valLabel.setOpaque(false);
-            valLabel.setBorder(BorderFactory.createEmptyBorder(0,4,6,4));
+           valLabel = new JLabel(value == null ? "" : String.valueOf(value), SwingConstants.CENTER);
+           valLabel.setForeground(LABEL_WHITE);
+           valLabel.setFont(getFont().deriveFont(Font.BOLD, 18f));
+           valLabel.setOpaque(false);
+           valLabel.setBorder(BorderFactory.createEmptyBorder(0,4,6,4));
 
-            add(posLabel, BorderLayout.NORTH);
-            add(valLabel, BorderLayout.CENTER);
-        }
+           add(posLabel, BorderLayout.NORTH);
+           add(valLabel, BorderLayout.CENTER);
+       }
 
-        public void setHighlighted(boolean highlight) {
-            if (highlight) {
-                setOpaque(true);
-                setBackground(MINT);
-                posLabel.setForeground(Color.black);
-                valLabel.setForeground(Color.black);
-            } else {
-                setOpaque(false);
-                setBackground(new Color(0,0,0,0));
-                posLabel.setForeground(LABEL_WHITE);
-                valLabel.setForeground(LABEL_WHITE);
-            }
-            repaint();
-        }
-    }
+       /**
+        * General highlight method:
+        * - bgColor != null -> apply background color (and choose text color depending on bg)
+        * - bgColor == null -> reset to default (transparent + white labels)
+        */
+       public void setHighlight(Color bgColor) {
+           if (bgColor != null) {
+               setOpaque(true);
+               setBackground(bgColor);
+               // texto en negro para mint (mejor contraste) y en blanco para rojo u otros fondos oscuros
+               if (Color.RED.equals(bgColor)) {
+                   posLabel.setForeground(Color.WHITE);
+                   valLabel.setForeground(Color.WHITE);
+               } else {
+                   posLabel.setForeground(Color.BLACK);
+                   valLabel.setForeground(Color.BLACK);
+               }
+           } else {
+               resetHighlight();
+           }
+           repaint();
+       }
+
+       // Mantengo la compatibilidad con el método anterior.
+       public void setHighlighted(boolean highlight) {
+           if (highlight) {
+               setHighlight(MINT);
+           } else {
+               setHighlight(null);
+           }
+       }
+
+       private void resetHighlight() {
+           setOpaque(false);
+           setBackground(new Color(0,0,0,0));
+           posLabel.setForeground(LABEL_WHITE);
+           valLabel.setForeground(LABEL_WHITE);
+       }
+   }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backGround;
