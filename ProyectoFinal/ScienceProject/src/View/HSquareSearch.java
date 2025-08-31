@@ -488,6 +488,7 @@ public class HSquareSearch extends javax.swing.JFrame {
         }
     }
     
+    
     private void animateSearch(java.util.List<Integer> steps, int foundIndex) {
         clearHighlights();
         final int[] idx = {0};

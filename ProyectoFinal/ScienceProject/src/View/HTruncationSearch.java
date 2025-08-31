@@ -17,9 +17,9 @@ import javax.swing.border.LineBorder;
  *
  * @author Brayan
  */
-public class HSquareSearch extends javax.swing.JFrame {
+public class HTruncationSearch extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HSquareSearch.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HTruncationSearch.class.getName());
     
     private static final Color BG = new Color(18, 18, 18);
     private static final Color MINT = new Color(124, 212, 187);
@@ -31,11 +31,11 @@ public class HSquareSearch extends javax.swing.JFrame {
     
     int xMouse, yMouse;
     
-    private static HSquareSearch instance;
+    private static HTruncationSearch instance;
     
-    public static HSquareSearch getInstance() {
+    public static HTruncationSearch getInstance() {
         if (instance == null) {
-            instance = new HSquareSearch();
+            instance = new HTruncationSearch();
         }
         return instance;
     }
@@ -43,7 +43,7 @@ public class HSquareSearch extends javax.swing.JFrame {
     /**
      * Creates new form LinealSearch
      */
-    public HSquareSearch() {
+    public HTruncationSearch() {
         setNimbusLookAndFeel();
         initComponents();
         initArrayVisualizer();
@@ -107,7 +107,7 @@ public class HSquareSearch extends javax.swing.JFrame {
         logo.setFont(new java.awt.Font("Calibri", 3, 48)); // NOI18N
         logo.setForeground(new java.awt.Color(124, 212, 187));
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/HasMidSquareTitle.png"))); // NOI18N
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/HashTruncationTitlepng.png"))); // NOI18N
         backGround.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 870, 150));
 
         volverTxt.setFont(new java.awt.Font("Cambria Math", 0, 48)); // NOI18N
@@ -425,28 +425,34 @@ public class HSquareSearch extends javax.swing.JFrame {
     
 
 
-    public static int middleSquareHash(int clave, int tamañoArreglo) {
+    public static int truncationHash(int clave, int tamañoArreglo) {
+        String claveTxt = String.valueOf(clave);
+
+        // cantidad de dígitos necesarios = número de dígitos del tamaño del arreglo - 1
+        int digitsNeeded = String.valueOf(tamañoArreglo).length() - 1;
+        if (digitsNeeded <= 0) digitsNeeded = 1;
+
+        // si la clave tiene menos dígitos de los necesarios, se usa tal cual
+        String part;
+        if (claveTxt.length() <= digitsNeeded) {
+            part = claveTxt;
+        } else {
+            // tomamos los últimos 'digitsNeeded' dígitos de la clave
+            part = claveTxt.substring(claveTxt.length() - digitsNeeded);
+        }
+
+        int index = Integer.parseInt(part) % tamañoArreglo;
         
-        long square = (long) clave * clave;
-        String squareTxt = Long.toString(square);
-
-        int length = String.valueOf(tamañoArreglo).length(); 
-        int need = length - 1; // cantidad de dígitos centrales requeridos
-
-        // índice de inicio: punto medio - la mitad de los dígitos que necesito
-        int start = (squareTxt.length() - need) / 2;
-        int end = start + need;
-
-        String hash = squareTxt.substring(start, end);
         
-        return Integer.valueOf(hash);
+        return index;
     }
+
     
     private void onInsert() {
         try {
             int value = Integer.parseInt(txtInsertValue.getText().trim());
             int n = array.length;
-            int index = middleSquareHash(value, n);
+            int index = truncationHash(value, n);
 
             if (array[index] == null) {
                 array[index] = value;
@@ -474,7 +480,7 @@ public class HSquareSearch extends javax.swing.JFrame {
             clearHighlights();
 
             final int n = array.length;
-            final int index = middleSquareHash(value, n);
+            final int index = truncationHash(value, n);
 
             java.util.List<Integer> steps = new java.util.ArrayList<>();
             steps.add(index);
@@ -487,6 +493,7 @@ public class HSquareSearch extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Valor de búsqueda inválido", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
     
     private void animateSearch(java.util.List<Integer> steps, int foundIndex) {
         clearHighlights();
