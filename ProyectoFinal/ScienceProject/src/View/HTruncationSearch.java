@@ -6,9 +6,12 @@ package View;
 
 import java.awt.Color;
 import java.awt.*;
+import java.io.File;
+import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
@@ -88,8 +91,8 @@ public class HTruncationSearch extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnOpen = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         txtInsertValue = new javax.swing.JTextField();
         txtSearchValue = new javax.swing.JTextField();
@@ -208,13 +211,13 @@ public class HTruncationSearch extends javax.swing.JFrame {
         jLabel4.setText("Buscar Clave");
         backGround.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 180, -1, -1));
 
-        jButton1.setFont(new java.awt.Font("Cambria Math", 1, 36)); // NOI18N
-        jButton1.setText("Guardar");
-        backGround.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 160, -1, -1));
+        btnSave.setFont(new java.awt.Font("Cambria Math", 1, 36)); // NOI18N
+        btnSave.setText("Guardar");
+        backGround.add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 160, -1, -1));
 
-        jButton2.setFont(new java.awt.Font("Cambria Math", 1, 36)); // NOI18N
-        jButton2.setText("Abrir");
-        backGround.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 230, -1, -1));
+        btnOpen.setFont(new java.awt.Font("Cambria Math", 1, 36)); // NOI18N
+        btnOpen.setText("Abrir");
+        backGround.add(btnOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 230, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
@@ -443,9 +446,104 @@ public class HTruncationSearch extends javax.swing.JFrame {
         btnSearch.addActionListener(e -> onSearch());
         btnDelete.addActionListener(e -> onDelete());
 
-        // crear arreglo inicial
-        //onCreateArray();
+        // Botones de guardado y importacion de archivo
+        btnSave.addActionListener(e -> guardarArray(array));
+        btnOpen.addActionListener(e -> {
+            Integer[] nuevoArray = abrirArray();
+            if (nuevoArray != null) {
+                array = nuevoArray;
+                refreshCellsUI(); // método tuyo para actualizar la vista
+            }
+        });
+        
     }
+    
+    
+    // --------- Guardado y Recuperacion de Archivos ----------------------------
+    
+    private void guardarArray(Integer[] array) {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Archivos de Búsqueda Hash Truncamiento", "trk"));
+
+        int option = fileChooser.showSaveDialog(this);
+        if (option == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+
+            // Asegurar extensión .bin.busq
+            if (!file.getName().toLowerCase().endsWith(".trk")) {
+                file = new File(file.getParentFile(), file.getName() + ".trk");
+            }
+
+            try (PrintWriter writer = new PrintWriter(file)) {
+                // Guardamos longitudClaves en la primera línea (o vacío si es null)
+                if (longitudClaves == null) {
+                    writer.println("");
+                } else {
+                    writer.println(longitudClaves);
+                }
+                
+                for (Integer num : array) {
+                    if (num == null) {
+                        writer.println("");
+                    } else {
+                        writer.println(num);
+                    }
+                    
+                }
+                JOptionPane.showMessageDialog(this, "Archivo guardado correctamente.");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
+    private Integer[] abrirArray() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Archivos de Búsqueda Hash Truncamiento", "trk"));
+
+        int option = fileChooser.showOpenDialog(this);
+        if (option == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+
+            // Validar que el archivo tenga la extensión correcta
+            if (!file.getName().toLowerCase().endsWith(".trk")) {
+                JOptionPane.showMessageDialog(this, "El archivo seleccionado no corresponde a una búsqueda Hash Truncamiento.",
+                        "Extensión incorrecta", JOptionPane.WARNING_MESSAGE);
+                return null;
+            }
+
+            try (Scanner scanner = new Scanner(file)) {
+                java.util.List<Integer> lista = new java.util.ArrayList<>();
+                
+                // Primera línea = longitudClaves
+                if (scanner.hasNextLine()) {
+                    String linea = scanner.nextLine().trim();
+                    if (linea.isEmpty()) {
+                        longitudClaves = null;
+                    } else {
+                        longitudClaves = Integer.parseInt(linea);
+                    }
+                }
+                while (scanner.hasNextLine()) {
+                    String linea = scanner.nextLine().trim();
+                    
+                    if (!linea.isEmpty()) {
+                        lista.add(Integer.parseInt(linea));
+                    } else {
+                        lista.add(null);
+                    }
+                }
+                JOptionPane.showMessageDialog(this, "Archivo cargado correctamente.");
+                return lista.toArray(new Integer[0]);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al abrir: " + e.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        return null;
+    }
+
     
     // --------- OPERACIONES (Crea/Insertar/Buscar/Modificar/Eliminar) ----------
     private void onCreateArray() {
@@ -787,10 +885,10 @@ public class HTruncationSearch extends javax.swing.JFrame {
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnInsert;
+    private javax.swing.JButton btnOpen;
+    private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;
     private javax.swing.JPanel dragPanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
