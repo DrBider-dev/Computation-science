@@ -6,7 +6,9 @@ package View;
 
 import java.awt.Color;
 import java.awt.*;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -20,11 +22,13 @@ public class BinarySearch extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BinarySearch.class.getName());
     
-    private static final Color BG = new Color(18, 18, 18);
+    private static final Color BG = new Color(255, 255, 255);
     private static final Color MINT = new Color(124, 212, 187);
-    private static final Color LABEL_WHITE = Color.WHITE;
+    private static final Color LABEL_BLACK = Color.black;
     private static final int CELL_WIDTH = 100;
     private static final int CELL_HEIGHT = 70;
+    private Integer longitudClaves = null; 
+
     
     private Integer[] array; // modelo del arreglo (null = vacío)
     
@@ -76,23 +80,25 @@ public class BinarySearch extends javax.swing.JFrame {
         dragPanel = new javax.swing.JPanel();
         txtTamaño = new javax.swing.JLabel();
         txtSize = new javax.swing.JTextField();
-        btnCreate = new javax.swing.JButton();
         txtValor = new javax.swing.JLabel();
-        txtInsertValue = new javax.swing.JTextField();
-        btnInsert = new javax.swing.JButton();
         txtBuscar = new javax.swing.JLabel();
-        txtSearchValue = new javax.swing.JTextField();
-        btnSearch = new javax.swing.JButton();
-        txtModificarIndice = new javax.swing.JLabel();
-        txtModifyIndex = new javax.swing.JTextField();
-        txtNuevoValor = new javax.swing.JLabel();
-        txtModifyValue = new javax.swing.JTextField();
-        btnModify = new javax.swing.JButton();
         txtEliminar = new javax.swing.JLabel();
-        txtDeleteIndex = new javax.swing.JTextField();
-        btnDelete = new javax.swing.JButton();
         scrollPaneCells = new javax.swing.JScrollPane();
         panelCells = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        txtInsertValue = new javax.swing.JTextField();
+        txtSearchValue = new javax.swing.JTextField();
+        txtDeleteIndex = new javax.swing.JTextField();
+        btnCreate = new javax.swing.JButton();
+        btnInsert = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hash&Seek");
@@ -100,17 +106,18 @@ public class BinarySearch extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        backGround.setBackground(new java.awt.Color(18, 18, 18));
+        backGround.setBackground(new java.awt.Color(255, 255, 255));
+        backGround.setForeground(new java.awt.Color(0, 0, 0));
         backGround.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         logo.setFont(new java.awt.Font("Calibri", 3, 48)); // NOI18N
         logo.setForeground(new java.awt.Color(124, 212, 187));
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/BinarySearchTitle.png"))); // NOI18N
-        backGround.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, 700, 150));
+        backGround.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 840, 120));
 
         volverTxt.setFont(new java.awt.Font("Cambria Math", 0, 48)); // NOI18N
-        volverTxt.setForeground(new java.awt.Color(255, 255, 255));
+        volverTxt.setForeground(new java.awt.Color(0, 0, 0));
         volverTxt.setText("< Volver");
         volverTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         volverTxt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -126,7 +133,7 @@ public class BinarySearch extends javax.swing.JFrame {
         });
         backGround.add(volverTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
-        dragPanel.setBackground(new java.awt.Color(18, 18, 18));
+        dragPanel.setBackground(new java.awt.Color(255, 255, 255));
         dragPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
         dragPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -152,24 +159,80 @@ public class BinarySearch extends javax.swing.JFrame {
 
         backGround.add(dragPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 50));
 
-        txtTamaño.setForeground(new java.awt.Color(255, 255, 255));
+        txtTamaño.setForeground(new java.awt.Color(0, 0, 0));
         txtTamaño.setText("Tamaño:");
-        backGround.add(txtTamaño, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
+        backGround.add(txtTamaño, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, 30));
 
-        txtSize.setBackground(new java.awt.Color(102, 102, 102));
-        txtSize.setForeground(new java.awt.Color(255, 255, 255));
+        txtSize.setBackground(new java.awt.Color(255, 255, 255));
+        txtSize.setForeground(new java.awt.Color(0, 0, 0));
         txtSize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSizeActionPerformed(evt);
             }
         });
-        backGround.add(txtSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 100, -1));
+        backGround.add(txtSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, 80, 30));
 
+        txtValor.setForeground(new java.awt.Color(0, 0, 0));
+        txtValor.setText("clave:");
+        backGround.add(txtValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 220, -1, 30));
+
+        txtBuscar.setForeground(new java.awt.Color(0, 0, 0));
+        txtBuscar.setText("Buscar:");
+        backGround.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 220, -1, 30));
+
+        txtEliminar.setForeground(new java.awt.Color(0, 0, 0));
+        txtEliminar.setText("Eliminar:");
+        backGround.add(txtEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 220, -1, 30));
+
+        panelCells.setBackground(new java.awt.Color(255, 255, 255));
+        scrollPaneCells.setViewportView(panelCells);
+
+        backGround.add(scrollPaneCells, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 1250, 360));
+
+        jLabel1.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Eliminar Clave");
+        backGround.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 180, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Crear estructura");
+        backGround.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Insertar Clave");
+        backGround.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Buscar Clave");
+        backGround.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 180, -1, -1));
+
+        jButton1.setFont(new java.awt.Font("Cambria Math", 1, 36)); // NOI18N
+        jButton1.setText("Guardar");
+        backGround.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 160, -1, -1));
+
+        jButton2.setFont(new java.awt.Font("Cambria Math", 1, 36)); // NOI18N
+        jButton2.setText("Abrir");
+        backGround.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 230, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
+
+        txtInsertValue.setBackground(new java.awt.Color(255, 255, 255));
+        txtInsertValue.setForeground(new java.awt.Color(0, 0, 0));
+
+        txtSearchValue.setBackground(new java.awt.Color(255, 255, 255));
+        txtSearchValue.setForeground(new java.awt.Color(0, 0, 0));
+
+        txtDeleteIndex.setBackground(new java.awt.Color(255, 255, 255));
+        txtDeleteIndex.setForeground(new java.awt.Color(0, 0, 0));
+
+        btnCreate.setBackground(new java.awt.Color(51, 51, 51));
         btnCreate.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
         btnCreate.setForeground(new java.awt.Color(255, 255, 255));
-        btnCreate.setText("Crear arreglo");
+        btnCreate.setText("Crear");
         btnCreate.setBorder(null);
-        btnCreate.setContentAreaFilled(false);
         btnCreate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCreate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -179,21 +242,17 @@ public class BinarySearch extends javax.swing.JFrame {
                 btnCreateMouseExited(evt);
             }
         });
-        backGround.add(btnCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 120, 30));
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
 
-        txtValor.setForeground(new java.awt.Color(255, 255, 255));
-        txtValor.setText("Valor:");
-        backGround.add(txtValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, -1, -1));
-
-        txtInsertValue.setBackground(new java.awt.Color(102, 102, 102));
-        txtInsertValue.setForeground(new java.awt.Color(255, 255, 255));
-        backGround.add(txtInsertValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 70, -1));
-
+        btnInsert.setBackground(new java.awt.Color(51, 51, 51));
         btnInsert.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
         btnInsert.setForeground(new java.awt.Color(255, 255, 255));
         btnInsert.setText("Insertar");
         btnInsert.setBorder(null);
-        btnInsert.setContentAreaFilled(false);
         btnInsert.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInsert.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -208,21 +267,12 @@ public class BinarySearch extends javax.swing.JFrame {
                 btnInsertActionPerformed(evt);
             }
         });
-        backGround.add(btnInsert, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, -1, -1));
 
-        txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        txtBuscar.setText("Buscar:");
-        backGround.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, -1, -1));
-
-        txtSearchValue.setBackground(new java.awt.Color(102, 102, 102));
-        txtSearchValue.setForeground(new java.awt.Color(255, 255, 255));
-        backGround.add(txtSearchValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, 80, -1));
-
+        btnSearch.setBackground(new java.awt.Color(51, 51, 51));
         btnSearch.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
         btnSearch.setForeground(new java.awt.Color(255, 255, 255));
         btnSearch.setText("Buscar");
         btnSearch.setBorder(null);
-        btnSearch.setContentAreaFilled(false);
         btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -232,58 +282,12 @@ public class BinarySearch extends javax.swing.JFrame {
                 btnSearchMouseExited(evt);
             }
         });
-        backGround.add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, -1, -1));
 
-        txtModificarIndice.setForeground(new java.awt.Color(255, 255, 255));
-        txtModificarIndice.setText("Indice:");
-        backGround.add(txtModificarIndice, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 210, -1, -1));
-
-        txtModifyIndex.setBackground(new java.awt.Color(102, 102, 102));
-        txtModifyIndex.setForeground(new java.awt.Color(255, 255, 255));
-        backGround.add(txtModifyIndex, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 210, 80, -1));
-
-        txtNuevoValor.setForeground(new java.awt.Color(255, 255, 255));
-        txtNuevoValor.setText("Nuevo Valor:");
-        backGround.add(txtNuevoValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 210, -1, -1));
-
-        txtModifyValue.setBackground(new java.awt.Color(102, 102, 102));
-        txtModifyValue.setForeground(new java.awt.Color(255, 255, 255));
-        txtModifyValue.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtModifyValueActionPerformed(evt);
-            }
-        });
-        backGround.add(txtModifyValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 210, 90, -1));
-
-        btnModify.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
-        btnModify.setForeground(new java.awt.Color(255, 255, 255));
-        btnModify.setText("Modificar");
-        btnModify.setBorder(null);
-        btnModify.setContentAreaFilled(false);
-        btnModify.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnModify.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnModifyMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnModifyMouseExited(evt);
-            }
-        });
-        backGround.add(btnModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 250, -1, -1));
-
-        txtEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        txtEliminar.setText("Indice a Eliminar:");
-        backGround.add(txtEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 210, -1, -1));
-
-        txtDeleteIndex.setBackground(new java.awt.Color(102, 102, 102));
-        txtDeleteIndex.setForeground(new java.awt.Color(255, 255, 255));
-        backGround.add(txtDeleteIndex, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 210, 80, -1));
-
+        btnDelete.setBackground(new java.awt.Color(51, 51, 51));
         btnDelete.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("Eliminar");
         btnDelete.setBorder(null);
-        btnDelete.setContentAreaFilled(false);
         btnDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -293,12 +297,54 @@ public class BinarySearch extends javax.swing.JFrame {
                 btnDeleteMouseExited(evt);
             }
         });
-        backGround.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 250, -1, -1));
 
-        panelCells.setBackground(new java.awt.Color(18, 18, 18));
-        scrollPaneCells.setViewportView(panelCells);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(200, 200, 200)
+                        .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(166, 166, 166)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                        .addGap(16, 16, 16))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(374, 374, 374)
+                        .addComponent(txtInsertValue, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtSearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(txtDeleteIndex, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(310, 310, 310))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtInsertValue, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addComponent(txtSearchValue)
+                    .addComponent(txtDeleteIndex))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
 
-        backGround.add(scrollPaneCells, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 1250, 360));
+        backGround.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 1260, 170));
 
         getContentPane().add(backGround, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
 
@@ -310,7 +356,7 @@ public class BinarySearch extends javax.swing.JFrame {
     }//GEN-LAST:event_volverTxtMouseEntered
 
     private void volverTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverTxtMouseExited
-        volverTxt.setForeground(Color.WHITE);
+        volverTxt.setForeground(Color.black);
     }//GEN-LAST:event_volverTxtMouseExited
 
     private void volverTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverTxtMouseClicked
@@ -337,10 +383,6 @@ public class BinarySearch extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnInsertActionPerformed
 
-    private void txtModifyValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtModifyValueActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtModifyValueActionPerformed
-
     private void btnCreateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateMouseEntered
         btnCreate.setForeground(MINT);
     }//GEN-LAST:event_btnCreateMouseEntered
@@ -362,16 +404,8 @@ public class BinarySearch extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSearchMouseEntered
 
     private void btnSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseExited
-        btnSearch.setForeground(Color.white);
+        btnSearch.setForeground(Color.WHITE);
     }//GEN-LAST:event_btnSearchMouseExited
-
-    private void btnModifyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModifyMouseEntered
-        btnModify.setForeground(MINT);
-    }//GEN-LAST:event_btnModifyMouseEntered
-
-    private void btnModifyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModifyMouseExited
-        btnModify.setForeground(Color.WHITE);
-    }//GEN-LAST:event_btnModifyMouseExited
 
     private void btnDeleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseEntered
         btnDelete.setForeground(MINT);
@@ -380,6 +414,10 @@ public class BinarySearch extends javax.swing.JFrame {
     private void btnDeleteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseExited
         btnDelete.setForeground(Color.WHITE);
     }//GEN-LAST:event_btnDeleteMouseExited
+
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCreateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -404,7 +442,6 @@ public class BinarySearch extends javax.swing.JFrame {
         btnCreate.addActionListener(e -> onCreateArray());
         btnInsert.addActionListener(e -> onInsert());
         btnSearch.addActionListener(e -> onSearch());
-        btnModify.addActionListener(e -> onModify());
         btnDelete.addActionListener(e -> onDelete());
 
         // crear arreglo inicial
@@ -416,52 +453,76 @@ public class BinarySearch extends javax.swing.JFrame {
         try {
             int size = Math.max(1, Integer.parseInt(txtSize.getText().trim()));
             array = new Integer[size];
+            longitudClaves = null;
             refreshCellsUI();
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Tamaño inválido", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
     private void onInsert() {
         try {
-            int value = Integer.parseInt(txtInsertValue.getText().trim());
-
-            int free = -1;
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == null) { 
-                    free = i; 
-                    break; 
-                }
-            }
-            if (free == -1) {
-                JOptionPane.showMessageDialog(this, "No hay espacio libre", "Info", JOptionPane.INFORMATION_MESSAGE);
+            if (array == null) {
+                JOptionPane.showMessageDialog(this, "Por Favor cree la Estructura", "Estructura no creada", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            array[free] = value;
+            String input = txtInsertValue.getText().trim();
 
-            // Ordenar el arreglo manteniendo los nulls al final
-            ArrayList<Integer> nonNullList = new ArrayList<>();
-            ArrayList<Integer> nullList = new ArrayList<>();
+            // validar si es número
+            int value = Integer.parseInt(input);
 
-            for (Integer element : array) {
-                if (element != null) {
-                    nonNullList.add(element);
-                } else {
-                    nullList.add(null);
+            // 1. validar longitud de la clave
+            if (longitudClaves == null) {
+                // primera inserción: fijamos la longitud estándar
+                longitudClaves = input.length();
+            } else if (input.length() != longitudClaves) {
+                JOptionPane.showMessageDialog(this,
+                    "Todas las claves deben tener " + longitudClaves + " dígitos",
+                    "Longitud inválida",
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // 2. validar si la clave ya existe (no claves repetidas)
+            for (Integer existing : array) {
+                if (existing != null && existing == value) {
+                    JOptionPane.showMessageDialog(this,
+                        "La clave " + value + " ya existe en la tabla",
+                        "Clave repetida",
+                        JOptionPane.WARNING_MESSAGE);
+                    return;
                 }
             }
 
-            Collections.sort(nonNullList); // Ordena los valores no nulos
+            // 3. buscar primer espacio libre (inserción lineal)
+            int freeIndex = -1;
+            for (int i = 0; i < array.length; i++) {
+                if (array[i] == null) {
+                    freeIndex = i;
+                    break;
+                }
+            }
 
-            // Combinar listas: primero los valores ordenados, luego los nulls
-            ArrayList<Integer> sortedList = new ArrayList<>();
-            sortedList.addAll(nonNullList);
-            sortedList.addAll(nullList);
+            if (freeIndex == -1) {
+                JOptionPane.showMessageDialog(this,
+                    "No se pudo insertar, la tabla está llena",
+                    "Tabla llena",
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
-            // Convertir la lista ordenada de vuelta al arreglo
-            array = sortedList.toArray(new Integer[0]);
+            array[freeIndex] = value;
+
+            // 4. ordenar el array dejando nulls al final
+            Arrays.sort(array, (a, b) -> {
+                if (a == null && b == null) return 0;
+                if (a == null) return 1;  // nulls al final
+                if (b == null) return -1;
+                return Integer.compare(a, b);
+            });
 
             refreshCellsUI();
+
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Valor inválido", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -469,119 +530,183 @@ public class BinarySearch extends javax.swing.JFrame {
 
     private void onSearch() {
         try {
-            final int value = Integer.parseInt(txtSearchValue.getText().trim());
+            String input = txtSearchValue.getText().trim();
+
+            // validar si es número
+            final int value = Integer.parseInt(input);
+
+            // 1. validar longitud de la clave
+            if (longitudClaves == null) {
+                JOptionPane.showMessageDialog(this, 
+                    "Debe insertar al menos una clave", 
+                    "Estructura vacía", 
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (input.length() != longitudClaves) {
+                JOptionPane.showMessageDialog(this,
+                    "Todas las claves deben tener " + longitudClaves + " dígitos",
+                    "Longitud inválida",
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
             clearHighlights();
 
-            // Preparar la secuencia de pasos de la búsqueda binaria (sin UI)
             java.util.List<Integer> steps = new java.util.ArrayList<>();
-            int low = 0;
-            int high = array.length - 1;
-            boolean found = false;
             int foundIndex = -1;
 
+            int low = 0;
+            int high = array.length - 1;
+
             while (low <= high) {
-                int mid = (low + high) / 2;
+                int mid = (low + high) / 2; // siempre redondea hacia la izquierda
                 steps.add(mid);
-                Integer midVal = array[mid];
-                if (midVal != null && midVal == value) {
-                    found = true;
+
+                if (array[mid] == null) {
+                    // si es null, no podemos comparar, pero seguimos buscando
+                    // para mantener la animación intacta
+                    // asumimos que seguimos el algoritmo estándar y reducimos el rango
+                    // para evitar bucles infinitos, podemos mover el high hacia la izquierda
+                    high = mid - 1;
+                    continue;
+                }
+
+                if (array[mid] == value) {
                     foundIndex = mid;
                     break;
-                } else if (midVal != null && midVal < value) {
+                } else if (array[mid] < value) {
                     low = mid + 1;
                 } else {
                     high = mid - 1;
                 }
             }
 
-            if (steps.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Valor no encontrado", "Buscar", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-
-            // Hacer copias finales para la lambda (evita el error "must be final or effectively final")
-            final boolean finalFound = found;
-            final int finalFoundIndex = foundIndex;
-
-            // Animación paso a paso
-            final int[] stepIdx = {0};
-            txtSearchValue.setEnabled(false);
-
-            Timer timer = new Timer(450, null); // 450 ms por paso
-            timer.addActionListener(evt -> {
-                if (stepIdx[0] >= steps.size()) {
-                    // Si llegó al final sin encontrar
-                    if (!finalFound) {
-                        JOptionPane.showMessageDialog(this, "Valor no encontrado", "Buscar", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                    txtSearchValue.setEnabled(true);
-                    timer.stop();
-                    return;
-                }
-
-                int mid = steps.get(stepIdx[0]);
-                CellPanel cell = getCellPanel(mid);
-                if (cell == null) {
-                    stepIdx[0]++;
-                    return;
-                }
-
-                if (finalFound && mid == finalFoundIndex) {
-                    // marcar el encontrado en verde menta y detener animación
-                    cell.setHighlight(MINT);
-                    scrollCellToVisible(mid);
-                    txtSearchValue.setEnabled(true);
-                    timer.stop();
-                    return;
-                } else {
-                    // marcar como descartado (rojo)
-                    cell.setHighlight(Color.RED);
-                    scrollCellToVisible(mid);
-                }
-
-                stepIdx[0]++;
-            });
-
-            timer.setInitialDelay(0);
-            timer.start();
+            animateSearch(steps, foundIndex);
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Valor de búsqueda inválido", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
     
-    private void onModify() {
-        try {
-            int idx = Integer.parseInt(txtModifyIndex.getText().trim());
-            int val = Integer.parseInt(txtModifyValue.getText().trim());
-            if (idx < 1 || idx > array.length) {
-                JOptionPane.showMessageDialog(this, "Índice fuera de rango", "Error", JOptionPane.ERROR_MESSAGE);
+    private void animateSearch(java.util.List<Integer> steps, int foundIndex) {
+        clearHighlights();
+        final int[] idx = {0};
+        txtSearchValue.setEnabled(false);
+
+        Timer timer = new Timer(450, null);
+        timer.addActionListener(evt -> {
+            if (idx[0] >= steps.size()) {
+                if (foundIndex == -1) {
+                    JOptionPane.showMessageDialog(this,
+                        "Valor no encontrado (colisión o nunca insertado)",
+                        "Buscar",
+                        JOptionPane.INFORMATION_MESSAGE);
+                }
+                txtSearchValue.setEnabled(true);
+                timer.stop();
                 return;
             }
-            array[idx-1] = val;
-            refreshCellsUI();
-            highlightCell(idx-1);
-            scrollCellToVisible(idx-1);
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Índice o valor inválido", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+
+            int pos = steps.get(idx[0]);
+            CellPanel cell = getCellPanel(pos);
+            if (cell != null) {
+                if (pos == foundIndex) {
+                    // encontrado → verde
+                    cell.setHighlight(MINT);
+                    scrollCellToVisible(pos);
+                    txtSearchValue.setEnabled(true);
+                    timer.stop();
+                    return;
+                } else {
+                    // descartado → rojo
+                    cell.setHighlight(Color.RED);
+                    scrollCellToVisible(pos);
+                }
+            }
+            idx[0]++;
+        });
+
+        timer.setInitialDelay(0);
+        timer.start();
     }
 
     private void onDelete() {
         try {
-            int idx = Integer.parseInt(txtDeleteIndex.getText().trim());
-            if (idx < 1 || idx > array.length) {
-                JOptionPane.showMessageDialog(this, "Índice fuera de rango", "Error", JOptionPane.ERROR_MESSAGE);
+            String input = txtDeleteIndex.getText().trim();
+
+            // validar si es número
+            int value = Integer.parseInt(input);
+
+            // 1. validar longitud de la clave
+            if (longitudClaves == null) {
+                JOptionPane.showMessageDialog(this, 
+                    "Debe insertar al menos una clave", 
+                    "Estructura vacía", 
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (input.length() != longitudClaves) {
+                JOptionPane.showMessageDialog(this,
+                    "Todas las claves deben tener " + longitudClaves + " dígitos",
+                    "Longitud inválida",
+                    JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            array[idx-1] = null;
-            refreshCellsUI();
+
+            // 2. búsqueda binaria
+            int low = 0;
+            int high = array.length - 1;
+
+            // ignorar los nulls al final
+            while (high >= 0 && array[high] == null) {
+                high--;
+            }
+
+            int foundIndex = -1;
+            while (low <= high) {
+                int mid = (low + high) / 2; // mitad izquierda si no es exacta
+
+                if (array[mid] == null) break; // no debería pasar
+
+                if (array[mid] == value) {
+                    foundIndex = mid;
+                    break;
+                } else if (array[mid] < value) {
+                    low = mid + 1;
+                } else {
+                    high = mid - 1;
+                }
+            }
+
+            // 3. eliminar si existe
+            if (foundIndex != -1) {
+                array[foundIndex] = null;
+
+                // ordenar dejando nulls al final
+                Arrays.sort(array, (a, b) -> {
+                    if (a == null && b == null) return 0;
+                    if (a == null) return 1;  // nulls al final
+                    if (b == null) return -1;
+                    return Integer.compare(a, b);
+                });
+
+                refreshCellsUI();
+
+                JOptionPane.showMessageDialog(this, 
+                    "Clave " + value + " eliminada correctamente",
+                    "Eliminado",
+                    JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, 
+                    "La clave " + value + " no se encuentra en la tabla",
+                    "No encontrado",
+                    JOptionPane.WARNING_MESSAGE);
+            }
+
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Índice inválido", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Clave inválida", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     // --------- UI: refresco y utilidades ----------
     private void refreshCellsUI() {
         panelCells.removeAll();
@@ -649,84 +774,89 @@ public class BinarySearch extends javax.swing.JFrame {
     }
     
     
- // --------- Clase interna para la celda ----------
-private class CellPanel extends JPanel {
-    private JLabel posLabel;
-    private JLabel valLabel;
+    // --------- Clase interna para la celda ----------
+    private class CellPanel extends JPanel {
+        private JLabel posLabel;
+        private JLabel valLabel;
 
-    public CellPanel(int position, Integer value) {
-        setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(CELL_WIDTH, CELL_HEIGHT));
-        setMaximumSize(new Dimension(CELL_WIDTH, CELL_HEIGHT));
-        setBackground(new Color(0,0,0,0));
-        setOpaque(false);
-        setBorder(new LineBorder(Color.WHITE, 1, true));
+        public CellPanel(int position, Integer value) {
+            setLayout(new BorderLayout());
+            setPreferredSize(new Dimension(CELL_WIDTH, CELL_HEIGHT));
+            setMaximumSize(new Dimension(CELL_WIDTH, CELL_HEIGHT));
+            setBackground(new Color(0,0,0,0));
+            setOpaque(false);
+            setBorder(new LineBorder(Color.black, 1, true));
 
-        posLabel = new JLabel(String.valueOf(position), SwingConstants.CENTER);
-        posLabel.setForeground(LABEL_WHITE);
-        posLabel.setFont(getFont().deriveFont(Font.PLAIN, 12f));
-        posLabel.setOpaque(false);
-        posLabel.setBorder(BorderFactory.createEmptyBorder(4,4,0,4));
+            posLabel = new JLabel(String.valueOf(position), SwingConstants.CENTER);
+            posLabel.setForeground(LABEL_BLACK);
+            posLabel.setFont(getFont().deriveFont(Font.PLAIN, 12f));
+            posLabel.setOpaque(false);
+            posLabel.setBorder(BorderFactory.createEmptyBorder(4,4,0,4));
 
-        valLabel = new JLabel(value == null ? "" : String.valueOf(value), SwingConstants.CENTER);
-        valLabel.setForeground(LABEL_WHITE);
-        valLabel.setFont(getFont().deriveFont(Font.BOLD, 18f));
-        valLabel.setOpaque(false);
-        valLabel.setBorder(BorderFactory.createEmptyBorder(0,4,6,4));
+            valLabel = new JLabel(value == null ? "" : String.valueOf(value), SwingConstants.CENTER);
+            valLabel.setForeground(LABEL_BLACK);
+            valLabel.setFont(getFont().deriveFont(Font.BOLD, 18f));
+            valLabel.setOpaque(false);
+            valLabel.setBorder(BorderFactory.createEmptyBorder(0,4,6,4));
 
-        add(posLabel, BorderLayout.NORTH);
-        add(valLabel, BorderLayout.CENTER);
-    }
+            add(posLabel, BorderLayout.NORTH);
+            add(valLabel, BorderLayout.CENTER);
+        }
 
-    /**
-     * General highlight method:
-     * - bgColor != null -> apply background color (and choose text color depending on bg)
-     * - bgColor == null -> reset to default (transparent + white labels)
-     */
-    public void setHighlight(Color bgColor) {
-        if (bgColor != null) {
-            setOpaque(true);
-            setBackground(bgColor);
-            // texto en negro para mint (mejor contraste) y en blanco para rojo u otros fondos oscuros
-            if (Color.RED.equals(bgColor)) {
-                posLabel.setForeground(Color.WHITE);
-                valLabel.setForeground(Color.WHITE);
+        /**
+         * General highlight method:
+         * - bgColor != null -> apply background color (and choose text color depending on bg)
+         * - bgColor == null -> reset to default (transparent + white labels)
+         */
+        public void setHighlight(Color bgColor) {
+            if (bgColor != null) {
+                setOpaque(true);
+                setBackground(bgColor);
+                // texto en negro para mint (mejor contraste) y en blanco para rojo u otros fondos oscuros
+                if (Color.RED.equals(bgColor)) {
+                    posLabel.setForeground(Color.WHITE);
+                    valLabel.setForeground(Color.WHITE);
+                } else {
+                    posLabel.setForeground(Color.BLACK);
+                    valLabel.setForeground(Color.BLACK);
+                }
             } else {
-                posLabel.setForeground(Color.BLACK);
-                valLabel.setForeground(Color.BLACK);
+                resetHighlight();
             }
-        } else {
-            resetHighlight();
+            repaint();
         }
-        repaint();
-    }
 
-    // Mantengo la compatibilidad con el método anterior.
-    public void setHighlighted(boolean highlight) {
-        if (highlight) {
-            setHighlight(MINT);
-        } else {
-            setHighlight(null);
+        // Mantengo la compatibilidad con el método anterior.
+        public void setHighlighted(boolean highlight) {
+            if (highlight) {
+                setHighlight(MINT);
+            } else {
+                setHighlight(null);
+            }
+        }
+
+        private void resetHighlight() {
+            setOpaque(false);
+            setBackground(new Color(0,0,0,0));
+            posLabel.setForeground(LABEL_BLACK);
+            valLabel.setForeground(LABEL_BLACK);
         }
     }
-
-    private void resetHighlight() {
-        setOpaque(false);
-        setBackground(new Color(0,0,0,0));
-        posLabel.setForeground(LABEL_WHITE);
-        valLabel.setForeground(LABEL_WHITE);
-    }
-}
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backGround;
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnInsert;
-    private javax.swing.JButton btnModify;
     private javax.swing.JButton btnSearch;
     private javax.swing.JPanel dragPanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel logo;
     private javax.swing.JPanel panelCells;
     private javax.swing.JScrollPane scrollPaneCells;
@@ -734,10 +864,6 @@ private class CellPanel extends JPanel {
     private javax.swing.JTextField txtDeleteIndex;
     private javax.swing.JLabel txtEliminar;
     private javax.swing.JTextField txtInsertValue;
-    private javax.swing.JLabel txtModificarIndice;
-    private javax.swing.JTextField txtModifyIndex;
-    private javax.swing.JTextField txtModifyValue;
-    private javax.swing.JLabel txtNuevoValor;
     private javax.swing.JTextField txtSearchValue;
     private javax.swing.JTextField txtSize;
     private javax.swing.JLabel txtTamaño;

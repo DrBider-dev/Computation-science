@@ -798,10 +798,15 @@ public class PrincipalPage extends javax.swing.JFrame {
 
     private void binarySearchLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_binarySearchLabelMouseEntered
         binarySearchLabel.setForeground(new Color(124, 212, 187));
+        dinamicoTxt.setText("<html> <body style='text-align: center; font-family: Segoe UI, Arial, sans-serif; font-size: 14px;"
+                + " margin: 40px; line-height: 1.6;'> Busqueda Binaria <br> Es un tipo de busqueda que se encarga de buscar en una"
+                + " estructura ordenada, dividiendo la estructura en partes iguales y comparando con la clave original</body> </html>");
+        dinamicoTxt.setVisible(true);
     }//GEN-LAST:event_binarySearchLabelMouseEntered
 
     private void binarySearchLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_binarySearchLabelMouseExited
         binarySearchLabel.setForeground(Color.white);
+        dinamicoTxt.setVisible(false);
     }//GEN-LAST:event_binarySearchLabelMouseExited
 
     private void binarySearchLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_binarySearchLabelMouseClicked
@@ -816,10 +821,15 @@ public class PrincipalPage extends javax.swing.JFrame {
 
     private void hModSearchLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hModSearchLabelMouseEntered
         hModSearchLabel.setForeground(new Color(124, 212, 187));
+        dinamicoTxt.setText("<html> <body style='text-align: center; font-family: Segoe UI, Arial, sans-serif; font-size: 14px;"
+                + " margin: 40px; line-height: 1.6;'> Busqueda Hash Mod <br> Es un tipo de busqueda que se encarga de buscar en una"
+                + " estructura utilizando la operación \"Modulo\" </body> </html>");
+        dinamicoTxt.setVisible(true);
     }//GEN-LAST:event_hModSearchLabelMouseEntered
 
     private void hModSearchLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hModSearchLabelMouseExited
         hModSearchLabel.setForeground(Color.white);
+        dinamicoTxt.setVisible(false);
     }//GEN-LAST:event_hModSearchLabelMouseExited
 
     private void hSquareSearchLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hSquareSearchLabelMouseClicked
@@ -829,10 +839,15 @@ public class PrincipalPage extends javax.swing.JFrame {
 
     private void hSquareSearchLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hSquareSearchLabelMouseEntered
        hSquareSearchLabel.setForeground(new Color(124, 212, 187));
+       dinamicoTxt.setText("<html> <body style='text-align: center; font-family: Segoe UI, Arial, sans-serif; font-size: 14px;"
+                + " margin: 40px; line-height: 1.6;'> Busqueda Hash Medio Cuadrado <br> Es un tipo de busqueda que se encarga de buscar en una"
+                + " estructura usando \"Hashes\" a partir del cuadrado de la clave original </body> </html>");
+        dinamicoTxt.setVisible(true);
     }//GEN-LAST:event_hSquareSearchLabelMouseEntered
 
     private void hSquareSearchLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hSquareSearchLabelMouseExited
         hSquareSearchLabel.setForeground(Color.white);
+        dinamicoTxt.setVisible(false);
     }//GEN-LAST:event_hSquareSearchLabelMouseExited
 
     private void hFoldingSearchLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hFoldingSearchLabelMouseClicked
@@ -842,10 +857,15 @@ public class PrincipalPage extends javax.swing.JFrame {
 
     private void hFoldingSearchLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hFoldingSearchLabelMouseEntered
         hFoldingSearchLabel.setForeground(new Color(124, 212, 187));
+        dinamicoTxt.setText("<html> <body style='text-align: center; font-family: Segoe UI, Arial, sans-serif; font-size: 14px;"
+                + " margin: 40px; line-height: 1.6;'> Busqueda Hash Plegamiento <br> Es un tipo de busqueda que se encarga de buscar en una"
+                + " estructura escogiendo ciertos digitos de la clave original para formar el \"Hash\" o \"dirección\" </body> </html>");
+        dinamicoTxt.setVisible(true);
     }//GEN-LAST:event_hFoldingSearchLabelMouseEntered
 
     private void hFoldingSearchLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hFoldingSearchLabelMouseExited
         hFoldingSearchLabel.setForeground(Color.white);
+        dinamicoTxt.setVisible(false);
     }//GEN-LAST:event_hFoldingSearchLabelMouseExited
 
     private void hTruncationSearchLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hTruncationSearchLabelMouseClicked
@@ -855,10 +875,15 @@ public class PrincipalPage extends javax.swing.JFrame {
 
     private void hTruncationSearchLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hTruncationSearchLabelMouseEntered
         hTruncationSearchLabel.setForeground(new Color(124, 212, 187));
+        dinamicoTxt.setText("<html> <body style='text-align: center; font-family: Segoe UI, Arial, sans-serif; font-size: 14px;"
+                + " margin: 40px; line-height: 1.6;'> Busqueda Hash Truncamiento <br> Es un tipo de busqueda que se encarga de buscar en una"
+                + " estructura separando la clave en partes iguales y aplicando una operacion aritmetica sobre estas partes </body> </html>");
+        dinamicoTxt.setVisible(true);
     }//GEN-LAST:event_hTruncationSearchLabelMouseEntered
 
     private void hTruncationSearchLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hTruncationSearchLabelMouseExited
         hTruncationSearchLabel.setForeground(Color.white);
+        dinamicoTxt.setVisible(false);
     }//GEN-LAST:event_hTruncationSearchLabelMouseExited
 
     private void exitBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitBtnMouseExited
