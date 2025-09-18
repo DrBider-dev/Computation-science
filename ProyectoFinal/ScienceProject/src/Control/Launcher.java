@@ -1,8 +1,12 @@
 package Control;
 
+
+import View.PrincipalPage;
+
 public class Launcher {
     public static void main(String[] args) {
         
-        FacadeControl facadeControl = new FacadeControl();
+        PrincipalPage ventana = PrincipalPage.getInstance();
+        ventana.setVisible(true);
     }
 }

@@ -459,7 +459,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="busquedasExternas">
+            <Container class="javax.swing.JPanel" name="busquedasArboles">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="99" red="66" type="rgb"/>
@@ -548,20 +548,20 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="binarySearchLabel1" alignment="1" pref="240" max="32767" attributes="0"/>
+                          <Component id="residualTreeLabel" alignment="1" pref="240" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="binarySearchLabel1" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="residualTreeLabel" min="-2" pref="50" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="binarySearchLabel1">
+                    <Component class="javax.swing.JLabel" name="residualTreeLabel">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="66" green="66" red="66" type="rgb"/>
@@ -573,15 +573,15 @@
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="Busqueda Binaria"/>
+                        <Property name="text" type="java.lang.String" value="Arbol por Residuos"/>
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                           <Color id="Hand Cursor"/>
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="binarySearchLabel1MouseClicked"/>
-                        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="binarySearchLabel1MouseEntered"/>
-                        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="binarySearchLabel1MouseExited"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="residualTreeLabelMouseClicked"/>
+                        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="residualTreeLabelMouseEntered"/>
+                        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="residualTreeLabelMouseExited"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -596,17 +596,17 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="linealSearchLabel1" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
+                          <Component id="digitalTreeLabel" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="linealSearchLabel1" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="digitalTreeLabel" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="linealSearchLabel1">
+                    <Component class="javax.swing.JLabel" name="digitalTreeLabel">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="24" style="1"/>
@@ -615,15 +615,15 @@
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="Busqueda Lineal"/>
+                        <Property name="text" type="java.lang.String" value="Arboles Digitales"/>
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                           <Color id="Hand Cursor"/>
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="linealSearchLabel1MouseClicked"/>
-                        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="linealSearchLabel1MouseEntered"/>
-                        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="linealSearchLabel1MouseExited"/>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="digitalTreeLabelMouseClicked"/>
+                        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="digitalTreeLabelMouseEntered"/>
+                        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="digitalTreeLabelMouseExited"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -814,7 +814,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="Busquedas Externas"/>
+                    <Property name="text" type="java.lang.String" value="Busquedas Internas"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="btnVolver1">
@@ -865,6 +865,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;body style=&apos;text-align: center; font-family: Segoe UI, Arial, sans-serif; font-size: 14px; margin: 40px; line-height: 1.6;&apos;&gt; BIENVENIDOS &lt;br&gt; Este es un texto de prueba&lt;/body&gt; &lt;/html&gt;"/>
+                    <Property name="horizontalTextPosition" type="int" value="0"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -1000,7 +1001,7 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Desarrollado por Brayan - v0.6.0-beta"/>
+            <Property name="text" type="java.lang.String" value="Desarrollado por Brayan - v0.7.0-beta"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -1020,7 +1021,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="590" y="450" width="680" height="160"/>
+              <AbsoluteConstraints x="590" y="410" width="680" height="160"/>
             </Constraint>
           </Constraints>
         </Component>

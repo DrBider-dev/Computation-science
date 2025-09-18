@@ -3,6 +3,6 @@
         "."
     ],
     "java.project.referencedLibraries": [
-        "c:\\Users\\Brayan\\OneDrive\\Documentos\\University\\Computation-science\\ProyectoFinal\\ScienceProject\\src\\Libraries\\AbsoluteLayout.jar"
+        "Libraries\\AbsoluteLayout.jar"
     ]
 }
