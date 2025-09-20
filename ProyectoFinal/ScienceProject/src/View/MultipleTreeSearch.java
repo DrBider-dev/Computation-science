@@ -36,6 +36,15 @@ public class MultipleTreeSearch extends JFrame {
     private JButton deleteBtn, insertAnimateBtn, resetBtn, saveBtn, saveExitBtn, loadBtn;
     private JSpinner speedSpinner;
 
+    private static MultipleTreeSearch instance;
+
+    public static MultipleTreeSearch getInstance() {
+        if (instance == null) {
+            instance = new MultipleTreeSearch();
+        }
+        return instance;
+    }
+
     public MultipleTreeSearch() {
         super("Arbol por Residuos Multiples");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -166,14 +175,6 @@ public class MultipleTreeSearch extends JFrame {
                     JOptionPane.showMessageDialog(this, "Error cargando: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        });
-
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            MultipleTreeSearch v = new MultipleTreeSearch();
-            v.setVisible(true);
         });
     }
 

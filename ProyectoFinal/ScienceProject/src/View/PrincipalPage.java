@@ -74,18 +74,14 @@ public class PrincipalPage extends javax.swing.JFrame {
         btnSiguiente = new javax.swing.JLabel();
         dinamicoTxt = new javax.swing.JLabel();
         busquedasArboles = new javax.swing.JPanel();
-        binarySearchbtn1 = new javax.swing.JPanel();
+        residualTreeBtn = new javax.swing.JPanel();
         residualTreeLabel = new javax.swing.JLabel();
-        linealSearchbtn1 = new javax.swing.JPanel();
+        digitalTreeBtn = new javax.swing.JPanel();
         digitalTreeLabel = new javax.swing.JLabel();
-        hModSearchbtn1 = new javax.swing.JPanel();
-        hModSearchLabel1 = new javax.swing.JLabel();
-        hSquareSearchbtn1 = new javax.swing.JPanel();
-        hSquareSearchLabel1 = new javax.swing.JLabel();
-        hFoldingSearchbtn1 = new javax.swing.JPanel();
-        hFoldingSearchLabel1 = new javax.swing.JLabel();
-        htTruncationSearchbtn1 = new javax.swing.JPanel();
-        hTruncationSearchLabel1 = new javax.swing.JLabel();
+        multipleTreeBtn = new javax.swing.JPanel();
+        multipleTreeLabel = new javax.swing.JLabel();
+        huffmanTreeBtn = new javax.swing.JPanel();
+        huffmanTreeLabel = new javax.swing.JLabel();
         tituloPaginaTxt1 = new javax.swing.JLabel();
         btnVolver1 = new javax.swing.JLabel();
         btnSiguiente1 = new javax.swing.JLabel();
@@ -387,7 +383,7 @@ public class PrincipalPage extends javax.swing.JFrame {
 
         busquedasArboles.setBackground(new java.awt.Color(102, 153, 255));
 
-        binarySearchbtn1.setBackground(new java.awt.Color(51, 51, 51));
+        residualTreeBtn.setBackground(new java.awt.Color(51, 51, 51));
 
         residualTreeLabel.setBackground(new java.awt.Color(102, 102, 102));
         residualTreeLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -407,20 +403,20 @@ public class PrincipalPage extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout binarySearchbtn1Layout = new javax.swing.GroupLayout(binarySearchbtn1);
-        binarySearchbtn1.setLayout(binarySearchbtn1Layout);
-        binarySearchbtn1Layout.setHorizontalGroup(
-            binarySearchbtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout residualTreeBtnLayout = new javax.swing.GroupLayout(residualTreeBtn);
+        residualTreeBtn.setLayout(residualTreeBtnLayout);
+        residualTreeBtnLayout.setHorizontalGroup(
+            residualTreeBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(residualTreeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
         );
-        binarySearchbtn1Layout.setVerticalGroup(
-            binarySearchbtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, binarySearchbtn1Layout.createSequentialGroup()
+        residualTreeBtnLayout.setVerticalGroup(
+            residualTreeBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, residualTreeBtnLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(residualTreeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        linealSearchbtn1.setBackground(new java.awt.Color(51, 51, 51));
+        digitalTreeBtn.setBackground(new java.awt.Color(51, 51, 51));
 
         digitalTreeLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         digitalTreeLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -439,146 +435,84 @@ public class PrincipalPage extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout linealSearchbtn1Layout = new javax.swing.GroupLayout(linealSearchbtn1);
-        linealSearchbtn1.setLayout(linealSearchbtn1Layout);
-        linealSearchbtn1Layout.setHorizontalGroup(
-            linealSearchbtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout digitalTreeBtnLayout = new javax.swing.GroupLayout(digitalTreeBtn);
+        digitalTreeBtn.setLayout(digitalTreeBtnLayout);
+        digitalTreeBtnLayout.setHorizontalGroup(
+            digitalTreeBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(digitalTreeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-        linealSearchbtn1Layout.setVerticalGroup(
-            linealSearchbtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        digitalTreeBtnLayout.setVerticalGroup(
+            digitalTreeBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(digitalTreeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        hModSearchbtn1.setBackground(new java.awt.Color(60, 60, 60));
+        multipleTreeBtn.setBackground(new java.awt.Color(60, 60, 60));
 
-        hModSearchLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        hModSearchLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        hModSearchLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        hModSearchLabel1.setText("Hash Mod");
-        hModSearchLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        hModSearchLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        multipleTreeLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        multipleTreeLabel.setForeground(new java.awt.Color(255, 255, 255));
+        multipleTreeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        multipleTreeLabel.setText("Residuos Multiples");
+        multipleTreeLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        multipleTreeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                hModSearchLabel1MouseClicked(evt);
+                multipleTreeLabelMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                hModSearchLabel1MouseEntered(evt);
+                multipleTreeLabelMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                hModSearchLabel1MouseExited(evt);
+                multipleTreeLabelMouseExited(evt);
             }
         });
 
-        javax.swing.GroupLayout hModSearchbtn1Layout = new javax.swing.GroupLayout(hModSearchbtn1);
-        hModSearchbtn1.setLayout(hModSearchbtn1Layout);
-        hModSearchbtn1Layout.setHorizontalGroup(
-            hModSearchbtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(hModSearchLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+        javax.swing.GroupLayout multipleTreeBtnLayout = new javax.swing.GroupLayout(multipleTreeBtn);
+        multipleTreeBtn.setLayout(multipleTreeBtnLayout);
+        multipleTreeBtnLayout.setHorizontalGroup(
+            multipleTreeBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(multipleTreeBtnLayout.createSequentialGroup()
+                .addComponent(multipleTreeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
-        hModSearchbtn1Layout.setVerticalGroup(
-            hModSearchbtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(hModSearchLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        multipleTreeBtnLayout.setVerticalGroup(
+            multipleTreeBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(multipleTreeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
-        hSquareSearchbtn1.setBackground(new java.awt.Color(51, 51, 51));
+        huffmanTreeBtn.setBackground(new java.awt.Color(51, 51, 51));
 
-        hSquareSearchLabel1.setBackground(new java.awt.Color(51, 51, 51));
-        hSquareSearchLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        hSquareSearchLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        hSquareSearchLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        hSquareSearchLabel1.setText("Hash Cuadrado");
-        hSquareSearchLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        hSquareSearchLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        huffmanTreeLabel.setBackground(new java.awt.Color(51, 51, 51));
+        huffmanTreeLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        huffmanTreeLabel.setForeground(new java.awt.Color(255, 255, 255));
+        huffmanTreeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        huffmanTreeLabel.setText("Arboles Huffman");
+        huffmanTreeLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        huffmanTreeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                hSquareSearchLabel1MouseClicked(evt);
+                huffmanTreeLabelMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                hSquareSearchLabel1MouseEntered(evt);
+                huffmanTreeLabelMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                hSquareSearchLabel1MouseExited(evt);
+                huffmanTreeLabelMouseExited(evt);
             }
         });
 
-        javax.swing.GroupLayout hSquareSearchbtn1Layout = new javax.swing.GroupLayout(hSquareSearchbtn1);
-        hSquareSearchbtn1.setLayout(hSquareSearchbtn1Layout);
-        hSquareSearchbtn1Layout.setHorizontalGroup(
-            hSquareSearchbtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(hSquareSearchLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+        javax.swing.GroupLayout huffmanTreeBtnLayout = new javax.swing.GroupLayout(huffmanTreeBtn);
+        huffmanTreeBtn.setLayout(huffmanTreeBtnLayout);
+        huffmanTreeBtnLayout.setHorizontalGroup(
+            huffmanTreeBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(huffmanTreeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
-        hSquareSearchbtn1Layout.setVerticalGroup(
-            hSquareSearchbtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(hSquareSearchLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        hFoldingSearchbtn1.setBackground(new java.awt.Color(60, 60, 60));
-
-        hFoldingSearchLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        hFoldingSearchLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        hFoldingSearchLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        hFoldingSearchLabel1.setText("Hash Plegamiento");
-        hFoldingSearchLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        hFoldingSearchLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                hFoldingSearchLabel1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                hFoldingSearchLabel1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                hFoldingSearchLabel1MouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout hFoldingSearchbtn1Layout = new javax.swing.GroupLayout(hFoldingSearchbtn1);
-        hFoldingSearchbtn1.setLayout(hFoldingSearchbtn1Layout);
-        hFoldingSearchbtn1Layout.setHorizontalGroup(
-            hFoldingSearchbtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(hFoldingSearchLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-        );
-        hFoldingSearchbtn1Layout.setVerticalGroup(
-            hFoldingSearchbtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, hFoldingSearchbtn1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(hFoldingSearchLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        htTruncationSearchbtn1.setBackground(new java.awt.Color(60, 60, 60));
-
-        hTruncationSearchLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        hTruncationSearchLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        hTruncationSearchLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        hTruncationSearchLabel1.setText("Hash Truncamiento");
-        hTruncationSearchLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        hTruncationSearchLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                hTruncationSearchLabel1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                hTruncationSearchLabel1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                hTruncationSearchLabel1MouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout htTruncationSearchbtn1Layout = new javax.swing.GroupLayout(htTruncationSearchbtn1);
-        htTruncationSearchbtn1.setLayout(htTruncationSearchbtn1Layout);
-        htTruncationSearchbtn1Layout.setHorizontalGroup(
-            htTruncationSearchbtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(hTruncationSearchLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-        );
-        htTruncationSearchbtn1Layout.setVerticalGroup(
-            htTruncationSearchbtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, htTruncationSearchbtn1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(hTruncationSearchLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        huffmanTreeBtnLayout.setVerticalGroup(
+            huffmanTreeBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(huffmanTreeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
         tituloPaginaTxt1.setFont(new java.awt.Font("Cambria Math", 1, 36)); // NOI18N
         tituloPaginaTxt1.setForeground(new java.awt.Color(255, 255, 255));
         tituloPaginaTxt1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tituloPaginaTxt1.setText("Busquedas Internas");
+        tituloPaginaTxt1.setText("Busquedas Internas - Arboles");
 
         btnVolver1.setFont(new java.awt.Font("Cambria Math", 1, 36)); // NOI18N
         btnVolver1.setForeground(new java.awt.Color(255, 255, 255));
@@ -635,14 +569,12 @@ public class PrincipalPage extends javax.swing.JFrame {
                         .addGap(0, 8, Short.MAX_VALUE))
                     .addGroup(busquedasArbolesLayout.createSequentialGroup()
                         .addGroup(busquedasArbolesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(linealSearchbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(binarySearchbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hModSearchbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(digitalTreeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(residualTreeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(busquedasArbolesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(hSquareSearchbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hFoldingSearchbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(htTruncationSearchbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(busquedasArbolesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(huffmanTreeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(multipleTreeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         busquedasArbolesLayout.setVerticalGroup(
@@ -652,17 +584,13 @@ public class PrincipalPage extends javax.swing.JFrame {
                 .addComponent(tituloPaginaTxt1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(busquedasArbolesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(linealSearchbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hSquareSearchbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(digitalTreeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(huffmanTreeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
-                .addGroup(busquedasArbolesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(binarySearchbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hFoldingSearchbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(busquedasArbolesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(hModSearchbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(htTruncationSearchbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addGroup(busquedasArbolesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(residualTreeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(multipleTreeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(130, 130, 130)
                 .addComponent(dinamicoTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addGroup(busquedasArbolesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -944,53 +872,41 @@ public class PrincipalPage extends javax.swing.JFrame {
         dinamicoTxt1.setVisible(false);
     }//GEN-LAST:event_digitalTreeLabelMouseExited
 
-    private void hModSearchLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hModSearchLabel1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hModSearchLabel1MouseClicked
+    private void multipleTreeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_multipleTreeLabelMouseClicked
+        this.setVisible(false);
+        MultipleTreeSearch.getInstance().setVisible(true);
+    }//GEN-LAST:event_multipleTreeLabelMouseClicked
 
-    private void hModSearchLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hModSearchLabel1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hModSearchLabel1MouseEntered
+    private void multipleTreeLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_multipleTreeLabelMouseEntered
+        multipleTreeLabel.setForeground(new Color(124, 212, 187));
+        dinamicoTxt1.setText("<html> <body style='text-align: center; font-family: Segoe UI, Arial, sans-serif; font-size: 14px;"
+                + " margin: 40px; line-height: 1.6;'> Busqueda Por residuos Multiples <br> Es un tipo de busqueda que se encarga de buscar en una"
+                + " estructura de arbol usando el binario de cada clave en grupos de 2 bits </body> </html>");
+        dinamicoTxt1.setVisible(true);
+    }//GEN-LAST:event_multipleTreeLabelMouseEntered
 
-    private void hModSearchLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hModSearchLabel1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hModSearchLabel1MouseExited
+    private void multipleTreeLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_multipleTreeLabelMouseExited
+        multipleTreeLabel.setForeground(Color.white);
+        dinamicoTxt1.setVisible(false);
+    }//GEN-LAST:event_multipleTreeLabelMouseExited
 
-    private void hSquareSearchLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hSquareSearchLabel1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hSquareSearchLabel1MouseClicked
+    private void huffmanTreeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_huffmanTreeLabelMouseClicked
+        this.setVisible(false);
+        HuffmanTreeSearch.getInstance().setVisible(true);
+    }//GEN-LAST:event_huffmanTreeLabelMouseClicked
 
-    private void hSquareSearchLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hSquareSearchLabel1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hSquareSearchLabel1MouseEntered
+    private void huffmanTreeLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_huffmanTreeLabelMouseEntered
+        huffmanTreeLabel.setForeground(new Color(124, 212, 187));
+        dinamicoTxt1.setText("<html> <body style='text-align: center; font-family: Segoe UI, Arial, sans-serif; font-size: 14px;"
+                + " margin: 40px; line-height: 1.6;'> Busqueda Por Arboles de Huffman <br> Es un tipo de busqueda que se encarga de buscar en una"
+                + " estructura de arbol a partir de las frecuencias de aparicion de las claves </body> </html>");
+        dinamicoTxt1.setVisible(true);
+    }//GEN-LAST:event_huffmanTreeLabelMouseEntered
 
-    private void hSquareSearchLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hSquareSearchLabel1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hSquareSearchLabel1MouseExited
-
-    private void hFoldingSearchLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hFoldingSearchLabel1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hFoldingSearchLabel1MouseClicked
-
-    private void hFoldingSearchLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hFoldingSearchLabel1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hFoldingSearchLabel1MouseEntered
-
-    private void hFoldingSearchLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hFoldingSearchLabel1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hFoldingSearchLabel1MouseExited
-
-    private void hTruncationSearchLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hTruncationSearchLabel1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hTruncationSearchLabel1MouseClicked
-
-    private void hTruncationSearchLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hTruncationSearchLabel1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hTruncationSearchLabel1MouseEntered
-
-    private void hTruncationSearchLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hTruncationSearchLabel1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_hTruncationSearchLabel1MouseExited
+    private void huffmanTreeLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_huffmanTreeLabelMouseExited
+        huffmanTreeLabel.setForeground(Color.white);
+        dinamicoTxt1.setVisible(false);
+    }//GEN-LAST:event_huffmanTreeLabelMouseExited
 
     private void btnVolver1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolver1MouseEntered
         btnVolver1.setForeground(new Color(124, 212, 187));
@@ -1031,7 +947,6 @@ public class PrincipalPage extends javax.swing.JFrame {
     private javax.swing.JLabel bienvenidaTxt;
     private javax.swing.JLabel binarySearchLabel;
     private javax.swing.JPanel binarySearchbtn;
-    private javax.swing.JPanel binarySearchbtn1;
     private javax.swing.JLabel btnSiguiente;
     private javax.swing.JLabel btnSiguiente1;
     private javax.swing.JLabel btnVolver1;
@@ -1040,31 +955,28 @@ public class PrincipalPage extends javax.swing.JFrame {
     private javax.swing.JPanel cardPanel;
     private javax.swing.JLabel deco1;
     private javax.swing.JLabel deco2;
+    private javax.swing.JPanel digitalTreeBtn;
     private javax.swing.JLabel digitalTreeLabel;
     private javax.swing.JLabel dinamicoTxt;
     private javax.swing.JLabel dinamicoTxt1;
     private javax.swing.JPanel dragPanel;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel hFoldingSearchLabel;
-    private javax.swing.JLabel hFoldingSearchLabel1;
     private javax.swing.JPanel hFoldingSearchbtn;
-    private javax.swing.JPanel hFoldingSearchbtn1;
     private javax.swing.JLabel hModSearchLabel;
-    private javax.swing.JLabel hModSearchLabel1;
     private javax.swing.JPanel hModSearchbtn;
-    private javax.swing.JPanel hModSearchbtn1;
     private javax.swing.JLabel hSquareSearchLabel;
-    private javax.swing.JLabel hSquareSearchLabel1;
     private javax.swing.JPanel hSquareSearchbtn;
-    private javax.swing.JPanel hSquareSearchbtn1;
     private javax.swing.JLabel hTruncationSearchLabel;
-    private javax.swing.JLabel hTruncationSearchLabel1;
     private javax.swing.JPanel htTruncationSearchbtn;
-    private javax.swing.JPanel htTruncationSearchbtn1;
+    private javax.swing.JPanel huffmanTreeBtn;
+    private javax.swing.JLabel huffmanTreeLabel;
     private javax.swing.JLabel linealSearchLabel;
     private javax.swing.JPanel linealSearchbtn;
-    private javax.swing.JPanel linealSearchbtn1;
+    private javax.swing.JPanel multipleTreeBtn;
+    private javax.swing.JLabel multipleTreeLabel;
     private javax.swing.JPanel principalPanel;
+    private javax.swing.JPanel residualTreeBtn;
     private javax.swing.JLabel residualTreeLabel;
     private javax.swing.JLabel tituloPaginaTxt;
     private javax.swing.JLabel tituloPaginaTxt1;
