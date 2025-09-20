@@ -40,15 +40,15 @@ public class ResidualTreeSearch extends JFrame {
     private final Node root;
     private final TreePanel treePanel;
 
-    private final JTextField inputField = new JTextField(20);
-    private final JButton insertBtn = new JButton("Insertar");
-    private final JButton deleteBtn = new JButton("Eliminar");
-    private final JButton clearBtn = new JButton("Limpiar");
-    private final JButton saveBtn = new JButton("Guardar");
-    private final JButton saveExitBtn = new JButton("Guardar y Salir");
-    private final JButton recoverBtn = new JButton("Recuperar");
-    private final JButton volverBtn = new JButton("Volver");
-    private final JLabel statusLabel = new JLabel("Ready");
+    private JTextField inputField = new JTextField(20);
+    private JButton insertBtn = new JButton("Insertar");
+    private JButton deleteBtn = new JButton("Eliminar");
+    private JButton clearBtn = new JButton("Limpiar");
+    private JButton saveBtn = new JButton("Guardar");
+    private JButton saveExitBtn = new JButton("Guardar y Salir");
+    private JButton recoverBtn = new JButton("Recuperar");
+    private JButton volverBtn = new JButton("Volver");
+    private JLabel statusLabel = new JLabel("Ready");
 
     public static ResidualTreeSearch getInstance() {
         if (instance == null) {
@@ -80,41 +80,90 @@ public class ResidualTreeSearch extends JFrame {
         JScrollPane scroll = new JScrollPane(treePanel);
         scroll.getVerticalScrollBar().setUnitIncrement(16);
 
-        JPanel control = new JPanel();
-        control.add(new JLabel("Clave"));
-        control.add(inputField);
-        control.add(insertBtn);
-        control.add(deleteBtn);
-        control.add(clearBtn);
-        control.add(saveBtn);
-        control.add(saveExitBtn);
-        control.add(recoverBtn);
-        control.add(volverBtn);
+        // Top: label + textfield + botones en la MISMA linea y con misma altura
+        JPanel top = new JPanel();
+        top.setBackground(Color.WHITE);
+        top.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        top.setLayout(new BoxLayout(top, BoxLayout.X_AXIS));
+
+        JLabel lbl = new JLabel("Clave: ");
+        lbl.setFont(lbl.getFont().deriveFont(Font.BOLD, 13f));
+        lbl.setForeground(new Color(10, 50, 120));
+        top.add(lbl);
+        top.add(Box.createRigidArea(new Dimension(6, 0)));
+
+        inputField = new JTextField();
+        inputField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        inputField.setPreferredSize(new Dimension(500, 30));
+        top.add(inputField);
+        top.add(Box.createRigidArea(new Dimension(10, 0)));
+
+        // Botones con la misma altura que el textfield
+        Dimension btnSize = new Dimension(110, 30);
+        insertBtn = new JButton("Insertar");
+        insertBtn.setPreferredSize(btnSize);
+        insertBtn.setMaximumSize(btnSize);
+
+        deleteBtn = new JButton("Eliminar");
+        deleteBtn.setPreferredSize(btnSize);
+        deleteBtn.setMaximumSize(btnSize);
+
+        clearBtn = new JButton("Limpiar");
+        clearBtn.setPreferredSize(btnSize);
+        clearBtn.setMaximumSize(btnSize);
+
+        saveBtn = new JButton("Guardar");
+        saveBtn.setPreferredSize(btnSize);
+        saveBtn.setMaximumSize(btnSize);
+
+        saveExitBtn = new JButton("Guardar y Salir");
+        saveExitBtn.setPreferredSize(btnSize);
+        saveExitBtn.setMaximumSize(btnSize);
+
+        recoverBtn = new JButton("Recuperar");
+        recoverBtn.setPreferredSize(btnSize);
+        recoverBtn.setMaximumSize(btnSize);
+
+        volverBtn = new JButton("Volver");
+        volverBtn.setPreferredSize(btnSize);
+        volverBtn.setMaximumSize(btnSize);
+
+        // Estilo simple azul en los botones
+        Color azul = new Color(30, 120, 220);
+        for (JButton b : Arrays.asList(insertBtn, deleteBtn, clearBtn, saveBtn, saveExitBtn, recoverBtn, volverBtn)) {
+            b.setBackground(azul);
+            b.setForeground(Color.WHITE);
+            b.setFocusPainted(false);
+        }
+
+        top.add(insertBtn);
+        top.add(Box.createRigidArea(new Dimension(6,0)));
+        top.add(deleteBtn);
+        top.add(Box.createRigidArea(new Dimension(6,0)));
+        top.add(clearBtn);
+        top.add(Box.createRigidArea(new Dimension(12,0)));
+        top.add(saveBtn);
+        top.add(Box.createRigidArea(new Dimension(6,0)));
+        top.add(saveExitBtn);
+        top.add(Box.createRigidArea(new Dimension(6,0)));
+        top.add(recoverBtn);
+        top.add(Box.createRigidArea(new Dimension(6,0)));
+        top.add(volverBtn);
+
+        add(top, BorderLayout.NORTH);
 
         add(scroll, BorderLayout.CENTER);
-        add(control, BorderLayout.NORTH);
+        add(top, BorderLayout.NORTH);
         add(statusLabel, BorderLayout.SOUTH);
 
-        insertBtn.addActionListener(e -> doInsert(false));
-        deleteBtn.addActionListener(e -> doDeleteUsingInput());
-        clearBtn.addActionListener(e -> doClear());
-        saveBtn.addActionListener(e -> doSave(false));
-        saveExitBtn.addActionListener(e -> doSave(true));
-        recoverBtn.addActionListener(e -> doRecover());
-        volverBtn.addActionListener(e -> doReturn());
+        insertBtn.addActionListener(_ -> doInsert(false));
+        deleteBtn.addActionListener(_ -> doDeleteUsingInput());
+        clearBtn.addActionListener(_ -> doClear());
+        saveBtn.addActionListener(_ -> doSave(false));
+        saveExitBtn.addActionListener(_ -> doSave(true));
+        recoverBtn.addActionListener(_ -> doRecover());
+        volverBtn.addActionListener(_ -> doReturn());
 
-        // Estilizar botones oscuros (alto contraste)
-        Font btnFont = new Font("SansSerif", Font.BOLD, 13);
-        JButton[] allBtns = {insertBtn, deleteBtn, clearBtn, saveBtn, saveExitBtn, recoverBtn, volverBtn};
-        for (JButton b : allBtns) {
-            b.setFont(btnFont);
-            b.setBackground(new Color(40, 40, 40));
-            b.setForeground(Color.WHITE);
-            b.setOpaque(true);
-            b.setBorderPainted(false);
-            b.setFocusPainted(false);
-            b.setPreferredSize(new Dimension(140, 32));
-        }
     }
 
     // ------------------------ Clear ------------------------
@@ -159,7 +208,7 @@ public class ResidualTreeSearch extends JFrame {
                 List<PathStep> path = treePanel.buildPathForAnimation(root, c);
                 if (stepTimer != null) stepTimer.stop();
                 final int[] step = {0};
-                stepTimer = new Timer(300, ev -> {
+                stepTimer = new Timer(300, _ -> {
                     if (step[0] < path.size()) {
                         PathStep ps = path.get(step[0]);
                         if (ps.target != null) treePanel.setHighlightNode(ps.target);

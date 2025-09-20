@@ -3,7 +3,6 @@ package View;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
@@ -36,6 +35,7 @@ public class HuffmanTreeSearch extends JFrame {
     public HuffmanTreeSearch() {
         super("Árbol de Huffman - Visualizador");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1280, 720);
         setLayout(new BorderLayout());
 
         // Top: label + textfield + botones en la MISMA linea y con misma altura
@@ -44,7 +44,7 @@ public class HuffmanTreeSearch extends JFrame {
         top.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         top.setLayout(new BoxLayout(top, BoxLayout.X_AXIS));
 
-        JLabel lbl = new JLabel("Texto (Insertar / Eliminar por caracteres): ");
+        JLabel lbl = new JLabel("Clave: ");
         lbl.setFont(lbl.getFont().deriveFont(Font.BOLD, 13f));
         lbl.setForeground(new Color(10, 50, 120));
         top.add(lbl);
@@ -88,7 +88,7 @@ public class HuffmanTreeSearch extends JFrame {
 
         // Estilo simple azul en los botones
         Color azul = new Color(30, 120, 220);
-        for (JButton b : Arrays.asList(insertBtn, deleteBtn, clearBtn, saveBtn, saveExitBtn, loadBtn)) {
+        for (JButton b : Arrays.asList(insertBtn, deleteBtn, clearBtn, saveBtn, saveExitBtn, loadBtn, volverBtn)) {
             b.setBackground(azul);
             b.setForeground(Color.WHITE);
             b.setFocusPainted(false);
@@ -120,7 +120,7 @@ public class HuffmanTreeSearch extends JFrame {
         add(centerWrapper, BorderLayout.CENTER);
 
         // Listeners
-        insertBtn.addActionListener(e -> {
+        insertBtn.addActionListener(_ -> {
             String text = inputField.getText();
             if (text == null || text.isEmpty()) return;
             addTextCounts(text);
@@ -128,7 +128,7 @@ public class HuffmanTreeSearch extends JFrame {
             inputField.setText("");
         });
 
-        deleteBtn.addActionListener(e -> {
+        deleteBtn.addActionListener(_ -> {
             String text = inputField.getText();
             if (text == null || text.isEmpty()) return;
             removeCharacters(text);
@@ -136,26 +136,26 @@ public class HuffmanTreeSearch extends JFrame {
             inputField.setText("");
         });
 
-        clearBtn.addActionListener(e -> {
+        clearBtn.addActionListener(_ -> {
             counts.clear();
             seqCounter = 0;
             treePanel.setRoot(null, 0);
             treePanel.repaint();
         });
 
-        saveBtn.addActionListener(e -> {
+        saveBtn.addActionListener(_ -> {
             doSave(false);
         });
 
-        saveExitBtn.addActionListener(e -> {
+        saveExitBtn.addActionListener(_ -> {
             doSave(true);
         });
 
-        loadBtn.addActionListener(e -> {
+        loadBtn.addActionListener(_ -> {
             doLoad();
         });
 
-        volverBtn.addActionListener(e -> {
+        volverBtn.addActionListener(_ -> {
             this.setVisible(false);;
             PrincipalPage.getInstance().setVisible(true);
         });

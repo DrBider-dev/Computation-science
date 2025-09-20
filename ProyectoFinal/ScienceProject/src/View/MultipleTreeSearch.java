@@ -2,7 +2,6 @@ package View;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
 import java.io.*;
 
@@ -33,7 +32,7 @@ import java.io.*;
 public class MultipleTreeSearch extends JFrame {
     private TreePanel treePanel;
     private JTextField inputField;
-    private JButton deleteBtn, insertAnimateBtn, resetBtn, saveBtn, saveExitBtn, loadBtn;
+    private JButton deleteBtn, insertAnimateBtn, resetBtn, saveBtn, saveExitBtn, loadBtn, volverBtn;
     private JSpinner speedSpinner;
 
     private static MultipleTreeSearch instance;
@@ -48,53 +47,91 @@ public class MultipleTreeSearch extends JFrame {
     public MultipleTreeSearch() {
         super("Arbol por Residuos Multiples");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1100, 700);
+        setSize(1280, 720);
         setLocationRelativeTo(null);
 
         treePanel = new TreePanel();
         add(treePanel, BorderLayout.CENTER);
 
         JPanel controls = new JPanel();
-        controls.setLayout(new FlowLayout(FlowLayout.LEFT));
+        controls.setBackground(Color.WHITE);
+        controls.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        controls.setLayout(new BoxLayout(controls, BoxLayout.X_AXIS));
 
-        inputField = new JTextField(20);
-        controls.add(new JLabel("Clave:"));
+        JLabel lbl = new JLabel("Clave: ");
+        lbl.setFont(lbl.getFont().deriveFont(Font.BOLD, 13f));
+        lbl.setForeground(new Color(10, 50, 120));
+        controls.add(lbl);
+        controls.add(Box.createRigidArea(new Dimension(6, 0)));
+
+        inputField = new JTextField();
+        inputField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        inputField.setPreferredSize(new Dimension(500, 30));
         controls.add(inputField);
+        controls.add(Box.createRigidArea(new Dimension(10, 0)));
+
+        Dimension btnSize = new Dimension(110, 30);
 
         deleteBtn = new JButton("Eliminar");
+        deleteBtn.setPreferredSize(btnSize);
+        deleteBtn.setMaximumSize(btnSize);
+
         insertAnimateBtn = new JButton("Insertar");
+        insertAnimateBtn.setPreferredSize(btnSize);
+        insertAnimateBtn.setMaximumSize(btnSize);
+
         resetBtn = new JButton("Limpiar");
+        resetBtn.setPreferredSize(btnSize);
+        resetBtn.setMaximumSize(btnSize);
+
         saveBtn = new JButton("Guardar");
+        saveBtn.setPreferredSize(btnSize);
+        saveBtn.setMaximumSize(btnSize);
+
         saveExitBtn = new JButton("Guardar y Salir");
+        saveExitBtn.setPreferredSize(btnSize);
+        saveExitBtn.setMaximumSize(btnSize);
+
         loadBtn = new JButton("Cargar");
+        loadBtn.setPreferredSize(btnSize);
+        loadBtn.setMaximumSize(btnSize);
+
+        volverBtn = new JButton("Volver");
+        volverBtn.setPreferredSize(btnSize);
+        volverBtn.setMaximumSize(btnSize);
 
         controls.add(insertAnimateBtn);
+        controls.add(Box.createRigidArea(new Dimension(6,0)));
         controls.add(deleteBtn);
+        controls.add(Box.createRigidArea(new Dimension(6,0)));
         controls.add(resetBtn);
+        controls.add(Box.createRigidArea(new Dimension(20,0)));
         controls.add(saveBtn);
+        controls.add(Box.createRigidArea(new Dimension(6,0)));
         controls.add(saveExitBtn);
+        controls.add(Box.createRigidArea(new Dimension(6,0)));
         controls.add(loadBtn);
+        controls.add(Box.createRigidArea(new Dimension(20,0)));
+        controls.add(volverBtn);
 
         speedSpinner = new JSpinner(new SpinnerNumberModel(200, 50, 2000, 50));
 
         add(controls, BorderLayout.NORTH);
 
-                Font btnFont = new Font("SansSerif", Font.BOLD, 13);
-        JButton[] allBtns = {insertAnimateBtn, deleteBtn, resetBtn, saveBtn, saveExitBtn, loadBtn};
-        for (JButton b : allBtns) {
-            b.setFont(btnFont);
-            b.setBackground(new Color(40, 40, 40));
+        
+
+        // Estilo simple azul en los botones
+        Color azul = new Color(30, 120, 220);
+        for (JButton b : Arrays.asList(insertAnimateBtn, deleteBtn, resetBtn, saveBtn, saveExitBtn, loadBtn, volverBtn)) {
+            b.setBackground(azul);
             b.setForeground(Color.WHITE);
-            b.setOpaque(true);
-            b.setBorderPainted(false);
             b.setFocusPainted(false);
-            b.setPreferredSize(new Dimension(140, 32));
         }
 
 
         // Button actions
 
-        deleteBtn.addActionListener(e -> {
+        deleteBtn.addActionListener(_ -> {
             String text = inputField.getText().trim().toUpperCase(Locale.ROOT);
             if (text.isEmpty()) return;
             // delete each char
@@ -105,7 +142,7 @@ public class MultipleTreeSearch extends JFrame {
             treePanel.repaint();
         });
 
-        insertAnimateBtn.addActionListener(e -> {
+        insertAnimateBtn.addActionListener(_ -> {
             String text = inputField.getText().trim().toUpperCase(Locale.ROOT);
             if (text.isEmpty()) return;
             java.util.List<Character> letters = new ArrayList<>();
@@ -123,11 +160,11 @@ public class MultipleTreeSearch extends JFrame {
             }).start();
         });
 
-        resetBtn.addActionListener(e -> {
+        resetBtn.addActionListener(_ -> {
             treePanel.reset();
         });
 
-        saveBtn.addActionListener(e -> {
+        saveBtn.addActionListener(_ -> {
             JFileChooser fc = new JFileChooser();
             fc.setDialogTitle("Guardar árbol (.mul)");
             fc.setSelectedFile(new File("tree.mul"));
@@ -144,7 +181,7 @@ public class MultipleTreeSearch extends JFrame {
             }
         });
 
-        saveExitBtn.addActionListener(e -> {
+        saveExitBtn.addActionListener(_ -> {
             JFileChooser fc = new JFileChooser();
             fc.setDialogTitle("Guardar árbol (.mul)");
             fc.setSelectedFile(new File("tree.mul"));
@@ -162,7 +199,7 @@ public class MultipleTreeSearch extends JFrame {
             }
         });
 
-        loadBtn.addActionListener(e -> {
+        loadBtn.addActionListener(_ -> {
             JFileChooser fc = new JFileChooser();
             fc.setDialogTitle("Cargar árbol (.mul)");
             int res = fc.showOpenDialog(this);
@@ -176,6 +213,11 @@ public class MultipleTreeSearch extends JFrame {
                 }
             }
         });
+
+        volverBtn.addActionListener(_ -> {
+            this.setVisible(false);
+            PrincipalPage.getInstance().setVisible(true);
+        });
     }
 
     // -------------------- Tree and drawing panel --------------------
@@ -183,8 +225,6 @@ public class MultipleTreeSearch extends JFrame {
         private TrieNode root;
         private Map<TrieNode, Point> positions = new HashMap<>();
         private Set<TrieNode> highlight = new HashSet<>();
-        private TrieNode animCurrent = null;
-
         // ---------------- File save/load ----------------
         // Guardar en archivo .mul (texto plano): primera línea header, luego una letra por línea
         public void saveToFile(File f) throws IOException {
@@ -198,7 +238,6 @@ public class MultipleTreeSearch extends JFrame {
         // Cargar desde archivo .mul
         public void loadFromFile(File f) throws IOException {
             try (BufferedReader br = new BufferedReader(new FileReader(f))) {
-                String header = br.readLine(); // ignorar header (si existe)
                 reset();
                 String line;
                 while ((line = br.readLine()) != null) {
@@ -339,7 +378,6 @@ public class MultipleTreeSearch extends JFrame {
         private void computePositions() {
             positions.clear();
             int w = getWidth();
-            int h = getHeight();
             int yRoot = 40;
             // más separación vertical para evitar que los nodos queden juntos
             int y1 = 160;

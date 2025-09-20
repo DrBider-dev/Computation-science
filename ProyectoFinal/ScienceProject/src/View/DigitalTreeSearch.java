@@ -2,9 +2,7 @@ package View;
 
 import javax.swing.*;
 import javax.swing.Timer;
-
 import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
@@ -42,15 +40,15 @@ public class DigitalTreeSearch extends JFrame {
     private final TreePanel treePanel = new TreePanel();
     private final DefaultListModel<String> listModel = new DefaultListModel<>();
     private final JList<String> letterList = new JList<>(listModel);
-    private final JTextField inputField = new JTextField(20);
-    private final JButton insertBtn = new JButton("Insertar");
-    private final JButton deleteBtn = new JButton("Eliminar");
-    private final JButton resetBtn = new JButton("Reiniciar");
+    private JTextField inputField = new JTextField(20);
+    private JButton insertBtn = new JButton("Insertar");
+    private JButton deleteBtn = new JButton("Eliminar");
+    private JButton resetBtn = new JButton("Reiniciar");
     // nuevos botones
-    private final JButton saveBtn = new JButton("Guardar");
-    private final JButton saveCloseBtn = new JButton("Guardar y Salir");
-    private final JButton loadBtn = new JButton("Cargar");
-    private final JButton volverBtn = new JButton("Volver");
+    private JButton saveBtn = new JButton("Guardar");
+    private JButton saveCloseBtn = new JButton("Guardar y Salir");
+    private JButton loadBtn = new JButton("Cargar");
+    private JButton volverBtn = new JButton("Volver");
 
     // Animación
     private Timer animTimer;
@@ -64,44 +62,77 @@ public class DigitalTreeSearch extends JFrame {
         // Aplicar fondo blanco general
         getContentPane().setBackground(Color.WHITE);
 
-        // Panel de controles superior (blanco, con etiqueta azul)
-        JPanel control = new JPanel(new GridBagLayout());
-        control.setOpaque(false);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(6,6,6,6);
-        gbc.gridx = 0; gbc.gridy = 0;
-        JLabel lbl = new JLabel("Clave");
-        lbl.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        control.add(lbl, gbc);
-        gbc.gridx = 1; gbc.fill = GridBagConstraints.HORIZONTAL; gbc.weightx = 1;
-        inputField.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        control.add(inputField, gbc);
-        gbc.gridx = 2; gbc.fill = GridBagConstraints.NONE; gbc.weightx = 0;
+        // Top: label + textfield + botones en la MISMA linea y con misma altura
+        JPanel top = new JPanel();
+        top.setBackground(Color.WHITE);
+        top.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        top.setLayout(new BoxLayout(top, BoxLayout.X_AXIS));
 
-        JPanel btns = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
-        btns.setOpaque(false);
-        btns.add(insertBtn);
-        btns.add(deleteBtn);
-        btns.add(resetBtn);
-        btns.add(saveBtn);
-        btns.add(saveCloseBtn);
-        btns.add(loadBtn);
-        btns.add(volverBtn);
-        control.add(btns, gbc);
-        
+        JLabel lbl = new JLabel("Clave: ");
+        lbl.setFont(lbl.getFont().deriveFont(Font.BOLD, 13f));
+        lbl.setForeground(new Color(10, 50, 120));
+        top.add(lbl);
+        top.add(Box.createRigidArea(new Dimension(6, 0)));
 
-        // Estilizar botones oscuros (alto contraste)
-        Font btnFont = new Font("SansSerif", Font.BOLD, 13);
-        JButton[] allBtns = {insertBtn, deleteBtn, resetBtn, saveBtn, saveCloseBtn, loadBtn, volverBtn};
-        for (JButton b : allBtns) {
-            b.setFont(btnFont);
-            b.setBackground(new Color(40, 40, 40));
+        inputField = new JTextField();
+        inputField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        inputField.setPreferredSize(new Dimension(500, 30));
+        top.add(inputField);
+        top.add(Box.createRigidArea(new Dimension(10, 0)));
+
+        // Botones con la misma altura que el textfield
+        Dimension btnSize = new Dimension(110, 30);
+        insertBtn = new JButton("Insertar");
+        insertBtn.setPreferredSize(btnSize);
+        insertBtn.setMaximumSize(btnSize);
+
+        deleteBtn = new JButton("Eliminar");
+        deleteBtn.setPreferredSize(btnSize);
+        deleteBtn.setMaximumSize(btnSize);
+
+        resetBtn = new JButton("Limpiar");
+        resetBtn.setPreferredSize(btnSize);
+        resetBtn.setMaximumSize(btnSize);
+
+        saveBtn = new JButton("Guardar");
+        saveBtn.setPreferredSize(btnSize);
+        saveBtn.setMaximumSize(btnSize);
+
+        saveCloseBtn = new JButton("Guardar y Salir");
+        saveCloseBtn.setPreferredSize(btnSize);
+        saveCloseBtn.setMaximumSize(btnSize);
+
+        loadBtn = new JButton("Recuperar");
+        loadBtn.setPreferredSize(btnSize);
+        loadBtn.setMaximumSize(btnSize);
+
+        volverBtn = new JButton("Volver");
+        volverBtn.setPreferredSize(btnSize);
+        volverBtn.setMaximumSize(btnSize);
+
+        // Estilo simple azul en los botones
+        Color azul = new Color(30, 120, 220);
+        for (JButton b : Arrays.asList(insertBtn, deleteBtn, resetBtn, saveBtn, saveCloseBtn, loadBtn, volverBtn)) {
+            b.setBackground(azul);
             b.setForeground(Color.WHITE);
-            b.setOpaque(true);
-            b.setBorderPainted(false);
             b.setFocusPainted(false);
-            b.setPreferredSize(new Dimension(140, 32));
         }
+
+        top.add(insertBtn);
+        top.add(Box.createRigidArea(new Dimension(6,0)));
+        top.add(deleteBtn);
+        top.add(Box.createRigidArea(new Dimension(6,0)));
+        top.add(resetBtn);
+        top.add(Box.createRigidArea(new Dimension(12,0)));
+        top.add(saveBtn);
+        top.add(Box.createRigidArea(new Dimension(6,0)));
+        top.add(saveCloseBtn);
+        top.add(Box.createRigidArea(new Dimension(6,0)));
+        top.add(loadBtn);
+        top.add(Box.createRigidArea(new Dimension(6,0)));
+        top.add(volverBtn);
+
+        add(top, BorderLayout.NORTH);
 
         // Panel derecho: lista de letras (blanco)
         letterList.setVisibleRowCount(8);
@@ -142,17 +173,17 @@ public class DigitalTreeSearch extends JFrame {
         split.setBorder(null);
 
         getContentPane().setLayout(new BorderLayout(10,10));
-        getContentPane().add(control, BorderLayout.NORTH);
+        getContentPane().add(top, BorderLayout.NORTH);
         getContentPane().add(split, BorderLayout.CENTER);
 
         // Listeners
-        insertBtn.addActionListener(e -> insertTextAnimated(inputField.getText()));
-        deleteBtn.addActionListener(e -> deleteSelected());
-        resetBtn.addActionListener(e -> resetAll());
-        saveBtn.addActionListener(e -> onSave(false));
-        saveCloseBtn.addActionListener(e -> onSave(true));
-        loadBtn.addActionListener(e -> onLoad());
-        volverBtn.addActionListener(e -> onReturn());
+        insertBtn.addActionListener(_ -> insertTextAnimated(inputField.getText()));
+        deleteBtn.addActionListener(_ -> deleteSelected());
+        resetBtn.addActionListener(_ -> resetAll());
+        saveBtn.addActionListener(_ -> onSave(false));
+        saveCloseBtn.addActionListener(_ -> onSave(true));
+        loadBtn.addActionListener(_ -> onLoad());
+        volverBtn.addActionListener(_ -> onReturn());
 
         updateListModel();
     }
@@ -199,7 +230,6 @@ public class DigitalTreeSearch extends JFrame {
     private void deleteChar(char ch) {
         ch = Character.toUpperCase(ch);
         if (!insertionOrder.remove((Character) ch)) return;
-        Node old = root;
         root = null;
         java.util.List<Character> copy = new ArrayList<>(insertionOrder);
         insertionOrder.clear();
@@ -366,7 +396,7 @@ public class DigitalTreeSearch extends JFrame {
         if (animTimer != null && animTimer.isRunning()) animTimer.stop();
 
         animTimer = new Timer(delay, null);
-        animTimer.addActionListener(e -> {
+        animTimer.addActionListener(_ -> {
             treePanel.clearHighlights();
             if (idx[0] < steps.size()) {
                 PathStep p = steps.get(idx[0]);
