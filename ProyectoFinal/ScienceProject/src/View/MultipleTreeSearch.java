@@ -20,29 +20,87 @@ import java.io.*;
 
 public class MultipleTreeSearch extends JFrame {
 
+    private JTextField inputField;
+    private JButton insertBtn, deleteBtn, clearBtn;
+    private JButton saveBtn, saveExitBtn, loadBtn, volverBtn;
+
     public MultipleTreeSearch() {
         setTitle("Arbol por Residuos Multiples");
         setSize(1400, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        // Top: label + textfield + botones en la MISMA linea y con misma altura
         JPanel top = new JPanel();
-        top.setLayout(new FlowLayout(FlowLayout.LEFT));
-        top.add(new JLabel("Clave:"));
-        JTextField keyField = new JTextField(20);
-        top.add(keyField);
-        JButton insertBtn = new JButton("Insertar");
-        JButton delBtn = new JButton("Eliminar");
-        JButton clearBtn = new JButton("Limpiar");
-        JButton saveBtn = new JButton("Guardar");
-        JButton saveExitBtn = new JButton("Guardar y Salir");
-        JButton loadBtn = new JButton("Cargar");
+        top.setBackground(Color.WHITE);
+        top.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        top.setLayout(new BoxLayout(top, BoxLayout.X_AXIS));
+
+        JLabel lbl = new JLabel("Clave: ");
+        lbl.setFont(lbl.getFont().deriveFont(Font.BOLD, 13f));
+        lbl.setForeground(new Color(10, 50, 120));
+        top.add(lbl);
+        top.add(Box.createRigidArea(new Dimension(6, 0)));
+
+        inputField = new JTextField();
+        inputField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        inputField.setPreferredSize(new Dimension(500, 30));
+        top.add(inputField);
+        top.add(Box.createRigidArea(new Dimension(10, 0)));
+
+        // Botones con la misma altura que el textfield
+        Dimension btnSize = new Dimension(110, 30);
+        insertBtn = new JButton("Insertar");
+        insertBtn.setPreferredSize(btnSize);
+        insertBtn.setMaximumSize(btnSize);
+
+        deleteBtn = new JButton("Eliminar");
+        deleteBtn.setPreferredSize(btnSize);
+        deleteBtn.setMaximumSize(btnSize);
+
+        clearBtn = new JButton("Limpiar");
+        clearBtn.setPreferredSize(btnSize);
+        clearBtn.setMaximumSize(btnSize);
+
+        saveBtn = new JButton("Guardar");
+        saveBtn.setPreferredSize(btnSize);
+        saveBtn.setMaximumSize(btnSize);
+
+        saveExitBtn = new JButton("Guardar y Salir");
+        saveExitBtn.setPreferredSize(btnSize);
+        saveExitBtn.setMaximumSize(btnSize);
+
+        loadBtn = new JButton("Recuperar");
+        loadBtn.setPreferredSize(btnSize);
+        loadBtn.setMaximumSize(btnSize);
+
+        volverBtn = new JButton("Volver");
+        volverBtn.setPreferredSize(btnSize);
+        volverBtn.setMaximumSize(btnSize);
+
+        // Estilo simple azul en los botones
+        Color azul = new Color(30, 120, 220);
+        for (JButton b : Arrays.asList(insertBtn, deleteBtn, clearBtn, saveBtn, saveExitBtn, loadBtn, volverBtn)) {
+            b.setBackground(azul);
+            b.setForeground(Color.WHITE);
+            b.setFocusPainted(false);
+        }
+
         top.add(insertBtn);
-        top.add(delBtn);
+        top.add(Box.createRigidArea(new Dimension(6,0)));
+        top.add(deleteBtn);
+        top.add(Box.createRigidArea(new Dimension(6,0)));
         top.add(clearBtn);
+        top.add(Box.createRigidArea(new Dimension(12,0)));
         top.add(saveBtn);
+        top.add(Box.createRigidArea(new Dimension(6,0)));
         top.add(saveExitBtn);
+        top.add(Box.createRigidArea(new Dimension(6,0)));
         top.add(loadBtn);
+        top.add(Box.createRigidArea(new Dimension(6,0)));
+        top.add(volverBtn);
+
+        add(top, BorderLayout.NORTH);
 
         TreePanel treePanel = new TreePanel();
         getContentPane().setLayout(new BorderLayout());
@@ -50,21 +108,21 @@ public class MultipleTreeSearch extends JFrame {
         getContentPane().add(new JScrollPane(treePanel), BorderLayout.CENTER);
 
         insertBtn.addActionListener(_ -> {
-            String k = keyField.getText().trim().toUpperCase();
+            String k = inputField.getText().trim().toUpperCase();
             if (k.isEmpty()) return;
             try {
                 treePanel.insertString(k);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
-            keyField.setText("");
+            inputField.setText("");
         });
 
-        delBtn.addActionListener(_ -> {
-            String k = keyField.getText().trim().toUpperCase();
+        deleteBtn.addActionListener(_ -> {
+            String k = inputField.getText().trim().toUpperCase();
             if (k.isEmpty()) return;
             treePanel.deleteString(k);
-            keyField.setText("");
+            inputField.setText("");
         });
 
         clearBtn.addActionListener(_ -> treePanel.clear());
@@ -137,6 +195,7 @@ public class MultipleTreeSearch extends JFrame {
         TreePanel() {
             setPreferredSize(new Dimension(2000, 900));
             setBackground(Color.WHITE);
+            
             root = new TrieNode(0);
 
 
@@ -242,12 +301,12 @@ public class MultipleTreeSearch extends JFrame {
             // compute target positions into a temporary map (do not overwrite 'positions' directly)
             Map<TrieNode, Point> tempPositions = new HashMap<>();
             if (root == null) return;
+
             int w = getWidth();
 
-
-            // vertical layout
-            int yRoot = 40;
-            int verticalSpacing = 140;
+            // vertical layout params
+            final int yRoot = 40;
+            final int verticalSpacing = 140;
 
             // first pass: compute number of leaf slots per subtree
             Map<TrieNode, Integer> leafCounts = new HashMap<>();
@@ -266,45 +325,69 @@ public class MultipleTreeSearch extends JFrame {
                 if (p.x < minX) minX = p.x;
                 if (p.x > maxX) maxX = p.x;
             }
-            if (minX == Integer.MAX_VALUE) return;
-            int treeMid = (minX + maxX) / 2;
-            int centerX = w / 2;
+            if (minX == Integer.MAX_VALUE) return; // no nodes
+
+            final int treeMid = (minX + maxX) / 2;
+            final int centerX = w / 2;
             int shift = centerX - treeMid;
             if (shift != 0) {
-                for (Map.Entry<TrieNode, Point> e : new HashMap<>(tempPositions).entrySet()) {
+                // shift copy to avoid concurrent-modification on iteration
+                Map<TrieNode, Point> shifted = new HashMap<>();
+                for (Map.Entry<TrieNode, Point> e : tempPositions.entrySet()) {
                     Point old = e.getValue();
-                    tempPositions.put(e.getKey(), new Point(old.x + shift, old.y));
+                    shifted.put(e.getKey(), new Point(old.x + shift, old.y));
                 }
+                tempPositions = shifted;
             }
 
-            // if there is no current layout, just set positions immediately
+            // if there is no current layout, just set positions immediately and center viewport
             if (positions.isEmpty()) {
                 positions.putAll(tempPositions);
+
+                // center viewport horizontally and give a bit of vertical offset so root is visible
+                JViewport viewport = (JViewport) SwingUtilities.getAncestorOfClass(JViewport.class, TreePanel.this);
+                if (viewport != null) {
+                    Rectangle view = viewport.getViewRect();
+                    int vx = Math.max(0, centerX - view.width / 2);
+                    int vy = Math.max(0, yRoot - view.height / 8);
+                    viewport.setViewPosition(new Point(vx, vy));
+                }
+
                 repaint();
                 return;
             }
 
-            // prepare animation: startPositions = current positions (or target if new node)
+            // prepare animation: capture start positions for nodes in the new layout
             startPositions.clear();
             for (Map.Entry<TrieNode, Point> e : tempPositions.entrySet()) {
                 TrieNode n = e.getKey();
                 Point tp = e.getValue();
                 Point sp = positions.get(n);
-                if (sp == null) sp = new Point(tp.x, tp.y); // appear without movement
+                if (sp == null) {
+                    // new node appears without movement: start == target
+                    sp = new Point(tp.x, tp.y);
+                }
                 startPositions.put(n, new Point(sp.x, sp.y));
             }
+
+            // set target positions and mark animation start
             targetPositions = tempPositions;
             animStartTime = System.currentTimeMillis();
 
-
+            // create timer if needed
             if (animTimer == null) {
+                final int duration = (int) animDuration; // preserve as effectively final
+                final int centerX_forTimer = centerX;
+                final int yRoot_forTimer = yRoot;
+
                 animTimer = new Timer(30, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         long now = System.currentTimeMillis();
-                        float t = (now - animStartTime) / (float) animDuration;
+                        float t = (now - animStartTime) / (float) duration;
                         if (t >= 1f) t = 1f;
-                        // interpolate
+
+                        // interpolate positions between startPositions and targetPositions
                         for (Map.Entry<TrieNode, Point> en : targetPositions.entrySet()) {
                             TrieNode n = en.getKey();
                             Point tp = en.getValue();
@@ -314,19 +397,32 @@ public class MultipleTreeSearch extends JFrame {
                             int iy = (int) (sp.y + (tp.y - sp.y) * t);
                             positions.put(n, new Point(ix, iy));
                         }
+
                         repaint();
+
                         if (t >= 1f) {
-                            // finalize
+                            // finalize: keep only nodes that exist in targetPositions and set exact target coords
                             positions.keySet().retainAll(targetPositions.keySet());
                             positions.putAll(targetPositions);
 
                             animTimer.stop();
+
+                            // center viewport after animation completes
+                            JViewport viewport = (JViewport) SwingUtilities.getAncestorOfClass(JViewport.class, TreePanel.this);
+                            if (viewport != null) {
+                                Rectangle view = viewport.getViewRect();
+                                int vx = Math.max(0, centerX_forTimer - view.width / 2);
+                                int vy = Math.max(0, yRoot_forTimer - view.height / 8);
+                                viewport.setViewPosition(new Point(vx, vy));
+                            }
                         }
                     }
                 });
             }
+
             animTimer.start();
         }
+
 
         // count leaf-slot equivalents: a node with no non-null child counts as 1
         private int computeLeafCounts(TrieNode node, Map<TrieNode, Integer> leafCounts) {
