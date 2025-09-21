@@ -1,7 +1,9 @@
 package View;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.*;
 import java.io.*;
 
@@ -13,156 +15,59 @@ import java.io.*;
  - Cada letra (A-Z) se codifica en 5 bits según su posición en el alfabeto (A=1..Z=26).
  - Ese código de 5 bits se divide en grupos de 2 bits + 2 bits + 1 bit (por ejemplo: 10 00 0).
  - Nivel 1 (desde la raíz): 4 hijos posibles -> índices 0..3 para "00","01","10","11".
- - Nivel 2: 4 hijos posibles por nodo (mismo esquema).
- - Nivel 3 (final): sólo 2 hijos (0 o 1) para el último bit.
-
- Funcionalidades:
- - Insertar una palabra (inserta letra por letra; letras repetidas no se duplican).
- - Eliminar una letra.
- - Animación paso a paso del recorrido de inserción (resalta nodos mientras baja).
- - Visualización gráfica tipo árbol con nodos y aristas y letras en las hojas.
- - Botones para controlar inserciones, borrado y reset.
-
- Compilar y ejecutar:
- javac QuadTrieVisualizer.java
- java QuadTrieVisualizer
-
+ ...
 */
 
 public class MultipleTreeSearch extends JFrame {
-    private TreePanel treePanel;
-    private JTextField inputField;
-    private JButton deleteBtn, insertAnimateBtn, resetBtn, saveBtn, saveExitBtn, loadBtn, volverBtn;
-    private JSpinner speedSpinner;
-
-    private static MultipleTreeSearch instance;
-
-    public static MultipleTreeSearch getInstance() {
-        if (instance == null) {
-            instance = new MultipleTreeSearch();
-        }
-        return instance;
-    }
 
     public MultipleTreeSearch() {
-        super("Arbol por Residuos Multiples");
+        setTitle("Arbol por Residuos Multiples");
+        setSize(1400, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1280, 720);
         setLocationRelativeTo(null);
 
-        treePanel = new TreePanel();
-        add(treePanel, BorderLayout.CENTER);
+        JPanel top = new JPanel();
+        top.setLayout(new FlowLayout(FlowLayout.LEFT));
+        top.add(new JLabel("Clave:"));
+        JTextField keyField = new JTextField(20);
+        top.add(keyField);
+        JButton insertBtn = new JButton("Insertar");
+        JButton delBtn = new JButton("Eliminar");
+        JButton clearBtn = new JButton("Limpiar");
+        JButton saveBtn = new JButton("Guardar");
+        JButton saveExitBtn = new JButton("Guardar y Salir");
+        JButton loadBtn = new JButton("Cargar");
+        top.add(insertBtn);
+        top.add(delBtn);
+        top.add(clearBtn);
+        top.add(saveBtn);
+        top.add(saveExitBtn);
+        top.add(loadBtn);
 
-        JPanel controls = new JPanel();
-        controls.setBackground(Color.WHITE);
-        controls.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
-        controls.setLayout(new BoxLayout(controls, BoxLayout.X_AXIS));
+        TreePanel treePanel = new TreePanel();
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(top, BorderLayout.NORTH);
+        getContentPane().add(new JScrollPane(treePanel), BorderLayout.CENTER);
 
-        JLabel lbl = new JLabel("Clave: ");
-        lbl.setFont(lbl.getFont().deriveFont(Font.BOLD, 13f));
-        lbl.setForeground(new Color(10, 50, 120));
-        controls.add(lbl);
-        controls.add(Box.createRigidArea(new Dimension(6, 0)));
-
-        inputField = new JTextField();
-        inputField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
-        inputField.setPreferredSize(new Dimension(500, 30));
-        controls.add(inputField);
-        controls.add(Box.createRigidArea(new Dimension(10, 0)));
-
-        Dimension btnSize = new Dimension(110, 30);
-
-        deleteBtn = new JButton("Eliminar");
-        deleteBtn.setPreferredSize(btnSize);
-        deleteBtn.setMaximumSize(btnSize);
-
-        insertAnimateBtn = new JButton("Insertar");
-        insertAnimateBtn.setPreferredSize(btnSize);
-        insertAnimateBtn.setMaximumSize(btnSize);
-
-        resetBtn = new JButton("Limpiar");
-        resetBtn.setPreferredSize(btnSize);
-        resetBtn.setMaximumSize(btnSize);
-
-        saveBtn = new JButton("Guardar");
-        saveBtn.setPreferredSize(btnSize);
-        saveBtn.setMaximumSize(btnSize);
-
-        saveExitBtn = new JButton("Guardar y Salir");
-        saveExitBtn.setPreferredSize(btnSize);
-        saveExitBtn.setMaximumSize(btnSize);
-
-        loadBtn = new JButton("Cargar");
-        loadBtn.setPreferredSize(btnSize);
-        loadBtn.setMaximumSize(btnSize);
-
-        volverBtn = new JButton("Volver");
-        volverBtn.setPreferredSize(btnSize);
-        volverBtn.setMaximumSize(btnSize);
-
-        controls.add(insertAnimateBtn);
-        controls.add(Box.createRigidArea(new Dimension(6,0)));
-        controls.add(deleteBtn);
-        controls.add(Box.createRigidArea(new Dimension(6,0)));
-        controls.add(resetBtn);
-        controls.add(Box.createRigidArea(new Dimension(20,0)));
-        controls.add(saveBtn);
-        controls.add(Box.createRigidArea(new Dimension(6,0)));
-        controls.add(saveExitBtn);
-        controls.add(Box.createRigidArea(new Dimension(6,0)));
-        controls.add(loadBtn);
-        controls.add(Box.createRigidArea(new Dimension(20,0)));
-        controls.add(volverBtn);
-
-        speedSpinner = new JSpinner(new SpinnerNumberModel(200, 50, 2000, 50));
-
-        add(controls, BorderLayout.NORTH);
-
-        
-
-        // Estilo simple azul en los botones
-        Color azul = new Color(30, 120, 220);
-        for (JButton b : Arrays.asList(insertAnimateBtn, deleteBtn, resetBtn, saveBtn, saveExitBtn, loadBtn, volverBtn)) {
-            b.setBackground(azul);
-            b.setForeground(Color.WHITE);
-            b.setFocusPainted(false);
-        }
-
-
-        // Button actions
-
-        deleteBtn.addActionListener(_ -> {
-            String text = inputField.getText().trim().toUpperCase(Locale.ROOT);
-            if (text.isEmpty()) return;
-            // delete each char
-            for (char c : text.toCharArray()) {
-                if (!Character.isLetter(c)) continue;
-                treePanel.deleteLetter(c);
+        insertBtn.addActionListener(_ -> {
+            String k = keyField.getText().trim().toUpperCase();
+            if (k.isEmpty()) return;
+            try {
+                treePanel.insertString(k);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
-            treePanel.repaint();
+            keyField.setText("");
         });
 
-        insertAnimateBtn.addActionListener(_ -> {
-            String text = inputField.getText().trim().toUpperCase(Locale.ROOT);
-            if (text.isEmpty()) return;
-            java.util.List<Character> letters = new ArrayList<>();
-            for (char c : text.toCharArray()) if (Character.isLetter(c)) letters.add(c);
-            new Thread(() -> {
-                for (char c : letters) {
-                    try {
-                        treePanel.animateInsert(c, (int)((Integer) speedSpinner.getValue()));
-                        // small pause between letters
-                        Thread.sleep(150);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            }).start();
+        delBtn.addActionListener(_ -> {
+            String k = keyField.getText().trim().toUpperCase();
+            if (k.isEmpty()) return;
+            treePanel.deleteString(k);
+            keyField.setText("");
         });
 
-        resetBtn.addActionListener(_ -> {
-            treePanel.reset();
-        });
+        clearBtn.addActionListener(_ -> treePanel.clear());
 
         saveBtn.addActionListener(_ -> {
             JFileChooser fc = new JFileChooser();
@@ -176,7 +81,8 @@ public class MultipleTreeSearch extends JFrame {
                     treePanel.saveToFile(f);
                     JOptionPane.showMessageDialog(this, "Guardado en: " + f.getAbsolutePath());
                 } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(this, "Error guardando: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error guardando: " + ex.getMessage(), "Error", JOptionPane.ERROR
+                            );
                 }
             }
         });
@@ -191,11 +97,10 @@ public class MultipleTreeSearch extends JFrame {
                 if (!f.getName().toLowerCase().endsWith(".mul")) f = new File(f.getAbsolutePath() + ".mul");
                 try {
                     treePanel.saveToFile(f);
+                    System.exit(0);
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(this, "Error guardando: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
                 }
-                System.exit(0);
             }
         });
 
@@ -207,223 +112,266 @@ public class MultipleTreeSearch extends JFrame {
                 File f = fc.getSelectedFile();
                 try {
                     treePanel.loadFromFile(f);
-                    JOptionPane.showMessageDialog(this, "Árbol cargado desde: " + f.getAbsolutePath());
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(this, "Error cargando: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
 
-        volverBtn.addActionListener(_ -> {
-            this.setVisible(false);
-            PrincipalPage.getInstance().setVisible(true);
-        });
+        setVisible(true);
     }
 
-    // -------------------- Tree and drawing panel --------------------
-    static class TreePanel extends JPanel {
+    // -------------------- Tree Panel --------------------
+    class TreePanel extends JPanel {
         private TrieNode root;
         private Map<TrieNode, Point> positions = new HashMap<>();
+        // animation support: target positions, start positions and timer
+        private Map<TrieNode, Point> targetPositions = new HashMap<>(); // animated targets
+        private Map<TrieNode, Point> startPositions = new HashMap<>();  // animation start
+        private long animStartTime = 0;
+        private int animDuration = 300; // ms
+        private Timer animTimer;
         private Set<TrieNode> highlight = new HashSet<>();
-        // ---------------- File save/load ----------------
-        // Guardar en archivo .mul (texto plano): primera línea header, luego una letra por línea
-        public void saveToFile(File f) throws IOException {
-            java.util.List<Character> letters = collectLetters();
-            try (PrintWriter pw = new PrintWriter(new FileWriter(f))) {
-                pw.println("QuadTrieMul v1");
-                for (char c : letters) pw.println(c);
-            }
-        }
-
-        // Cargar desde archivo .mul
-        public void loadFromFile(File f) throws IOException {
-            try (BufferedReader br = new BufferedReader(new FileReader(f))) {
-                reset();
-                String line;
-                while ((line = br.readLine()) != null) {
-                    line = line.trim();
-                    if (line.isEmpty()) continue;
-                    char c = line.charAt(0);
-                    if (Character.isLetter(c)) insertLetterImmediate(Character.toUpperCase(c));
-                }
-            }
-        }
-
-        // Recolectar letras existentes (orden: recorrido en profundidad)
-        private java.util.List<Character> collectLetters() {
-            java.util.List<Character> out = new ArrayList<>();
-            collectRec(root, out);
-            return out;
-        }
-
-        private void collectRec(TrieNode node, java.util.List<Character> out) {
-            if (node == null) return;
-            if (node.letter != '\0') out.add(node.letter);
-            int max = node.childrenCount();
-            for (int i = 0; i < max; i++) collectRec(node.getChild(i), out);
-        }
 
 
-        public TreePanel() {
+        TreePanel() {
+            setPreferredSize(new Dimension(2000, 900));
             setBackground(Color.WHITE);
             root = new TrieNode(0);
-        }
 
-        public void reset() {
-            root = new TrieNode(0);
-            positions.clear();
-            highlight.clear();
-            repaint();
-        }
 
-        // Insert letter without animation
-        public void insertLetterImmediate(char letter) {
-            java.util.List<Integer> path = codeToPath(letter);
-            TrieNode current = root;
-            for (int i = 0; i < path.size(); i++) {
-                int idx = path.get(i);
-                current = current.getOrCreateChild(idx, i);
-            }
-            // final node, set letter if not present
-            if (current.letter == '\0') current.letter = letter;
-            // recompute positions
-            computePositions();
-        }
-
-        // Delete letter (and prune empty nodes)
-        public void deleteLetter(char letter) {
-            java.util.List<Integer> path = codeToPath(letter);
-            deleteHelper(root, path, 0);
-            computePositions();
-        }
-
-        private boolean deleteHelper(TrieNode node, java.util.List<Integer> path, int depth) {
-            if (depth == path.size()) {
-                // reached leaf candidate
-                if (node.letter != '\0') node.letter = '\0';
-                // return true if this node has no letter and no children
-                return node.isEmpty();
-            }
-            int idx = path.get(depth);
-            TrieNode child = node.getChild(idx);
-            if (child == null) return false;
-            boolean shouldRemove = deleteHelper(child, path, depth + 1);
-            if (shouldRemove) {
-                node.removeChild(idx);
-            }
-            return node.isEmpty();
-        }
-
-        // Animate insertion of a single letter: highlights nodes while traversing
-        public void animateInsert(char letter, int delayMs) throws InterruptedException {
-            java.util.List<Integer> path = codeToPath(letter);
-            java.util.List<TrieNode> visited = new ArrayList<>();
-            TrieNode current = root;
-            visited.add(current);
-            for (int i = 0; i < path.size(); i++) {
-                int idx = path.get(i);
-                TrieNode next = current.getChild(idx);
-                if (next == null) next = current.getOrCreateChild(idx, i);
-                current = next;
-                visited.add(current);
-            }
-            // animate visited nodes
-            for (TrieNode n : visited) {
-                highlight.clear();
-                highlight.add(n);
-                computePositions();
-                repaint();
-                Thread.sleep(delayMs);
-            }
-            // set letter at final node
-            TrieNode finalNode = visited.get(visited.size() - 1);
-            if (finalNode.letter == '\0') finalNode.letter = letter;
-            highlight.clear();
-            computePositions();
-            repaint();
-        }
-
-        // Compute integer path from letter: returns list of indices for each level
-        // Level 1: 2-bit group -> index 0..3
-        // Level 2: 2-bit group -> index 0..3
-        // Level 3: single bit -> index 0..1
-        private java.util.List<Integer> codeToPath(char letter) {
-            int pos = letter - 'A' + 1; // 1..26
-            if (pos < 1 || pos > 26) pos = 0;
-            String bits = String.format("%5s", Integer.toBinaryString(pos)).replace(' ', '0');
-            // split into groups of 2,2,1
-            String g1 = bits.substring(0, 2);
-            String g2 = bits.substring(2, 4);
-            String g3 = bits.substring(4, 5);
-            java.util.List<Integer> path = new ArrayList<>();
-            path.add(bitsToIndex2(g1));
-            path.add(bitsToIndex2(g2));
-            path.add(bitsToIndex1(g3));
-            return path;
-        }
-
-        private int bitsToIndex2(String s) {
-            // "00"->0, "01"->1, "10"->2, "11"->3
-            if (s.equals("00")) return 0;
-            if (s.equals("01")) return 1;
-            if (s.equals("10")) return 2;
-            return 3;
-        }
-
-        private int bitsToIndex1(String s) {
-            return s.equals("1") ? 1 : 0;
-        }
-
-        // Layout algorithm (simple, fixed tiers and local offsets)
-        private void computePositions() {
-            positions.clear();
-            int w = getWidth();
-            int yRoot = 40;
-            // más separación vertical para evitar que los nodos queden juntos
-            int y1 = 160;
-            int y2 = 360;
-            int y3 = 540;
-
-            // Root
-            positions.put(root, new Point(w / 2, yRoot));
-            // Level1: cuatro posiciones igualmente distribuidas, pero más separadas
-            for (int i = 0; i < 4; i++) {
-                TrieNode n1 = root.getChild(i);
-                int x = (i + 1) * w / 6; // usar 6 para dejar márgenes y más separación
-                if (n1 != null) positions.put(n1, new Point(x, y1));
-            }
-            // Level2: for each existing level1 child, position its up to 4 children
-            for (int i = 0; i < 4; i++) {
-                TrieNode n1 = root.getChild(i);
-                if (n1 == null) continue;
-                Point p1 = positions.get(n1);
-                if (p1 == null) continue;
-                // spread children horizontally around parent (más separación)
-                for (int j = 0; j < 4; j++) {
-                    TrieNode n2 = n1.getChild(j);
-                    if (n2 == null) continue;
-                    int baseX = p1.x - 180; // separamos más a la izquierda para cubrir 4 hijos
-                    int x = baseX + j * 120; // 4 children más espaciados
-                    positions.put(n2, new Point(x, y2));
-                }
-            }
-            // Level3: for each level2 child, up to 2 children (más separación)
-            for (int i = 0; i < 4; i++) {
-                TrieNode n1 = root.getChild(i);
-                if (n1 == null) continue;
-                for (int j = 0; j < 4; j++) {
-                    TrieNode n2 = n1.getChild(j);
-                    if (n2 == null) continue;
-                    Point p2 = positions.get(n2);
-                    if (p2 == null) continue;
-                    for (int k = 0; k < 2; k++) {
-                        TrieNode n3 = n2.getChild(k);
-                        if (n3 == null) continue;
-                        int x = p2.x - 30 + k * 60; // dos hijos separados
-                        positions.put(n3, new Point(x, y3));
+            addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    Point p = e.getPoint();
+                    for (Map.Entry<TrieNode, Point> en : positions.entrySet()) {
+                        Point np = en.getValue();
+                        int dx = p.x - np.x;
+                        int dy = p.y - np.y;
+                        if (dx * dx + dy * dy <= 400) {
+                            JOptionPane.showMessageDialog(TreePanel.this, en.getKey().toString());
+                            break;
+                        }
                     }
                 }
+            });
+        }
+
+        // Insert a whole string (A-Z) mapping to 5-bit codes
+        public void insertString(String s) {
+            for (char c : s.toCharArray()) insertChar(c);
+            repaint();
+        }
+
+        public void deleteString(String s) {
+            for (char c : s.toCharArray()) deleteChar(c);
+            repaint();
+        }
+
+        public void clear() {
+            root = new TrieNode(0);
+            positions.clear();
+            repaint();
+        }
+
+        public void saveToFile(File f) throws IOException {
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f))) {
+                oos.writeObject(root);
             }
+        }
+
+        public void loadFromFile(File f) throws IOException {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
+                root = (TrieNode) ois.readObject();
+                repaint();
+            } catch (ClassNotFoundException e) {
+                throw new IOException(e);
+            }
+        }
+
+        private void insertChar(char c) {
+            int code = charToCode(c);
+            TrieNode cur = root;
+            // 2 bits, 2 bits, 1 bit
+            int b1 = (code >> 3) & 0x3; // top 2 bits
+            int b2 = (code >> 1) & 0x3; // next 2 bits
+            int b3 = code & 0x1; // last bit
+            cur = cur.ensureChild(b1);
+            cur = cur.ensureChild(b2);
+            cur = cur.ensureChild(b3);
+            cur.letter = c;
+        }
+
+        private void deleteChar(char c) {
+            int code = charToCode(c);
+            Stack<TrieNode> stack = new Stack<>();
+            TrieNode cur = root;
+            stack.push(cur);
+            int b1 = (code >> 3) & 0x3;
+            int b2 = (code >> 1) & 0x3;
+            int b3 = code & 0x1;
+            cur = cur.getChild(b1);
+            if (cur == null) return;
+            stack.push(cur);
+            cur = cur.getChild(b2);
+            if (cur == null) return;
+            stack.push(cur);
+            cur = cur.getChild(b3);
+            if (cur == null) return;
+            cur.letter = '\0';
+            // clean up empty nodes
+            for (int i = 0; i < 3; i++) {
+                TrieNode t = stack.pop();
+                TrieNode parent = stack.peek();
+                if (t.isEmpty()) {
+                    // find index in parent
+                    for (int j = 0; j < 4; j++) {
+                        if (parent.getChild(j) == t) parent.removeChild(j);
+                    }
+                } else break;
+            }
+        }
+
+        private int charToCode(char c) {
+            if (c < 'A' || c > 'Z') return 0;
+            return (c - 'A' + 1) & 0x1F;
+        }
+
+        // Layout algorithm: compute subtree leaf counts and assign x positions to avoid overlaps.
+        private void computePositions() {
+            // compute target positions into a temporary map (do not overwrite 'positions' directly)
+            Map<TrieNode, Point> tempPositions = new HashMap<>();
+            if (root == null) return;
+            int w = getWidth();
+
+
+            // vertical layout
+            int yRoot = 40;
+            int verticalSpacing = 140;
+
+            // first pass: compute number of leaf slots per subtree
+            Map<TrieNode, Integer> leafCounts = new HashMap<>();
+            computeLeafCounts(root, leafCounts);
+
+            // second pass: assign x positions using an in-order like layout into tempPositions
+            int margin = 40;
+            int spacing = 80; // base horizontal spacing between leaf slots
+            int[] nextX = new int[]{margin}; // mutable integer for current x slot (in pixels)
+
+            assignPositions(root, 0, nextX, spacing, verticalSpacing, yRoot, leafCounts, tempPositions);
+
+            // center the whole tree horizontally in tempPositions
+            int minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE;
+            for (Point p : tempPositions.values()) {
+                if (p.x < minX) minX = p.x;
+                if (p.x > maxX) maxX = p.x;
+            }
+            if (minX == Integer.MAX_VALUE) return;
+            int treeMid = (minX + maxX) / 2;
+            int centerX = w / 2;
+            int shift = centerX - treeMid;
+            if (shift != 0) {
+                for (Map.Entry<TrieNode, Point> e : new HashMap<>(tempPositions).entrySet()) {
+                    Point old = e.getValue();
+                    tempPositions.put(e.getKey(), new Point(old.x + shift, old.y));
+                }
+            }
+
+            // if there is no current layout, just set positions immediately
+            if (positions.isEmpty()) {
+                positions.putAll(tempPositions);
+                repaint();
+                return;
+            }
+
+            // prepare animation: startPositions = current positions (or target if new node)
+            startPositions.clear();
+            for (Map.Entry<TrieNode, Point> e : tempPositions.entrySet()) {
+                TrieNode n = e.getKey();
+                Point tp = e.getValue();
+                Point sp = positions.get(n);
+                if (sp == null) sp = new Point(tp.x, tp.y); // appear without movement
+                startPositions.put(n, new Point(sp.x, sp.y));
+            }
+            targetPositions = tempPositions;
+            animStartTime = System.currentTimeMillis();
+
+
+            if (animTimer == null) {
+                animTimer = new Timer(30, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        long now = System.currentTimeMillis();
+                        float t = (now - animStartTime) / (float) animDuration;
+                        if (t >= 1f) t = 1f;
+                        // interpolate
+                        for (Map.Entry<TrieNode, Point> en : targetPositions.entrySet()) {
+                            TrieNode n = en.getKey();
+                            Point tp = en.getValue();
+                            Point sp = startPositions.get(n);
+                            if (sp == null) sp = new Point(tp.x, tp.y);
+                            int ix = (int) (sp.x + (tp.x - sp.x) * t);
+                            int iy = (int) (sp.y + (tp.y - sp.y) * t);
+                            positions.put(n, new Point(ix, iy));
+                        }
+                        repaint();
+                        if (t >= 1f) {
+                            // finalize
+                            positions.keySet().retainAll(targetPositions.keySet());
+                            positions.putAll(targetPositions);
+
+                            animTimer.stop();
+                        }
+                    }
+                });
+            }
+            animTimer.start();
+        }
+
+        // count leaf-slot equivalents: a node with no non-null child counts as 1
+        private int computeLeafCounts(TrieNode node, Map<TrieNode, Integer> leafCounts) {
+            if (node == null) return 0;
+            int cnt = 0;
+            boolean hasChild = false;
+            for (int i = 0; i < 4; i++) {
+                TrieNode c = node.getChild(i);
+                if (c != null) {
+                    hasChild = true;
+                    cnt += computeLeafCounts(c, leafCounts);
+                }
+            }
+            if (!hasChild) cnt = 1;
+            leafCounts.put(node, cnt);
+            return cnt;
+        }
+
+        // assign positions recursively: children first so parent can be centered above them
+        private void assignPositions(TrieNode node, int depth, int[] nextX, int spacing, int vSpacing, int yRoot, Map<TrieNode, Integer> leafCounts, Map<TrieNode, Point> outPositions) {
+            if (node == null) return;
+            int startX = Integer.MAX_VALUE;
+            int endX = Integer.MIN_VALUE;
+            // process children left-to-right (0..3)
+            for (int i = 0; i < 4; i++) {
+                TrieNode c = node.getChild(i);
+                if (c == null) continue;
+                assignPositions(c, depth + 1, nextX, spacing, vSpacing, yRoot, leafCounts, outPositions);
+                Point pc = outPositions.get(c);
+                if (pc != null) {
+                    if (pc.x < startX) startX = pc.x;
+                    if (pc.x > endX) endX = pc.x;
+                }
+            }
+            int x;
+            if (startX == Integer.MAX_VALUE) {
+                // leaf: place at next slot
+                x = nextX[0];
+                nextX[0] += spacing;
+            } else {
+                // internal: center above children
+                x = (startX + endX) / 2;
+            }
+            int y = yRoot + depth * vSpacing;
+            outPositions.put(node, new Point(x, y));
         }
 
         @Override
@@ -447,7 +395,6 @@ public class MultipleTreeSearch extends JFrame {
             Point p = positions.get(node);
             if (p == null) return;
             // draw children edges based on node level
-            int level = node.level;
             int maxChildren = node.childrenCount();
             for (int i = 0; i < maxChildren; i++) {
                 TrieNode child = node.getChild(i);
@@ -459,18 +406,19 @@ public class MultipleTreeSearch extends JFrame {
                 g.setColor(new Color(200,200,200));
                 g.drawLine(p.x, p.y + 18, pc.x, pc.y - 18);
 
-                // small label for edge (bits)
-                String label = edgeLabelFor(level, i);
-                int lx = (p.x + pc.x) / 2;
-                int ly = (p.y + pc.y) / 2 - 14; // situar el texto por encima de la línea
-                Font prev = g.getFont();
-                Font bold = prev.deriveFont(Font.BOLD, 14f);
-                g.setFont(bold);
-                FontMetrics fm = g.getFontMetrics();
-                int sw = fm.stringWidth(label);
-                g.setColor(new Color(10,80,160));
-                g.drawString(label, lx - sw/2, ly);
-                g.setFont(prev);
+                // label on edge
+                String label = edgeLabelFor(node.level, i);
+                if (label != null) {
+                    Font prev = g.getFont();
+                    Font bold = prev.deriveFont(Font.BOLD, 14f);
+                    g.setFont(bold);
+                    FontMetrics fm = g.getFontMetrics();
+                    int lx = (p.x + pc.x) / 2;
+                    int ly = (p.y + pc.y) / 2;
+                    g.setColor(new Color(10,80,160));
+                    g.drawString(label, lx - fm.stringWidth(label) / 2, ly - 6);
+                    g.setFont(prev);
+                }
 
                 // recurse
                 drawEdges(g, child);
@@ -478,21 +426,28 @@ public class MultipleTreeSearch extends JFrame {
         }
 
         private String edgeLabelFor(int level, int childIndex) {
-            if (level == 0 || level == 1) {
+            if (level == 0) {
                 switch (childIndex) {
                     case 0: return "00";
                     case 1: return "01";
                     case 2: return "10";
-                    default: return "11";
+                    case 3: return "11";
                 }
-            } else {
-                // level 2 -> last single bit
-                return childIndex == 0 ? "0" : "1";
+            } else if (level == 1) {
+                switch (childIndex) {
+                    case 0: return "00";
+                    case 1: return "10";
+                    case 2: return "11";
+                    case 3: return "";
+                }
+            } else if (level == 2) {
+                return (childIndex == 0) ? "0" : "1";
             }
+            return null;
         }
 
         private void drawNodes(Graphics2D g) {
-            // draw root
+            // draw nodes in positions map
             for (Map.Entry<TrieNode, Point> e : positions.entrySet()) {
                 TrieNode n = e.getKey();
                 Point p = e.getValue();
@@ -527,11 +482,10 @@ public class MultipleTreeSearch extends JFrame {
     }
 
     // -------------------- Trie Node --------------------
-    static class TrieNode {
-        int level; // 0=root, 1=level1, 2=level2, 3=level3(final)
-        // children: if level < 2 -> size 4; if level ==2 -> size 2
-        TrieNode[] children;
+    static class TrieNode implements Serializable {
+        int level;
         char letter = '\0';
+        TrieNode[] children = new TrieNode[4];
 
         TrieNode(int level) {
             this.level = level;
@@ -539,23 +493,30 @@ public class MultipleTreeSearch extends JFrame {
             else children = new TrieNode[2];
         }
 
-        int childrenCount() { return children.length; }
-
         TrieNode getChild(int idx) {
             if (idx < 0 || idx >= children.length) return null;
             return children[idx];
         }
 
-        TrieNode getOrCreateChild(int idx, int depth) {
+        TrieNode ensureChild(int idx) {
             if (idx < 0) return null;
-            if (idx >= children.length) {
-                // defensive: if requested an index outside (shouldn't happen), expand safely
-                return null;
-            }
-            if (children[idx] == null) {
-                children[idx] = new TrieNode(Math.min(level + 1, 3));
-            }
+            if (idx >= children.length) return null;
+            if (children[idx] == null) children[idx] = new TrieNode(level + 1);
             return children[idx];
+        }
+
+        int childrenCount() {
+            return children.length;
+        }
+
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Nivel: ").append(level).append("\n");
+            if (letter != '\0') sb.append("Letra: ").append(letter).append("\n");
+            for (int i = 0; i < children.length; i++) {
+                if (children[i] != null) sb.append("Child[").append(i).append("]\n");
+            }
+            return sb.toString();
         }
 
         void removeChild(int idx) {
@@ -569,4 +530,14 @@ public class MultipleTreeSearch extends JFrame {
             return true;
         }
     }
+
+    private static MultipleTreeSearch instance;
+
+    public static MultipleTreeSearch getInstance() {
+        if (instance == null) {
+            instance = new MultipleTreeSearch();
+        }
+        return instance;
+    } 
+
 }
