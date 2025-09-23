@@ -30,6 +30,41 @@ public class LinealSearch extends javax.swing.JFrame {
 
     
     private Integer[] array; // modelo del arreglo (null = vacío)
+    // Merge Sort implementation for Integer[]
+    private void mergeSort(Integer[] arr) {
+        if (arr == null || arr.length < 2) return;
+        mergeSortHelper(arr, 0, arr.length - 1);
+    }
+    private void mergeSortHelper(Integer[] arr, int left, int right) {
+        if (left < right) {
+            int mid = left + (right - left) / 2;
+            mergeSortHelper(arr, left, mid);
+            mergeSortHelper(arr, mid + 1, right);
+            merge(arr, left, mid, right);
+        }
+    }
+    private void merge(Integer[] arr, int left, int mid, int right) {
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+        Integer[] L = new Integer[n1];
+        Integer[] R = new Integer[n2];
+        for (int i = 0; i < n1; i++) L[i] = arr[left + i];
+        for (int j = 0; j < n2; j++) R[j] = arr[mid + 1 + j];
+        int i = 0, j = 0, k = left;
+        while (i < n1 && j < n2) {
+            if (L[i] == null) {
+                arr[k++] = R[j++];
+            } else if (j < n2 && R[j] == null) {
+                arr[k++] = L[i++];
+            } else if (L[i] <= R[j]) {
+                arr[k++] = L[i++];
+            } else {
+                arr[k++] = R[j++];
+            }
+        }
+        while (i < n1) arr[k++] = L[i++];
+        while (j < n2) arr[k++] = R[j++];
+    }
     
     int xMouse, yMouse;
     
@@ -592,6 +627,7 @@ public class LinealSearch extends javax.swing.JFrame {
             for (int i = 0; i < array.length; i++) {
                 if (array[i] == null) {
                     array[i] = value;
+                    mergeSort(array);
                     refreshCellsUI();
                     inserted = true;
                     break;
@@ -604,7 +640,6 @@ public class LinealSearch extends javax.swing.JFrame {
                     "Tabla llena",
                     JOptionPane.WARNING_MESSAGE);
             }
-
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Valor inválido", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -613,11 +648,7 @@ public class LinealSearch extends javax.swing.JFrame {
     private void onSearch() {
         try {
             String input = txtSearchValue.getText().trim();
-
-            // validar si es número
             final int value = Integer.parseInt(input);
-
-            // 1. validar longitud de la clave
             if (longitudClaves == null) {
                 JOptionPane.showMessageDialog(this,
                     "Debe Insertar al menos una clave",
@@ -631,24 +662,20 @@ public class LinealSearch extends javax.swing.JFrame {
                     JOptionPane.WARNING_MESSAGE);
                 return;
             }
-
+            // Sort array before searching
+            mergeSort(array);
+            refreshCellsUI();
             clearHighlights();
-
             java.util.List<Integer> steps = new java.util.ArrayList<>();
             int foundIndex = -1;
-
-            // búsqueda lineal en todo el arreglo
             for (int i = 0; i < array.length; i++) {
-                steps.add(i); // registrar el índice visitado (para animación)
-
+                steps.add(i);
                 if (array[i] != null && array[i] == value) {
                     foundIndex = i;
                     break;
                 }
             }
-
             animateSearch(steps, foundIndex);
-
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Valor de búsqueda inválido", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -854,6 +881,8 @@ public class LinealSearch extends javax.swing.JFrame {
             valLabel.setForeground(LABEL_BLACK);
         }
     }
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backGround;
