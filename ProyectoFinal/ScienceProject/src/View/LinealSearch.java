@@ -111,27 +111,23 @@ public class LinealSearch extends javax.swing.JFrame {
         logo = new javax.swing.JLabel();
         volverTxt = new javax.swing.JLabel();
         dragPanel = new javax.swing.JPanel();
-        txtTamaño = new javax.swing.JLabel();
-        txtSize = new javax.swing.JTextField();
-        txtValor = new javax.swing.JLabel();
-        txtBuscar = new javax.swing.JLabel();
-        txtEliminar = new javax.swing.JLabel();
         scrollPaneCells = new javax.swing.JScrollPane();
         panelCells = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        btnSave = new javax.swing.JButton();
-        btnOpen = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        txtInsertValue = new javax.swing.JTextField();
-        txtSearchValue = new javax.swing.JTextField();
-        txtDeleteIndex = new javax.swing.JTextField();
+        txtKey = new javax.swing.JTextField();
         btnCreate = new javax.swing.JButton();
         btnInsert = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        txtKeySize = new javax.swing.JLabel();
+        sizeArrayField = new javax.swing.JTextField();
+        txtArraySize = new javax.swing.JLabel();
+        sizeKeyField = new javax.swing.JTextField();
+        txtValor = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnOpen = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hash&Seek");
@@ -192,74 +188,15 @@ public class LinealSearch extends javax.swing.JFrame {
 
         backGround.add(dragPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 50));
 
-        txtTamaño.setForeground(new java.awt.Color(0, 0, 0));
-        txtTamaño.setText("Tamaño:");
-        backGround.add(txtTamaño, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, 30));
-
-        txtSize.setBackground(new java.awt.Color(255, 255, 255));
-        txtSize.setForeground(new java.awt.Color(0, 0, 0));
-        txtSize.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSizeActionPerformed(evt);
-            }
-        });
-        backGround.add(txtSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, 80, 30));
-
-        txtValor.setForeground(new java.awt.Color(0, 0, 0));
-        txtValor.setText("clave:");
-        backGround.add(txtValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 220, -1, 30));
-
-        txtBuscar.setForeground(new java.awt.Color(0, 0, 0));
-        txtBuscar.setText("Buscar:");
-        backGround.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 220, -1, 30));
-
-        txtEliminar.setForeground(new java.awt.Color(0, 0, 0));
-        txtEliminar.setText("Eliminar:");
-        backGround.add(txtEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 220, -1, 30));
-
         panelCells.setBackground(new java.awt.Color(255, 255, 255));
         scrollPaneCells.setViewportView(panelCells);
 
         backGround.add(scrollPaneCells, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 1250, 360));
 
-        jLabel1.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Eliminar Clave");
-        backGround.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 180, -1, -1));
-
-        jLabel2.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Crear estructura");
-        backGround.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Insertar Clave");
-        backGround.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, -1, -1));
-
-        jLabel4.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Buscar Clave");
-        backGround.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 180, -1, -1));
-
-        btnSave.setFont(new java.awt.Font("Cambria Math", 1, 36)); // NOI18N
-        btnSave.setText("Guardar");
-        backGround.add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 160, -1, -1));
-
-        btnOpen.setFont(new java.awt.Font("Cambria Math", 1, 36)); // NOI18N
-        btnOpen.setText("Abrir");
-        backGround.add(btnOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 230, -1, -1));
-
         jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
-        txtInsertValue.setBackground(new java.awt.Color(255, 255, 255));
-        txtInsertValue.setForeground(new java.awt.Color(0, 0, 0));
-
-        txtSearchValue.setBackground(new java.awt.Color(255, 255, 255));
-        txtSearchValue.setForeground(new java.awt.Color(0, 0, 0));
-
-        txtDeleteIndex.setBackground(new java.awt.Color(255, 255, 255));
-        txtDeleteIndex.setForeground(new java.awt.Color(0, 0, 0));
+        txtKey.setBackground(new java.awt.Color(255, 255, 255));
+        txtKey.setForeground(new java.awt.Color(0, 0, 0));
 
         btnCreate.setBackground(new java.awt.Color(51, 51, 51));
         btnCreate.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
@@ -331,50 +268,147 @@ public class LinealSearch extends javax.swing.JFrame {
             }
         });
 
+        txtKeySize.setForeground(new java.awt.Color(0, 0, 0));
+        txtKeySize.setText("Tamaño de la Clave:");
+
+        sizeArrayField.setBackground(new java.awt.Color(255, 255, 255));
+        sizeArrayField.setForeground(new java.awt.Color(0, 0, 0));
+        sizeArrayField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sizeArrayFieldActionPerformed(evt);
+            }
+        });
+
+        txtArraySize.setForeground(new java.awt.Color(0, 0, 0));
+        txtArraySize.setText("Tamaño:");
+
+        sizeKeyField.setBackground(new java.awt.Color(255, 255, 255));
+        sizeKeyField.setForeground(new java.awt.Color(0, 0, 0));
+        sizeKeyField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sizeKeyFieldActionPerformed(evt);
+            }
+        });
+
+        txtValor.setForeground(new java.awt.Color(0, 0, 0));
+        txtValor.setText("clave:");
+
+        jLabel3.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Insertar, Buscar o Eliminar Clave");
+
+        jLabel2.setFont(new java.awt.Font("Cambria Math", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Crear estructura");
+
+        btnOpen.setBackground(new java.awt.Color(51, 51, 51));
+        btnOpen.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
+        btnOpen.setForeground(new java.awt.Color(255, 255, 255));
+        btnOpen.setText("Recuperar");
+        btnOpen.setBorder(null);
+        btnOpen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOpen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnOpenMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnOpenMouseExited(evt);
+            }
+        });
+
+        btnSave.setBackground(new java.awt.Color(51, 51, 51));
+        btnSave.setFont(new java.awt.Font("Cambria Math", 1, 18)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(255, 255, 255));
+        btnSave.setText("Guardar");
+        btnSave.setBorder(null);
+        btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSaveMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSaveMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(200, 200, 200)
-                        .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(166, 166, 166)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                        .addGap(16, 16, 16))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(374, 374, 374)
-                        .addComponent(txtInsertValue, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtSearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(157, 157, 157)
-                        .addComponent(txtDeleteIndex, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtArraySize)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sizeArrayField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtKeySize)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sizeKeyField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(165, 165, 165))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(310, 310, 310))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(85, 85, 85)
+                                .addComponent(jLabel2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(122, 122, 122)
+                                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtValor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtKey, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel3)))
+                .addGap(193, 193, 193)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnOpen, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtInsertValue, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                    .addComponent(txtSearchValue)
-                    .addComponent(txtDeleteIndex))
-                .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtArraySize, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sizeArrayField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtKeySize, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sizeKeyField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtKey, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnOpen, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         backGround.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 1260, 170));
@@ -408,9 +442,9 @@ public class LinealSearch extends javax.swing.JFrame {
         this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_dragPanelMouseDragged
 
-    private void txtSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSizeActionPerformed
+    private void sizeArrayFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeArrayFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSizeActionPerformed
+    }//GEN-LAST:event_sizeArrayFieldActionPerformed
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
         // TODO add your handling code here:
@@ -451,6 +485,26 @@ public class LinealSearch extends javax.swing.JFrame {
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void sizeKeyFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeKeyFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sizeKeyFieldActionPerformed
+
+    private void btnOpenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOpenMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnOpenMouseEntered
+
+    private void btnOpenMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOpenMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnOpenMouseExited
+
+    private void btnSaveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSaveMouseEntered
+
+    private void btnSaveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSaveMouseExited
 
     /**
      * @param args the command line arguments
@@ -579,12 +633,12 @@ public class LinealSearch extends javax.swing.JFrame {
     // --------- OPERACIONES (Crea/Insertar/Buscar/Modificar/Eliminar) ----------
     private void onCreateArray() {
         try {
-            int size = Math.max(1, Integer.parseInt(txtSize.getText().trim()));
+            int size = Math.max(1, Integer.parseInt(sizeArrayField.getText().trim()));
             array = new Integer[size];
-            longitudClaves = null;
+            longitudClaves = Math.max(1, Integer.parseInt(sizeKeyField.getText().trim()));
             refreshCellsUI();
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Tamaño inválido", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Tamaño o longitud de clave inválido(s)", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -594,15 +648,15 @@ public class LinealSearch extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Por Favor cree la Estructura", "Estructura no creada", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            String input = txtInsertValue.getText().trim();
+            String input = txtKey.getText().trim();
 
             // validar si es número
             int value = Integer.parseInt(input);
 
             // 1. validar longitud de la clave
             if (longitudClaves == null) {
-                // primera inserción: fijamos la longitud estándar
-                longitudClaves = input.length();
+                JOptionPane.showMessageDialog(this, "Longitud de claves no definida");
+                return;
             } else if (input.length() != longitudClaves) {
                 JOptionPane.showMessageDialog(this,
                     "Todas las claves deben tener " + longitudClaves + " dígitos",
@@ -647,7 +701,7 @@ public class LinealSearch extends javax.swing.JFrame {
 
     private void onSearch() {
         try {
-            String input = txtSearchValue.getText().trim();
+            String input = txtKey.getText().trim();
             final int value = Integer.parseInt(input);
             if (longitudClaves == null) {
                 JOptionPane.showMessageDialog(this,
@@ -684,9 +738,9 @@ public class LinealSearch extends javax.swing.JFrame {
     private void animateSearch(java.util.List<Integer> steps, int foundIndex) {
         clearHighlights();
         final int[] idx = {0};
-        txtSearchValue.setEnabled(false);
+        txtKey.setEnabled(false);
 
-        Timer timer = new Timer(450, null);
+        Timer timer = new Timer(400, null);
         timer.addActionListener(_ -> {
             if (idx[0] >= steps.size()) {
                 if (foundIndex == -1) {
@@ -695,7 +749,7 @@ public class LinealSearch extends javax.swing.JFrame {
                         "Buscar",
                         JOptionPane.INFORMATION_MESSAGE);
                 }
-                txtSearchValue.setEnabled(true);
+                txtKey.setEnabled(true);
                 timer.stop();
                 return;
             }
@@ -707,8 +761,60 @@ public class LinealSearch extends javax.swing.JFrame {
                     // encontrado → verde
                     cell.setHighlight(MINT);
                     scrollCellToVisible(pos);
-                    txtSearchValue.setEnabled(true);
+                    txtKey.setEnabled(true);
                     timer.stop();
+                    return;
+                } else {
+                    // descartado → rojo
+                    cell.setHighlight(Color.RED);
+                    scrollCellToVisible(pos);
+                }
+            }
+            idx[0]++;
+        });
+
+        timer.setInitialDelay(0);
+        timer.start();
+    }
+    
+    private void animateDelete(java.util.List<Integer> steps, int foundIndex, Runnable onFinished) {
+        clearHighlights();
+        final int[] idx = {0};
+        txtKey.setEnabled(false);
+
+        Timer timer = new Timer(400, null);
+        timer.addActionListener(_ -> {
+            if (idx[0] >= steps.size()) {
+                if (foundIndex == -1) {
+                    JOptionPane.showMessageDialog(this,
+                        "Valor no encontrado (colisión o nunca insertado)",
+                        "Buscar",
+                        JOptionPane.INFORMATION_MESSAGE);
+                }
+                txtKey.setEnabled(true);
+                timer.stop();
+
+                // ✅ LLAMAR AL CALLBACK CUANDO TERMINA LA ANIMACIÓN
+                if (onFinished != null) {
+                    onFinished.run();
+                }
+                return;
+            }
+
+            int pos = steps.get(idx[0]);
+            CellPanel cell = getCellPanel(pos);
+            if (cell != null) {
+                if (pos == foundIndex) {
+                    // encontrado → verde
+                    cell.setHighlight(MINT);
+                    scrollCellToVisible(pos);
+                    txtKey.setEnabled(true);
+                    timer.stop();
+
+                    // ✅ TAMBIÉN LLAMAR AL CALLBACK CUANDO ENCUENTRA EL ELEMENTO
+                    if (onFinished != null) {
+                        onFinished.run();
+                    }
                     return;
                 } else {
                     // descartado → rojo
@@ -725,7 +831,7 @@ public class LinealSearch extends javax.swing.JFrame {
 
     private void onDelete() {
         try {
-            String input = txtDeleteIndex.getText().trim();
+            String input = txtKey.getText().trim();
 
             // validar si es número
             int value = Integer.parseInt(input);
@@ -745,29 +851,33 @@ public class LinealSearch extends javax.swing.JFrame {
                 return;
             }
 
-            int foundIndex = -1;
-
-            // búsqueda lineal
+            mergeSort(array);
+            refreshCellsUI();
+            clearHighlights();
+            java.util.List<Integer> steps = new java.util.ArrayList<>();
+            final int[] foundIndex = {-1};
             for (int i = 0; i < array.length; i++) {
+                steps.add(i);
                 if (array[i] != null && array[i] == value) {
-                    foundIndex = i;
+                    foundIndex[0] = i;
                     break;
                 }
             }
-
-            if (foundIndex != -1) {
-                array[foundIndex] = null;
-                refreshCellsUI();
-                JOptionPane.showMessageDialog(this,
-                    "Clave " + value + " eliminada de la posición " + (foundIndex + 1),
-                    "Eliminado",
-                    JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this,
-                    "La clave " + value + " no se encuentra en la tabla",
-                    "No encontrado",
-                    JOptionPane.WARNING_MESSAGE);
-            }
+            animateDelete(steps, foundIndex[0], () -> {
+                if (foundIndex[0] != -1) {
+                    array[foundIndex[0]] = null;
+                    refreshCellsUI();
+                    JOptionPane.showMessageDialog(this,
+                        "Clave " + value + " eliminada de la posición " + (foundIndex[0] + 1),
+                        "Eliminado",
+                        JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                        "La clave " + value + " no se encuentra en la tabla",
+                        "No encontrado",
+                        JOptionPane.WARNING_MESSAGE);
+                }
+            });
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Clave inválida", "Error", JOptionPane.ERROR_MESSAGE);
@@ -779,10 +889,10 @@ public class LinealSearch extends javax.swing.JFrame {
     // --------- UI: refresco y utilidades ----------
     private void refreshCellsUI() {
         panelCells.removeAll();
+        panelCells.add(Box.createRigidArea(new Dimension(8, 0)));
         for (int i=0;i<array.length;i++) {
             CellPanel cell = new CellPanel(i + 1, array[i]);
             panelCells.add(cell);
-            panelCells.add(Box.createRigidArea(new Dimension(8, 0)));
         }
         panelCells.revalidate();
         panelCells.repaint();
@@ -814,7 +924,7 @@ public class LinealSearch extends javax.swing.JFrame {
     }
 
     private Component getCellComponent(int index) {
-        int compIndex = index * 2; // entre cada celda hay un rigid area
+        int compIndex = index + 1; // rigid area solo al principio como margen
         if (compIndex >= 0 && compIndex < panelCells.getComponentCount()) {
             return panelCells.getComponent(compIndex);
         }
@@ -893,21 +1003,17 @@ public class LinealSearch extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;
     private javax.swing.JPanel dragPanel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel logo;
     private javax.swing.JPanel panelCells;
     private javax.swing.JScrollPane scrollPaneCells;
-    private javax.swing.JLabel txtBuscar;
-    private javax.swing.JTextField txtDeleteIndex;
-    private javax.swing.JLabel txtEliminar;
-    private javax.swing.JTextField txtInsertValue;
-    private javax.swing.JTextField txtSearchValue;
-    private javax.swing.JTextField txtSize;
-    private javax.swing.JLabel txtTamaño;
+    private javax.swing.JTextField sizeArrayField;
+    private javax.swing.JTextField sizeKeyField;
+    private javax.swing.JLabel txtArraySize;
+    private javax.swing.JTextField txtKey;
+    private javax.swing.JLabel txtKeySize;
     private javax.swing.JLabel txtValor;
     private javax.swing.JLabel volverTxt;
     // End of variables declaration//GEN-END:variables

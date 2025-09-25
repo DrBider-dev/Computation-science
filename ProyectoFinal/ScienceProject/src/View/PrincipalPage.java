@@ -59,14 +59,8 @@ public class PrincipalPage extends javax.swing.JFrame {
         binarySearchLabel = new javax.swing.JLabel();
         linealSearchbtn = new javax.swing.JPanel();
         linealSearchLabel = new javax.swing.JLabel();
-        hModSearchbtn = new javax.swing.JPanel();
-        hModSearchLabel = new javax.swing.JLabel();
-        hSquareSearchbtn = new javax.swing.JPanel();
-        hSquareSearchLabel = new javax.swing.JLabel();
-        hFoldingSearchbtn = new javax.swing.JPanel();
-        hFoldingSearchLabel = new javax.swing.JLabel();
-        htTruncationSearchbtn = new javax.swing.JPanel();
-        hTruncationSearchLabel = new javax.swing.JLabel();
+        hashingSearchbtn = new javax.swing.JPanel();
+        hashingSearchlabel = new javax.swing.JLabel();
         tituloPaginaTxt = new javax.swing.JLabel();
         btnSiguiente = new javax.swing.JLabel();
         dinamicoTxt = new javax.swing.JLabel();
@@ -97,7 +91,6 @@ public class PrincipalPage extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(1280, 720));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setSize(new java.awt.Dimension(1280, 720));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -134,7 +127,9 @@ public class PrincipalPage extends javax.swing.JFrame {
         binarySearchbtn.setLayout(binarySearchbtnLayout);
         binarySearchbtnLayout.setHorizontalGroup(
             binarySearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(binarySearchLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+            .addGroup(binarySearchbtnLayout.createSequentialGroup()
+                .addComponent(binarySearchLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         binarySearchbtnLayout.setVerticalGroup(
             binarySearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,129 +168,34 @@ public class PrincipalPage extends javax.swing.JFrame {
             .addComponent(linealSearchLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        hModSearchbtn.setBackground(new java.awt.Color(60, 60, 60));
+        hashingSearchbtn.setBackground(new java.awt.Color(60, 60, 60));
 
-        hModSearchLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        hModSearchLabel.setForeground(new java.awt.Color(255, 255, 255));
-        hModSearchLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        hModSearchLabel.setText("Hash Mod");
-        hModSearchLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        hModSearchLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+        hashingSearchlabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        hashingSearchlabel.setForeground(new java.awt.Color(255, 255, 255));
+        hashingSearchlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        hashingSearchlabel.setText("Funciones Hash");
+        hashingSearchlabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        hashingSearchlabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                hModSearchLabelMouseClicked(evt);
+                hashingSearchlabelMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                hModSearchLabelMouseEntered(evt);
+                hashingSearchlabelMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                hModSearchLabelMouseExited(evt);
+                hashingSearchlabelMouseExited(evt);
             }
         });
 
-        javax.swing.GroupLayout hModSearchbtnLayout = new javax.swing.GroupLayout(hModSearchbtn);
-        hModSearchbtn.setLayout(hModSearchbtnLayout);
-        hModSearchbtnLayout.setHorizontalGroup(
-            hModSearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(hModSearchLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+        javax.swing.GroupLayout hashingSearchbtnLayout = new javax.swing.GroupLayout(hashingSearchbtn);
+        hashingSearchbtn.setLayout(hashingSearchbtnLayout);
+        hashingSearchbtnLayout.setHorizontalGroup(
+            hashingSearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(hashingSearchlabel, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
         );
-        hModSearchbtnLayout.setVerticalGroup(
-            hModSearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(hModSearchLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        hSquareSearchbtn.setBackground(new java.awt.Color(51, 51, 51));
-
-        hSquareSearchLabel.setBackground(new java.awt.Color(51, 51, 51));
-        hSquareSearchLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        hSquareSearchLabel.setForeground(new java.awt.Color(255, 255, 255));
-        hSquareSearchLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        hSquareSearchLabel.setText("Hash Cuadrado");
-        hSquareSearchLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        hSquareSearchLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                hSquareSearchLabelMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                hSquareSearchLabelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                hSquareSearchLabelMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout hSquareSearchbtnLayout = new javax.swing.GroupLayout(hSquareSearchbtn);
-        hSquareSearchbtn.setLayout(hSquareSearchbtnLayout);
-        hSquareSearchbtnLayout.setHorizontalGroup(
-            hSquareSearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(hSquareSearchLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-        );
-        hSquareSearchbtnLayout.setVerticalGroup(
-            hSquareSearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(hSquareSearchLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        hFoldingSearchbtn.setBackground(new java.awt.Color(60, 60, 60));
-
-        hFoldingSearchLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        hFoldingSearchLabel.setForeground(new java.awt.Color(255, 255, 255));
-        hFoldingSearchLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        hFoldingSearchLabel.setText("Hash Plegamiento");
-        hFoldingSearchLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        hFoldingSearchLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                hFoldingSearchLabelMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                hFoldingSearchLabelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                hFoldingSearchLabelMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout hFoldingSearchbtnLayout = new javax.swing.GroupLayout(hFoldingSearchbtn);
-        hFoldingSearchbtn.setLayout(hFoldingSearchbtnLayout);
-        hFoldingSearchbtnLayout.setHorizontalGroup(
-            hFoldingSearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(hFoldingSearchLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-        );
-        hFoldingSearchbtnLayout.setVerticalGroup(
-            hFoldingSearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, hFoldingSearchbtnLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(hFoldingSearchLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        htTruncationSearchbtn.setBackground(new java.awt.Color(60, 60, 60));
-
-        hTruncationSearchLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        hTruncationSearchLabel.setForeground(new java.awt.Color(255, 255, 255));
-        hTruncationSearchLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        hTruncationSearchLabel.setText("Hash Truncamiento");
-        hTruncationSearchLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        hTruncationSearchLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                hTruncationSearchLabelMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                hTruncationSearchLabelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                hTruncationSearchLabelMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout htTruncationSearchbtnLayout = new javax.swing.GroupLayout(htTruncationSearchbtn);
-        htTruncationSearchbtn.setLayout(htTruncationSearchbtnLayout);
-        htTruncationSearchbtnLayout.setHorizontalGroup(
-            htTruncationSearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(hTruncationSearchLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-        );
-        htTruncationSearchbtnLayout.setVerticalGroup(
-            htTruncationSearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, htTruncationSearchbtnLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(hTruncationSearchLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        hashingSearchbtnLayout.setVerticalGroup(
+            hashingSearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(hashingSearchlabel, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
         tituloPaginaTxt.setFont(new java.awt.Font("Cambria Math", 1, 36)); // NOI18N
@@ -336,18 +236,16 @@ public class PrincipalPage extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(busquedasInternasLayout.createSequentialGroup()
-                        .addComponent(dinamicoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 8, Short.MAX_VALUE))
-                    .addGroup(busquedasInternasLayout.createSequentialGroup()
                         .addGroup(busquedasInternasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(linealSearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(binarySearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hModSearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(busquedasInternasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(hSquareSearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hFoldingSearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(htTruncationSearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(dinamicoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(busquedasInternasLayout.createSequentialGroup()
+                                .addComponent(linealSearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(binarySearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(busquedasInternasLayout.createSequentialGroup()
+                                .addGap(132, 132, 132)
+                                .addComponent(hashingSearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 2, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         busquedasInternasLayout.setVerticalGroup(
@@ -355,21 +253,13 @@ public class PrincipalPage extends javax.swing.JFrame {
             .addGroup(busquedasInternasLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(tituloPaginaTxt)
-                .addGap(12, 12, 12)
+                .addGap(50, 50, 50)
                 .addGroup(busquedasInternasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(busquedasInternasLayout.createSequentialGroup()
-                        .addComponent(linealSearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(binarySearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(hModSearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(busquedasInternasLayout.createSequentialGroup()
-                        .addComponent(hSquareSearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(hFoldingSearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(htTruncationSearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(linealSearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(binarySearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addComponent(hashingSearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
                 .addComponent(dinamicoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 150, Short.MAX_VALUE)
                 .addComponent(btnSiguiente)
@@ -677,7 +567,7 @@ public class PrincipalPage extends javax.swing.JFrame {
         version.setFont(new java.awt.Font("Cambria Math", 1, 14)); // NOI18N
         version.setForeground(new java.awt.Color(0, 0, 0));
         version.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        version.setText("Desarrollado por Brayan - v0.7.1-beta");
+        version.setText("Desarrollado por Brayan - v0.7.2-beta");
         principalPanel.add(version, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, 700, 1280, -1));
 
         bienvenidaTxt.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
@@ -707,8 +597,9 @@ public class PrincipalPage extends javax.swing.JFrame {
     private void linealSearchLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linealSearchLabelMouseEntered
         linealSearchLabel.setForeground(new Color(124, 212, 187));
         dinamicoTxt.setText("<html> <body style='text-align: center; font-family: Segoe UI, Arial, sans-serif; font-size: 14px;"
-                + " margin: 40px; line-height: 1.6;'> Busqueda Lineal <br> Es un tipo de busqueda que se encarga de buscar en una"
-                + " estructura de manera secuencial, es decir, verificando direccion por direccion </body> </html>");
+                        + " margin: 40px; line-height: 1.6;'> Búsqueda Lineal <br> Algoritmo de búsqueda secuencial que recorre cada "
+                        + "elemento de una estructura de datos uno por uno, comparándolo con la clave objetivo. Su complejidad temporal "
+                        + "es O(n) en el peor caso, siendo aplicable sin requisitos de ordenamiento previo. </body> </html>");
         dinamicoTxt.setVisible(true);
     }//GEN-LAST:event_linealSearchLabelMouseEntered
 
@@ -725,8 +616,9 @@ public class PrincipalPage extends javax.swing.JFrame {
     private void binarySearchLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_binarySearchLabelMouseEntered
         binarySearchLabel.setForeground(new Color(124, 212, 187));
         dinamicoTxt.setText("<html> <body style='text-align: center; font-family: Segoe UI, Arial, sans-serif; font-size: 14px;"
-                + " margin: 40px; line-height: 1.6;'> Busqueda Binaria <br> Es un tipo de busqueda que se encarga de buscar en una"
-                + " estructura ordenada, dividiendo la estructura en partes iguales y comparando con la clave original</body> </html>");
+                        + " margin: 40px; line-height: 1.6;'> Búsqueda Binaria <br> Método de búsqueda que requiere datos ordenados. "
+                        + "En cada iteración compara el elemento medio con la clave, descartando la mitad del arreglo donde la clave "
+                        + "no puede estar, logrando búsquedas extremadamente rápidas. </body> </html>");
         dinamicoTxt.setVisible(true);
     }//GEN-LAST:event_binarySearchLabelMouseEntered
 
@@ -740,77 +632,24 @@ public class PrincipalPage extends javax.swing.JFrame {
         BinarySearch.getInstance().setVisible(true);
     }//GEN-LAST:event_binarySearchLabelMouseClicked
 
-    private void hModSearchLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hModSearchLabelMouseClicked
+    private void hashingSearchlabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hashingSearchlabelMouseClicked
         this.setVisible(false);
-        HModSearch.getInstance().setVisible(true);
-    }//GEN-LAST:event_hModSearchLabelMouseClicked
+        HashingSearch.getInstance().setVisible(true);
+    }//GEN-LAST:event_hashingSearchlabelMouseClicked
 
-    private void hModSearchLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hModSearchLabelMouseEntered
-        hModSearchLabel.setForeground(new Color(124, 212, 187));
+    private void hashingSearchlabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hashingSearchlabelMouseEntered
+        hashingSearchlabel.setForeground(new Color(124, 212, 187));
         dinamicoTxt.setText("<html> <body style='text-align: center; font-family: Segoe UI, Arial, sans-serif; font-size: 14px;"
-                + " margin: 40px; line-height: 1.6;'> Busqueda Hash Mod <br> Es un tipo de busqueda que se encarga de buscar en una"
-                + " estructura utilizando la operación \"Modulo\" </body> </html>");
+                        + " margin: 40px; line-height: 1.6;'> Hashing <br> Técnica computacional que convierte claves en direcciones "
+                        + "mediante funciones hash. Permite acceso directo a los datos, reduciendo el tiempo de búsqueda de O(n) a O(1) "
+                        + "en casos ideales. Ideal para implementar tablas de símbolos y diccionarios eficientes. </body> </html>");
         dinamicoTxt.setVisible(true);
-    }//GEN-LAST:event_hModSearchLabelMouseEntered
+    }//GEN-LAST:event_hashingSearchlabelMouseEntered
 
-    private void hModSearchLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hModSearchLabelMouseExited
-        hModSearchLabel.setForeground(Color.white);
+    private void hashingSearchlabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hashingSearchlabelMouseExited
+        hashingSearchlabel.setForeground(Color.white);
         dinamicoTxt.setVisible(false);
-    }//GEN-LAST:event_hModSearchLabelMouseExited
-
-    private void hSquareSearchLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hSquareSearchLabelMouseClicked
-        this.setVisible(false);
-        HSquareSearch.getInstance().setVisible(true);
-    }//GEN-LAST:event_hSquareSearchLabelMouseClicked
-
-    private void hSquareSearchLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hSquareSearchLabelMouseEntered
-       hSquareSearchLabel.setForeground(new Color(124, 212, 187));
-       dinamicoTxt.setText("<html> <body style='text-align: center; font-family: Segoe UI, Arial, sans-serif; font-size: 14px;"
-                + " margin: 40px; line-height: 1.6;'> Busqueda Hash Medio Cuadrado <br> Es un tipo de busqueda que se encarga de buscar en una"
-                + " estructura usando \"Hashes\" a partir del cuadrado de la clave original </body> </html>");
-        dinamicoTxt.setVisible(true);
-    }//GEN-LAST:event_hSquareSearchLabelMouseEntered
-
-    private void hSquareSearchLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hSquareSearchLabelMouseExited
-        hSquareSearchLabel.setForeground(Color.white);
-        dinamicoTxt.setVisible(false);
-    }//GEN-LAST:event_hSquareSearchLabelMouseExited
-
-    private void hFoldingSearchLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hFoldingSearchLabelMouseClicked
-        this.setVisible(false);
-        HFoldingSearch.getInstance().setVisible(true);
-    }//GEN-LAST:event_hFoldingSearchLabelMouseClicked
-
-    private void hFoldingSearchLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hFoldingSearchLabelMouseEntered
-        hFoldingSearchLabel.setForeground(new Color(124, 212, 187));
-        dinamicoTxt.setText("<html> <body style='text-align: center; font-family: Segoe UI, Arial, sans-serif; font-size: 14px;"
-                + " margin: 40px; line-height: 1.6;'> Busqueda Hash Plegamiento <br> Es un tipo de busqueda que se encarga de buscar en una"
-                + " estructura escogiendo ciertos digitos de la clave original para formar el \"Hash\" o \"dirección\" </body> </html>");
-        dinamicoTxt.setVisible(true);
-    }//GEN-LAST:event_hFoldingSearchLabelMouseEntered
-
-    private void hFoldingSearchLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hFoldingSearchLabelMouseExited
-        hFoldingSearchLabel.setForeground(Color.white);
-        dinamicoTxt.setVisible(false);
-    }//GEN-LAST:event_hFoldingSearchLabelMouseExited
-
-    private void hTruncationSearchLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hTruncationSearchLabelMouseClicked
-        this.setVisible(false);
-        HTruncationSearch.getInstance().setVisible(true);
-    }//GEN-LAST:event_hTruncationSearchLabelMouseClicked
-
-    private void hTruncationSearchLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hTruncationSearchLabelMouseEntered
-        hTruncationSearchLabel.setForeground(new Color(124, 212, 187));
-        dinamicoTxt.setText("<html> <body style='text-align: center; font-family: Segoe UI, Arial, sans-serif; font-size: 14px;"
-                + " margin: 40px; line-height: 1.6;'> Busqueda Hash Truncamiento <br> Es un tipo de busqueda que se encarga de buscar en una"
-                + " estructura separando la clave en partes iguales y aplicando una operacion aritmetica sobre estas partes </body> </html>");
-        dinamicoTxt.setVisible(true);
-    }//GEN-LAST:event_hTruncationSearchLabelMouseEntered
-
-    private void hTruncationSearchLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hTruncationSearchLabelMouseExited
-        hTruncationSearchLabel.setForeground(Color.white);
-        dinamicoTxt.setVisible(false);
-    }//GEN-LAST:event_hTruncationSearchLabelMouseExited
+    }//GEN-LAST:event_hashingSearchlabelMouseExited
 
     private void exitBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitBtnMouseExited
         exitBtn.setBackground(Color.white);
@@ -958,14 +797,8 @@ public class PrincipalPage extends javax.swing.JFrame {
     private javax.swing.JLabel dinamicoTxt1;
     private javax.swing.JPanel dragPanel;
     private javax.swing.JPanel exitBtn;
-    private javax.swing.JLabel hFoldingSearchLabel;
-    private javax.swing.JPanel hFoldingSearchbtn;
-    private javax.swing.JLabel hModSearchLabel;
-    private javax.swing.JPanel hModSearchbtn;
-    private javax.swing.JLabel hSquareSearchLabel;
-    private javax.swing.JPanel hSquareSearchbtn;
-    private javax.swing.JLabel hTruncationSearchLabel;
-    private javax.swing.JPanel htTruncationSearchbtn;
+    private javax.swing.JPanel hashingSearchbtn;
+    private javax.swing.JLabel hashingSearchlabel;
     private javax.swing.JPanel huffmanTreeBtn;
     private javax.swing.JLabel huffmanTreeLabel;
     private javax.swing.JLabel linealSearchLabel;
