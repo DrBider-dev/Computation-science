@@ -141,7 +141,7 @@ public class DigitalTreeSearch extends JFrame {
         listScroll.setPreferredSize(new Dimension(180, 160));
         JPanel right = new JPanel(new BorderLayout(8,8));
         right.setBackground(Color.WHITE);
-        JLabel rightTitle = new JLabel("Letras (orden de inserción):");
+        JLabel rightTitle = new JLabel("Claves (orden de inserción):");
         rightTitle.setFont(new Font("Serif", Font.BOLD, 16));
         rightTitle.setForeground(new Color(20, 90, 180)); // azul detalle
         right.add(rightTitle, BorderLayout.NORTH);
@@ -169,7 +169,7 @@ public class DigitalTreeSearch extends JFrame {
 
         // Split pane entre izquierda (decorada) y derecha (información)
         JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftContainer, right);
-        split.setDividerLocation(800);
+        split.setDividerLocation(1000);
         split.setBorder(null);
 
         getContentPane().setLayout(new BorderLayout(10,10));
@@ -387,6 +387,7 @@ public class DigitalTreeSearch extends JFrame {
                 try { Thread.sleep(200); } catch (InterruptedException ignored) {}
             }
         }).start();
+        inputField.setText("");
     }
 
     private void animateStepsForLetter(char ch, java.util.List<PathStep> steps, Runnable onFinish) {
@@ -464,7 +465,7 @@ public class DigitalTreeSearch extends JFrame {
 
             if (root == null) {
                 g2.setColor(Color.DARK_GRAY);
-                g2.drawString("Árbol vacío. Inserte letras (A-Z).", 20, 20);
+                g2.drawString("Árbol vacío. Inserte claves (A-Z).", 20, 20);
                 g2.drawString(status, 20, 35);
                 return;
             }
@@ -573,19 +574,67 @@ public class DigitalTreeSearch extends JFrame {
     // ------------------ Acciones de botones ------------------
     private void updateListModel() {
         listModel.clear();
-        for (char c : insertionOrder) listModel.addElement(String.valueOf(c));
+        for (char c : insertionOrder) {
+            String bits = letterTo5Bits(c);
+            if (bits == null) bits = "-----"; // por si hay caracteres fuera de A-Z
+            // Formato: "A - 00001" (puedes cambiar el separador)
+            listModel.addElement(String.format("%c -> %s", c, bits));
+        }
         treePanel.repaint();
     }
 
+
     private void deleteSelected() {
-        String sel = letterList.getSelectedValue();
-        if (sel == null) { JOptionPane.showMessageDialog(this, "Seleccione una letra de la lista para eliminar."); return; }
-        char ch = sel.charAt(0);
-        int confirm = JOptionPane.showConfirmDialog(this, "Eliminar letra " + ch + " y reconstruir el árbol?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        String text = inputField.getText();
+        if (text == null) text = "";
+        text = text.trim();
+        if (text.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Escriba la(s) letra(s) a eliminar en el campo 'Clave'.");
+            return;
+        }
+
+        // Recolecta caracteres (ignorar espacios), en mayúscula y sin repetidos (orden preservado)
+        java.util.LinkedHashSet<Character> set = new java.util.LinkedHashSet<>();
+        for (char ch : text.toCharArray()) {
+            if (Character.isWhitespace(ch)) continue;
+            set.add(Character.toUpperCase(ch));
+        }
+        if (set.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No se encontraron caracteres válidos en la entrada.");
+            return;
+        }
+
+        // Separa los que existen en el árbol de los que no
+        java.util.List<Character> toDelete = new java.util.ArrayList<>();
+        java.util.List<Character> notFound = new java.util.ArrayList<>();
+        for (char ch : set) {
+            if (existsInTree(ch)) toDelete.add(ch);
+            else notFound.add(ch);
+        }
+
+        if (toDelete.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ninguna de las letras indicadas está en el árbol: " + notFound);
+            return;
+        }
+
+        // Mensaje de confirmación mostrando ambos grupos
+        StringBuilder msg = new StringBuilder();
+        msg.append("Se eliminarán: ").append(toDelete).append(".");
+        if (!notFound.isEmpty()) msg.append("\nNo se encontraron: ").append(notFound).append(".");
+        msg.append("\n\n¿Continuar?");
+        int confirm = JOptionPane.showConfirmDialog(this, msg.toString(), "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
         if (confirm != JOptionPane.YES_OPTION) return;
-        deleteChar(ch);
+
+        // Elimina cada carácter encontrado y actualiza UI al final
+        for (char ch : toDelete) {
+            deleteChar(ch);
+        }
         updateListModel();
+
+        // Opcional: limpiar el campo después de la eliminación
+        inputField.setText("");
     }
+
 
     private void resetAll() {
         int c = JOptionPane.showConfirmDialog(this, "Reiniciar y vaciar todo?", "Confirmar", JOptionPane.YES_NO_OPTION);
