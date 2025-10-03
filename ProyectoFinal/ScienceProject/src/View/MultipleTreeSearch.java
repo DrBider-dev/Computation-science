@@ -532,9 +532,9 @@ public class MultipleTreeSearch extends JFrame {
             } else if (level == 1) {
                 switch (childIndex) {
                     case 0: return "00";
-                    case 1: return "10";
-                    case 2: return "11";
-                    case 3: return "";
+                    case 1: return "01";
+                    case 2: return "10";
+                    case 3: return "11";
                 }
             } else if (level == 2) {
                 return (childIndex == 0) ? "0" : "1";
