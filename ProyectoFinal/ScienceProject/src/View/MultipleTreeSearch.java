@@ -176,6 +176,11 @@ public class MultipleTreeSearch extends JFrame {
             }
         });
 
+        volverBtn.addActionListener(_ -> {
+            this.dispose();
+            PrincipalPage.getInstance().setVisible(true);
+        });
+
         setVisible(true);
     }
 

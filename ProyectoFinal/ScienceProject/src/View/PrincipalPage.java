@@ -77,6 +77,17 @@ public class PrincipalPage extends javax.swing.JFrame {
         btnVolver1 = new javax.swing.JLabel();
         btnSiguiente1 = new javax.swing.JLabel();
         dinamicoTxt1 = new javax.swing.JLabel();
+        busquedasExternas = new javax.swing.JPanel();
+        binarySearchbtn1 = new javax.swing.JPanel();
+        binarySearchLabel1 = new javax.swing.JLabel();
+        linealSearchbtn1 = new javax.swing.JPanel();
+        linealSearchLabel1 = new javax.swing.JLabel();
+        dinamicSearchbtn = new javax.swing.JPanel();
+        dinamicSearchLabel = new javax.swing.JLabel();
+        tituloPaginaTxt2 = new javax.swing.JLabel();
+        btnSiguiente2 = new javax.swing.JLabel();
+        dinamicoTxt2 = new javax.swing.JLabel();
+        btnVolver2 = new javax.swing.JLabel();
         Logo = new javax.swing.JLabel();
         deco2 = new javax.swing.JLabel();
         dragPanel = new javax.swing.JPanel();
@@ -488,6 +499,192 @@ public class PrincipalPage extends javax.swing.JFrame {
 
         cardPanel.add(busquedasArboles, "card3");
 
+        busquedasExternas.setBackground(new java.awt.Color(102, 153, 255));
+
+        binarySearchbtn1.setBackground(new java.awt.Color(51, 51, 51));
+
+        binarySearchLabel1.setBackground(new java.awt.Color(102, 102, 102));
+        binarySearchLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        binarySearchLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        binarySearchLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        binarySearchLabel1.setText("Busqueda Binaria");
+        binarySearchLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        binarySearchLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                binarySearchLabel1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                binarySearchLabel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                binarySearchLabel1MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout binarySearchbtn1Layout = new javax.swing.GroupLayout(binarySearchbtn1);
+        binarySearchbtn1.setLayout(binarySearchbtn1Layout);
+        binarySearchbtn1Layout.setHorizontalGroup(
+            binarySearchbtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(binarySearchbtn1Layout.createSequentialGroup()
+                .addComponent(binarySearchLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        binarySearchbtn1Layout.setVerticalGroup(
+            binarySearchbtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, binarySearchbtn1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(binarySearchLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        linealSearchbtn1.setBackground(new java.awt.Color(51, 51, 51));
+
+        linealSearchLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        linealSearchLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        linealSearchLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        linealSearchLabel1.setText("Busqueda Lineal");
+        linealSearchLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        linealSearchLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                linealSearchLabel1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                linealSearchLabel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                linealSearchLabel1MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout linealSearchbtn1Layout = new javax.swing.GroupLayout(linealSearchbtn1);
+        linealSearchbtn1.setLayout(linealSearchbtn1Layout);
+        linealSearchbtn1Layout.setHorizontalGroup(
+            linealSearchbtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(linealSearchLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        linealSearchbtn1Layout.setVerticalGroup(
+            linealSearchbtn1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(linealSearchLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        dinamicSearchbtn.setBackground(new java.awt.Color(60, 60, 60));
+
+        dinamicSearchLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        dinamicSearchLabel.setForeground(new java.awt.Color(255, 255, 255));
+        dinamicSearchLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        dinamicSearchLabel.setText("Busqueda Dinamica");
+        dinamicSearchLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        dinamicSearchLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dinamicSearchLabelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                dinamicSearchLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                dinamicSearchLabelMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout dinamicSearchbtnLayout = new javax.swing.GroupLayout(dinamicSearchbtn);
+        dinamicSearchbtn.setLayout(dinamicSearchbtnLayout);
+        dinamicSearchbtnLayout.setHorizontalGroup(
+            dinamicSearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dinamicSearchLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+        );
+        dinamicSearchbtnLayout.setVerticalGroup(
+            dinamicSearchbtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dinamicSearchLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+
+        tituloPaginaTxt2.setFont(new java.awt.Font("Cambria Math", 1, 36)); // NOI18N
+        tituloPaginaTxt2.setForeground(new java.awt.Color(255, 255, 255));
+        tituloPaginaTxt2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tituloPaginaTxt2.setText("Busquedas Externas");
+
+        btnSiguiente2.setFont(new java.awt.Font("Cambria Math", 1, 36)); // NOI18N
+        btnSiguiente2.setForeground(new java.awt.Color(255, 255, 255));
+        btnSiguiente2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        btnSiguiente2.setText("Siguiente >");
+        btnSiguiente2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSiguiente2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSiguiente2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSiguiente2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSiguiente2MouseExited(evt);
+            }
+        });
+
+        dinamicoTxt2.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
+        dinamicoTxt2.setForeground(new java.awt.Color(255, 255, 255));
+        dinamicoTxt2.setText("<html> <body style='text-align: center; font-family: Segoe UI, Arial, sans-serif; font-size: 14px; margin: 40px; line-height: 1.6;'> BIENVENIDOS <br> Este es un texto de prueba</body> </html>");
+
+        btnVolver2.setFont(new java.awt.Font("Cambria Math", 1, 36)); // NOI18N
+        btnVolver2.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolver2.setText("< Volver");
+        btnVolver2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolver2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVolver2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVolver2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVolver2MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout busquedasExternasLayout = new javax.swing.GroupLayout(busquedasExternas);
+        busquedasExternas.setLayout(busquedasExternasLayout);
+        busquedasExternasLayout.setHorizontalGroup(
+            busquedasExternasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(busquedasExternasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(busquedasExternasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tituloPaginaTxt2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, busquedasExternasLayout.createSequentialGroup()
+                        .addComponent(btnVolver2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSiguiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(busquedasExternasLayout.createSequentialGroup()
+                        .addGroup(busquedasExternasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(busquedasExternasLayout.createSequentialGroup()
+                                .addComponent(linealSearchbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(binarySearchbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(busquedasExternasLayout.createSequentialGroup()
+                                .addGap(132, 132, 132)
+                                .addComponent(dinamicSearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(dinamicoTxt2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 2, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        busquedasExternasLayout.setVerticalGroup(
+            busquedasExternasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(busquedasExternasLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(tituloPaginaTxt2)
+                .addGap(50, 50, 50)
+                .addGroup(busquedasExternasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(linealSearchbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(binarySearchbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addComponent(dinamicSearchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81)
+                .addComponent(dinamicoTxt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addGroup(busquedasExternasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSiguiente2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnVolver2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        cardPanel.add(busquedasExternas, "card3");
+
         principalPanel.add(cardPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 520, 650));
 
         Logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -567,7 +764,7 @@ public class PrincipalPage extends javax.swing.JFrame {
         version.setFont(new java.awt.Font("Cambria Math", 1, 14)); // NOI18N
         version.setForeground(new java.awt.Color(0, 0, 0));
         version.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        version.setText("Desarrollado por Brayan - v0.7.2-beta");
+        version.setText("Desarrollado por Brayan - v0.8.4-beta");
         principalPanel.add(version, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, 700, 1280, -1));
 
         bienvenidaTxt.setFont(new java.awt.Font("Cambria Math", 1, 12)); // NOI18N
@@ -761,7 +958,8 @@ public class PrincipalPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSiguiente1MouseExited
 
     private void btnSiguiente1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSiguiente1MouseClicked
-        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) cardPanel.getLayout();
+        cl.next(cardPanel);
     }//GEN-LAST:event_btnSiguiente1MouseClicked
 
     private void btnSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSiguienteMouseClicked
@@ -774,6 +972,72 @@ public class PrincipalPage extends javax.swing.JFrame {
         cl.previous(cardPanel);
     }//GEN-LAST:event_btnVolver1MouseClicked
 
+    private void binarySearchLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_binarySearchLabel1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_binarySearchLabel1MouseClicked
+
+    private void binarySearchLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_binarySearchLabel1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_binarySearchLabel1MouseEntered
+
+    private void binarySearchLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_binarySearchLabel1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_binarySearchLabel1MouseExited
+
+    private void linealSearchLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linealSearchLabel1MouseClicked
+        this.setVisible(false);
+        ExternalSearch.getInstance().setVisible(true);
+    }//GEN-LAST:event_linealSearchLabel1MouseClicked
+
+    private void linealSearchLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linealSearchLabel1MouseEntered
+        dinamicoTxt2.setText("<html> <body style='text-align: center; font-family: Segoe UI, Arial, sans-serif; font-size: 14px;"
+                + " margin: 40px; line-height: 1.6;'> Busqueda Lineal Externa <br> Es un tipo de busqueda que se encarga de buscar en una"
+                + " estructura de bloques de manera lineal o secuencial, es decir, se busca de forma ordenada </body> </html>");
+        dinamicoTxt2.setVisible(true);
+    }//GEN-LAST:event_linealSearchLabel1MouseEntered
+
+    private void linealSearchLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linealSearchLabel1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_linealSearchLabel1MouseExited
+
+    private void dinamicSearchLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dinamicSearchLabelMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dinamicSearchLabelMouseClicked
+
+    private void dinamicSearchLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dinamicSearchLabelMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dinamicSearchLabelMouseEntered
+
+    private void dinamicSearchLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dinamicSearchLabelMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dinamicSearchLabelMouseExited
+
+    private void btnSiguiente2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSiguiente2MouseClicked
+        CardLayout cl = (CardLayout) cardPanel.getLayout();
+        cl.next(cardPanel);
+    }//GEN-LAST:event_btnSiguiente2MouseClicked
+
+    private void btnSiguiente2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSiguiente2MouseEntered
+        btnSiguiente2.setForeground(new Color(124, 212, 187));
+    }//GEN-LAST:event_btnSiguiente2MouseEntered
+
+    private void btnSiguiente2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSiguiente2MouseExited
+        btnSiguiente2.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnSiguiente2MouseExited
+
+    private void btnVolver2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolver2MouseClicked
+        CardLayout cl = (CardLayout) cardPanel.getLayout();
+        cl.previous(cardPanel);
+    }//GEN-LAST:event_btnVolver2MouseClicked
+
+    private void btnVolver2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolver2MouseEntered
+        btnVolver2.setForeground(new Color(124, 212, 187));
+    }//GEN-LAST:event_btnVolver2MouseEntered
+
+    private void btnVolver2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolver2MouseExited
+        btnVolver2.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnVolver2MouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -782,19 +1046,27 @@ public class PrincipalPage extends javax.swing.JFrame {
     private javax.swing.JLabel Logo;
     private javax.swing.JLabel bienvenidaTxt;
     private javax.swing.JLabel binarySearchLabel;
+    private javax.swing.JLabel binarySearchLabel1;
     private javax.swing.JPanel binarySearchbtn;
+    private javax.swing.JPanel binarySearchbtn1;
     private javax.swing.JLabel btnSiguiente;
     private javax.swing.JLabel btnSiguiente1;
+    private javax.swing.JLabel btnSiguiente2;
     private javax.swing.JLabel btnVolver1;
+    private javax.swing.JLabel btnVolver2;
     private javax.swing.JPanel busquedasArboles;
+    private javax.swing.JPanel busquedasExternas;
     private javax.swing.JPanel busquedasInternas;
     private javax.swing.JPanel cardPanel;
     private javax.swing.JLabel deco1;
     private javax.swing.JLabel deco2;
     private javax.swing.JPanel digitalTreeBtn;
     private javax.swing.JLabel digitalTreeLabel;
+    private javax.swing.JLabel dinamicSearchLabel;
+    private javax.swing.JPanel dinamicSearchbtn;
     private javax.swing.JLabel dinamicoTxt;
     private javax.swing.JLabel dinamicoTxt1;
+    private javax.swing.JLabel dinamicoTxt2;
     private javax.swing.JPanel dragPanel;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JPanel hashingSearchbtn;
@@ -802,7 +1074,9 @@ public class PrincipalPage extends javax.swing.JFrame {
     private javax.swing.JPanel huffmanTreeBtn;
     private javax.swing.JLabel huffmanTreeLabel;
     private javax.swing.JLabel linealSearchLabel;
+    private javax.swing.JLabel linealSearchLabel1;
     private javax.swing.JPanel linealSearchbtn;
+    private javax.swing.JPanel linealSearchbtn1;
     private javax.swing.JPanel multipleTreeBtn;
     private javax.swing.JLabel multipleTreeLabel;
     private javax.swing.JPanel principalPanel;
@@ -810,6 +1084,7 @@ public class PrincipalPage extends javax.swing.JFrame {
     private javax.swing.JLabel residualTreeLabel;
     private javax.swing.JLabel tituloPaginaTxt;
     private javax.swing.JLabel tituloPaginaTxt1;
+    private javax.swing.JLabel tituloPaginaTxt2;
     private javax.swing.JLabel txtExit;
     private javax.swing.JLabel version;
     // End of variables declaration//GEN-END:variables
